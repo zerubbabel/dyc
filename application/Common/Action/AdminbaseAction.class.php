@@ -121,7 +121,8 @@ class AdminbaseAction extends AppframeAction {
     public function initMenu() {
         $Menu = F("Menu");
         if (!$Menu) {
-            $Menu=D("Menu")->menu_cache();
+        	$menu_model=D("Menu");
+            $Menu=$menu_model->menu_cache();
         }
         return $Menu;
     }
