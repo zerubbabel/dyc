@@ -6,7 +6,6 @@
 //定义是后台
 namespace Common\Action;
 use Common\Action\AppframeAction;
-define('IN_ADMIN', true);
 
 class AdminbaseAction extends AppframeAction {
 	
@@ -122,6 +121,7 @@ class AdminbaseAction extends AppframeAction {
         $Menu = F("Menu");
         if (!$Menu) {
         	$menu_model=D("Menu");
+        	$S=M("");
             $Menu=$menu_model->menu_cache();
         }
         return $Menu;
