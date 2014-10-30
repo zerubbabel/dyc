@@ -547,7 +547,7 @@ function D($name='',$layer='') {
         if(!C('APP_USE_NAMESPACE')){
             import('Common/'.$layer.'/'.$class);
         }else{
-            $class      =   '\\Common\\'.$layer.'\\'.$name.$layer;
+            $class      =   "\\Common\\".$layer."\\".$name.$layer;
         }
         //$model      =   class_exists($class)? new $class($name) : new Think\Model($name);
         echo $class;
