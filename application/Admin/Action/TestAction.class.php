@@ -17,8 +17,8 @@ class TestAction extends AdminbaseAction {
     	if( class_exists($class)){
     		echo "exists1";
     	}
-    	echo "d";
-    	$menu_model=new $class();
+    	echo "dd";
+    	$menu_model=new $class("Menu");
     	$menu=$menu_model->menu_cache();
     	print_r($menu);
         
