@@ -16,7 +16,8 @@ class TestAction extends AdminbaseAction {
     	if( class_exists("\\Common\\Model\\MenuModel")){
     		echo "ddd";
     	}
-    	$menu_model=new \Common\Model\MenuModel();
+    	$class="\\Common\\Model\\MenuModel";
+    	$menu_model=new $class();
     	$menu=$menu_model->menu_cache();
     	print_r($menu);
         
