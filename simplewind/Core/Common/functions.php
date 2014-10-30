@@ -540,7 +540,6 @@ function D($name='',$layer='') {
     if(isset($_model[$name.$layer]))
         return $_model[$name.$layer];
     $class          =   parse_res_name($name,$layer);
-    print_r($class);
     if(class_exists($class)) {
         $model      =   new $class(basename($name));
     }elseif(false === strpos($name,'/')){
@@ -549,13 +548,8 @@ function D($name='',$layer='') {
             import('Common/'.$layer.'/'.$class);
         }else{
             $class      =   '\\Common\\'.$layer.'\\'.$name.$layer;
-            echo $class."\n";
         }
-        if(class_exists($class)){
-        	echo "exists\n";
-        }
-       // $model      =   class_exists($class)? new $class($name) : new Think\Model($name);
-        $model      =   new $class($name);
+        $model      =   class_exists($class)? new $class($name) : new Think\Model($name);
     }else {
         Think\Log::record('D方法实例化没找到模型类'.$class,Think\Log::NOTICE);
         $model      =   new Think\Model(basename($name));
