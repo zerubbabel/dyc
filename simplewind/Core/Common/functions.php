@@ -552,11 +552,7 @@ function D($name='',$layer='') {
         //$model      =   class_exists($class)? new $class($name) : new Think\Model($name);  //thinkcmf fix note
         
         //thinkcmf fix
-        if(class_exists($class)){
-        	$model      =    new $class();
-        }else{
-        	$model      =    new Think\Model($name);
-        }
+        $model      =   class_exists($class)? new $class() : new Think\Model($name);  //thinkcmf fix note
         //thinkcmf fixed
     }else {
         Think\Log::record('D方法实例化没找到模型类'.$class,Think\Log::NOTICE);
