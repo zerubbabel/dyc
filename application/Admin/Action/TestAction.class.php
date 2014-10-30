@@ -13,7 +13,7 @@ class TestAction extends AdminbaseAction {
 	}
     //后台框架首页
     public function index() {
-    	if( class_exists('\Common\Model\MenuModel',true)){
+    	if( class_exists('\\Common\\Model\\MenuModel')){
     		echo "ddd";
     	}
     	$menu_model=new \Common\Model\MenuModel();
