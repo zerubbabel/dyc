@@ -18,7 +18,7 @@ class TestAction extends AdminbaseAction {
     		echo "exists1";
     	}
     	echo "dd";
-    	$menu_model=new \Common\Model\MenuModel('Menu');
+    	$menu_model=new $class ('Menu');
     	$menu=$menu_model->menu_cache();
     	print_r($menu);
         
