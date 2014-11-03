@@ -5,6 +5,7 @@ class QiushiModel extends CommonModel
 {
 	
 	protected $_validate = array(
+			
 	);
 	
 	protected function _before_write(&$data) {
