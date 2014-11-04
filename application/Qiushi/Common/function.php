@@ -17,4 +17,3 @@ function sp_sql_qiushi($ids,$uid){
 
 
 
-?>
