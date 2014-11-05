@@ -11,7 +11,7 @@ class ArticleAction extends HomeBaseAction {
     	$this->display(":article");
     }
 	
-	//设置赞和拍 1赞 -1拍 
+	//设置赞和拍 1赞 -1拍
 	public function set_like(){
 		$this->check_login();
 		
