@@ -34,5 +34,14 @@ class ArticleAction extends HomeBaseAction {
 		}
 	}
     
+	/**
+	 * 发表糗事
+	 */
+	public function add_post(){
+		if(IS_POST){
+			//TODO 用户提交title(可选),content(必须)
+		}
+		
+	}
 }
 ?>

@@ -1035,7 +1035,7 @@ function leuu($url='',$vars='',$suffix=true,$domain=false){
 			
 			if(!$has_route){
 				$module =   defined('BIND_MODULE') ? '' : $module;
-				$url    =   __APP__.'/'.($module?$module.MODULE_PATHINFO_DEPR:'').implode($depr,array_reverse($var));
+				$url    =   __APP__.'/'.implode($depr,array_reverse($var));
 					
 				if($urlCase){
 					$url    =   strtolower($url);
