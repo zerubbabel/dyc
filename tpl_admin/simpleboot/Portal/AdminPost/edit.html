@@ -37,8 +37,8 @@ body fieldset legend {
 <body class="J_scroll_fixed">
 <div class="wrap J_check_wrap">
   <ul class="nav nav-tabs">
-     <li><a href="{:U('post/index')}">所有文章</a></li>
-     <li><a href="{:U('post/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}"  target="_self">添加文章</a></li>
+     <li><a href="{:U('AdminPost/index')}">所有文章</a></li>
+     <li><a href="{:U('AdminPost/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}"  target="_self">添加文章</a></li>
      <li class="active"><a href="#">{$term.name|default='页面编辑'}</a></li>
   </ul>
   <form name="myform" id="myform" action="{:u('AdminPost/edit_post')}" method="post" class="form-horizontal J_ajaxForms" enctype="multipart/form-data">
@@ -180,7 +180,7 @@ body fieldset legend {
   </div>
   <div class="form-actions">
         <button class="btn btn_submit J_ajax_submit_btn"type="submit">提交</button>
-        <button class="btn J_ajax_close_btn"type="submit">关闭</button>
+        <a class="btn" href="{:U('AdminPost/index')}">返回</a>
   </div>
  </form>
 </div>
