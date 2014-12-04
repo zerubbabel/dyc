@@ -7,7 +7,7 @@ class GuestbookadminController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->guestbook_model=D("Guestbook");
+		$this->guestbook_model=D("Common/Guestbook");
 	}
 	
 	function index(){

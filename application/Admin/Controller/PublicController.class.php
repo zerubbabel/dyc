@@ -46,7 +46,7 @@ class PublicController extends AdminbaseController {
     	{
     		$this->error(L('CAPTCHA_NOT_RIGHT'));
     	}else{
-    		$user = D("Users");
+    		$user = D("Common/Users");
     		if(strpos($name,"@")>0){//邮箱登陆
     			$where['user_email']=$name;
     		}else{

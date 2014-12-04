@@ -57,7 +57,7 @@ function sp_sql_posts($tag,$where=array()){
 
 function sp_sql_posts_bycatid($cid,$tag,$where=array()){
 	$catIDS=array();
-	$terms=M("Terms")->field("term_id")->where("status=1 and term_id=$cid and path like '%-$cid-%'")->order('term_id asc')->select();
+	$terms=M("Terms")->field("term_id")->where("status=1 and ( term_id=$cid OR path like '%-$cid-%' )")->order('term_id asc')->select();
 
 	foreach($terms as $item){
 		$catIDS[]=$item['term_id'];
@@ -139,7 +139,7 @@ function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}
 
 function sp_sql_posts_paged_bycatid($cid,$tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
 	$catIDS=array();
-	$terms=M("Terms")->field("term_id")->where("status=1 and term_id=$cid and path like '%-$cid-%'")->order('term_id asc')->select();
+	$terms=M("Terms")->field("term_id")->where("status=1 and ( term_id=$cid OR path like '%-$cid-%' )")->order('term_id asc')->select();
 	
 	foreach($terms as $item){
 		$catIDS[]=$item['term_id'];

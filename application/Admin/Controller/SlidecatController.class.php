@@ -7,7 +7,7 @@ class SlidecatController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->slidecat_obj = D("SlideCat");
+		$this->slidecat_obj = D("Common/SlideCat");
 	}
 	
 	function index(){

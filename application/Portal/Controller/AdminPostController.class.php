@@ -8,9 +8,9 @@ class AdminPostController extends AdminbaseController {
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->posts_obj = D("Posts");
-		$this->terms_obj = D("Terms");
-		$this->terms_relationship = D("TermRelationships");
+		$this->posts_obj = D("Common/Posts");
+		$this->terms_obj = D("Common/Terms");
+		$this->terms_relationship = D("Common/TermRelationships");
 	}
 	function index(){
 		$this->_lists();
@@ -165,7 +165,7 @@ class AdminPostController extends AdminbaseController {
 		->where($where)
 		->limit($page->firstRow . ',' . $page->listRows)
 		->order("a.listorder ASC,b.post_modified DESC")->select();
-		$users_obj = D("Users");
+		$users_obj = M("Users");
 		$users_data=$users_obj->field("id,user_login,role_id")->where("user_status=1")->select();
 		$users=array();
 		foreach ($users_data as $u){

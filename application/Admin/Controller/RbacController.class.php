@@ -11,7 +11,7 @@ class RbacController extends AdminbaseController {
 
     function _initialize() {
         parent::_initialize();
-        $this->Role = D("Role");
+        $this->Role = D("Common/Role");
     }
 
     /**
@@ -52,7 +52,7 @@ class RbacController extends AdminbaseController {
      * 删除角色
      */
     public function roledelete() {
-    	$users_obj = D("Users");
+    	$users_obj = D("Common/Users");
         $id = intval(I("get.id"));
         if ($id == 1) {
             $this->error("超级管理员角色不能被删除！");
@@ -119,7 +119,7 @@ class RbacController extends AdminbaseController {
      * 角色授权
      */
     public function authorize() {
-        $this->Access = D("Access");
+        $this->Access = D("Common/Access");
        //角色ID
         $roleid = intval(I("get.id"));
         if (!$roleid) {
@@ -157,7 +157,7 @@ class RbacController extends AdminbaseController {
      * 角色授权
      */
     public function authorize_post() {
-    	$this->Access = D("Access");
+    	$this->Access = D("Common/Access");
     	if (IS_POST) {
     		$roleid = intval(I("post.roleid"));
     		if(!$roleid){
@@ -259,7 +259,7 @@ class RbacController extends AdminbaseController {
     
     public function member(){
     	$role_id=$_GET['id'];
-    	$users_obj = D("Users");
+    	$users_obj = D("Common/Users");
     	$join = C('DB_PREFIX').'role as b on a.role_id =b.id';
     	$lists=$users_obj->alias("a")->join($join)->where("role_id=$role_id and a.user_status=1")->select();
     	$this->assign("lists",$lists);

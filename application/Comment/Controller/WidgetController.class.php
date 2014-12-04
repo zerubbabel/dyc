@@ -4,7 +4,7 @@ use Think\Controller;
 class WidgetController extends Controller{
 	
 	function index($table,$post_id,$params){
-		$comment_model=D("Comments");
+		$comment_model=D("Common/Comments");
 		$comments=$comment_model->where(array("post_table"=>$table,"post_id"=>$post_id,"status"=>1))->order("createtime ASC")->select();
 		
 		$new_comments=array();

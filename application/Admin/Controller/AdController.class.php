@@ -6,7 +6,7 @@ class AdController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->ad_obj = D("Ad");
+		$this->ad_obj = D("Common/Ad");
 	}
 	function index(){
 		$ads=$this->ad_obj->select();

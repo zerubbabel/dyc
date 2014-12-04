@@ -8,8 +8,8 @@ class SlideController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->slide_obj = D("Slide");
-		$this->slidecat_obj = D("SlideCat");
+		$this->slide_obj = D("Common/Slide");
+		$this->slidecat_obj = D("Common/SlideCat");
 		
 	}
 	

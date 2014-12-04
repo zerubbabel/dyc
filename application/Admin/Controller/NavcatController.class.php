@@ -10,7 +10,7 @@ class NavcatController extends AdminbaseController {
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->navcat =D("NavCat");
+		$this->navcat =D("Common/NavCat");
 	}
 	
 	
@@ -88,7 +88,7 @@ class NavcatController extends AdminbaseController {
 	function delete(){
 		$id = intval(I("get.id"));
 		if ($this->navcat->where("navcid=$id")->delete()!==false) {
-			$nav_obj=D("Nav");
+			$nav_obj=D("Common/Nav");
 			$nav_obj->where("cid=$id")->delete();
 			$this->success("删除成功！");
 		} else {

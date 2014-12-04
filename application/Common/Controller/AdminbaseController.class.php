@@ -21,7 +21,7 @@ class AdminbaseController extends AppframeController {
     function _initialize(){
        parent::_initialize();
     	if(isset($_SESSION['ADMIN_ID'])){
-    		$users_obj= D("Users");
+    		$users_obj= M("Users");
     		$id=$_SESSION['ADMIN_ID'];
     		$user=$users_obj->where("id=$id")->find();
     		if(!$this->check_access($user['role_id'])){
@@ -120,7 +120,7 @@ class AdminbaseController extends AppframeController {
     public function initMenu() {
         $Menu = F("Menu");
         if (!$Menu) {
-            $Menu=D("Menu")->menu_cache();
+            $Menu=D("Common/Menu")->menu_cache();
         }
         return $Menu;
     }
@@ -166,7 +166,7 @@ class AdminbaseController extends AppframeController {
         $menuid = $menuid ? $menuid : cookie("menuid", "", array("prefix" => ""));
         //cookie("menuid",$menuid);
 
-        $db = D("Menu");
+        $db = D("Common/Menu");
         $info = $db->cache(true, 60)->where(array("id" => $menuid))->getField("id,action,app,model,parentid,data,type,name");
         $find = $db->cache(true, 60)->where(array("parentid" => $menuid, "status" => 1))->getField("id,action,app,model,parentid,data,type,name");
 
@@ -202,7 +202,7 @@ class AdminbaseController extends AppframeController {
     		if($roleid == 1){
     			return true;
     		}
-    		$role_obj= D("Role");
+    		$role_obj= M("Role");
     		$role=$role_obj->field("status")->where("id=$roleid")->find();
     		if(!empty($role) && $role['status']==1){
     			$group=MODULE_NAME;

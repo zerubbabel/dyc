@@ -10,7 +10,7 @@ class ProfileController extends MemberbaseController {
 	protected $users_model;
 	function _initialize(){
 		parent::_initialize();
-		$this->users_model=D("Users");
+		$this->users_model=D("Common/Users");
 	}
 	
     //编辑用户资料

@@ -8,7 +8,7 @@ class AdminTermController extends AdminbaseController {
 	protected $taxonomys=array("article"=>"文章","picture"=>"图片");
 	function _initialize() {
 		parent::_initialize();
-		$this->terms_obj = D("Terms");
+		$this->terms_obj = D("Common/Terms");
 		$this->assign("taxonomys",$this->taxonomys);
 	}
 	function index(){

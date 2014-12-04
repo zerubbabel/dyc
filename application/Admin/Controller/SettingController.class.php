@@ -8,7 +8,7 @@ class SettingController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->options_obj = D("Options");
+		$this->options_obj = D("Common/Options");
 	}
 	
 	function site(){
@@ -94,7 +94,7 @@ class SettingController extends AdminbaseController{
 			if(empty($_POST['password'])){
 				$this->error("新密码不能为空！");
 			}
-			$user_obj = D("Users");
+			$user_obj = D("Common/Users");
 			$uid=get_current_admin_id();
 			$admin=$user_obj->where(array("id"=>$uid))->find();
 			$old_password=$_POST['old_password'];

@@ -6,7 +6,7 @@ class RouteController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->route_model = D("Route");
+		$this->route_model = D("Common/Route");
 	}
 	function index(){
 		

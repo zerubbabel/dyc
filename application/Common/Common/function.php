@@ -1078,8 +1078,7 @@ function UU($url='',$vars='',$suffix=true,$domain=false){
 function sp_get_routes($refresh=false){
 	$routes=F("routes");
 	
-	if(!empty($routes) && !$refresh){
-		
+	if( (!empty($routes)||is_array($routes)) && !$refresh){
 		return $routes;
 	}
 	$routes=M("Route")->where("status=1")->order("listorder asc")->select();

@@ -5,7 +5,7 @@ class AdminPageController extends AdminbaseController {
 	protected $posts_obj;
 	function _initialize() {
 		parent::_initialize();
-		$this->posts_obj =D("Posts");
+		$this->posts_obj =D("Common/Posts");
 	}
 	function index(){
 		
@@ -50,7 +50,7 @@ class AdminPageController extends AdminbaseController {
 		
 		$posts=$this->posts_obj->where($where)->limit($page->firstRow . ',' . $page->listRows)->select();
 		
-		$users_obj=D("Users");
+		$users_obj=M("Users");
 		$users_data=$users_obj->field("id,user_login")->where("user_status=1")->select();
 		$users=array();
 		foreach ($users_data as $u){
@@ -106,7 +106,7 @@ class AdminPageController extends AdminbaseController {
 		
 		$posts=$this->posts_obj->where($where)->limit($page->firstRow . ',' . $page->listRows)->select();
 		
-		$users_obj=D("Users");
+		$users_obj=M("Users");
 		$users_data=$users_obj->field("id,user_login")->where("user_status=1")->select();
 		$users=array();
 		foreach ($users_data as $u){
@@ -140,7 +140,7 @@ class AdminPageController extends AdminbaseController {
 	}
 	
 	public function edit(){
-		$terms_obj = D("Terms");
+		$terms_obj = M("Terms");
 		$term_id = intval(I("get.term")); 
 		$id= intval(I("get.id"));
 		$term=$terms_obj->where("term_id=$term_id")->find();
@@ -154,7 +154,7 @@ class AdminPageController extends AdminbaseController {
 	}
 	
 	public function edit_post(){
-		$terms_obj = D("Terms");
+		$terms_obj = D("Common/Terms");
 	
 		if (IS_POST) {
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);

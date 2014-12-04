@@ -7,7 +7,7 @@ class CommentController extends MemberbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->comments_model=D("Comments");
+		$this->comments_model=D("Common/Comments");
 	}
 	
 	function index(){

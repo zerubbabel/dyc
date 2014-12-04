@@ -9,7 +9,7 @@ class LinkController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->link_obj = D("Links");
+		$this->link_obj = D("Common/Links");
 	}
 	
 	function index(){

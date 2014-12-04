@@ -11,7 +11,7 @@ class MenuController extends AdminbaseController {
 
     function _initialize() {
         parent::_initialize();
-        $this->Menu = D("Menu");
+        $this->Menu = D("Common/Menu");
     }
 
     /**

@@ -6,8 +6,8 @@ class UserController extends AdminbaseController{
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->users_obj = D("Users");
-		$this->role_obj = D("Role");
+		$this->users_obj = D("Common/Users");
+		$this->role_obj = D("Common/Role");
 	}
 	function index(){
 		$users=$this->users_obj->where(array("user_type"=>1))->select();

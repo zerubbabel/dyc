@@ -12,8 +12,8 @@ class NavController extends AdminbaseController {
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->nav = D("Nav");
-		$this->navcat =D("NavCat");
+		$this->nav = D("Common/Nav");
+		$this->navcat =D("Common/NavCat");
 	}
 	
 	

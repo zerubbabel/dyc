@@ -11,7 +11,7 @@ class ArticleController extends HomeBaseController {
     	$id=intval($_GET['id']);
     	$article=sp_sql_post($id,'');
     	$termid=$article['term_id'];
-    	$term_obj= D("Terms");
+    	$term_obj= M("Terms");
     	$term=$term_obj->where("term_id='$termid'")->find();
     	
     	$article_id=$article['object_id'];

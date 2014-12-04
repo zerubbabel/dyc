@@ -10,7 +10,7 @@ class CenterController extends MemberbaseController {
 	protected $users_model;
 	function _initialize(){
 		parent::_initialize();
-		$this->users_model=D("Users");
+		$this->users_model=D("Common/Users");
 	}
     //会员中心
 	public function index() {
