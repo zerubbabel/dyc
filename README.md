@@ -1,5 +1,25 @@
 UPDATE
 ===
+X1.3.0
+·统一Action为Controller
+·增加文章搜索功能
+·增加前台编辑器
+·增加模板常量__STATICS__
+·增加最后评论时间写入
+·修复leuu bug 
+·CommonModel _before_write 数据过滤bug
+·后台评论管理,默认所有评论
+·文章分类path更新优化
+·simplebootx模板文章页css样式优化
+·修复分页类bug
+·后台文章编辑所有文章链接错误
+·修复bug#4验证码不显示
+·优化bug#3页面使用LEUU函数后每个页面都查询
+·优化公共模型的调用方法，以兼容php5.3.0-5.3.2
+·修复sp_sql_posts_bycatid和sp_sql_posts_paged_bycatid两个方法where语句问题
+·修复bluesky主题分页样式问题
+·修复文章推荐，置顶bug
+===
 X1.2.0
 ·url美化
 ·特殊用户名过滤
