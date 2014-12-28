@@ -17,7 +17,7 @@ class PublicController extends AdminbaseController {
     			header("Content-Type:text/html; charset=utf-8");
     			$this->error("请从后台管理入口登录!",__ROOT__."/");
     		}else{
-    			$this->display();
+    			$this->display(":login");
     		}
     		
     	}

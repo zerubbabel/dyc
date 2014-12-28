@@ -85,7 +85,7 @@
                 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat',  'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
                 'fontsize', '|',
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
-                'link', 'unlink', '|',
+                'link', 'unlink', '|','insertvideo',
                 'insertimage', 'emotion', 'insertcode', '|',
                 'horizontal', '|',
                 'searchreplace', 'help']

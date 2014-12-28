@@ -43,7 +43,7 @@ class AssetController extends AdminbaseController {
                 exit("0," . $upload->getError());
             }
         } else {
-            $this->display();
+            $this->display(':swfupload');
         }
     }
 

@@ -371,7 +371,7 @@ function _sp_get_menu_datas($id){
 		$main=$navcat_obj->where("active=1")->find();
 		$id=$main['navcid'];
 	}
-	$navs= $nav_obj->where("cid=$id")->order(array("listorder" => "ASC"))->select();
+	$navs= $nav_obj->where("cid=$id and status=1")->order(array("listorder" => "ASC"))->select();
 	foreach ($navs as $key=>$nav){
 		$href=htmlspecialchars_decode($nav['href']);
 		$hrefold=$href;
@@ -1138,3 +1138,125 @@ function sp_get_routes($refresh=false){
 	
 	
 }
+
+
+function sp_is_mobile() {
+	static $sp_is_mobile;
+
+	if ( isset($sp_is_mobile) )
+		return $sp_is_mobile;
+
+	if ( empty($_SERVER['HTTP_USER_AGENT']) ) {
+		$sp_is_mobile = false;
+	} elseif ( strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false // many mobile devices (all iPhone, iPad, etc.)
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'Silk/') !== false
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'BlackBerry') !== false
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false
+			|| strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false ) {
+		$sp_is_mobile = true;
+	} else {
+		$sp_is_mobile = false;
+	}
+
+	return $sp_is_mobile;
+}
+
+/**
+ * 处理插件钩子
+ * @param string $hook   钩子名称
+ * @param mixed $params 传入参数
+ * @return void
+ */
+function hook($hook,$params=array()){
+	tag($hook,$params);
+}
+
+/**
+ * 获取插件类的类名
+ * @param strng $name 插件名
+ */
+function sp_get_plugin_class($name){
+	$class = "plugins\\{$name}\\{$name}Plugin";
+	return $class;
+}
+
+/**
+ * 获取插件类的配置
+ * @param string $name 插件名
+ * @return array
+ */
+function sp_get_plugin_config($name){
+	$class = sp_get_plugin_class($name);
+	if(class_exists($class)) {
+		$plugin = new $class();
+		return $plugin->getConfig();
+	}else {
+		return array();
+	}
+}
+
+/**
+ * 替代scan_dir的方法
+ * @param string $pattern 检索模式 搜索模式 *.txt,*.doc; (同glog方法)
+ * @param int $flags
+ */
+function sp_scan_dir($pattern,$flags=null){
+	$files = array_map('basename',glob($pattern, GLOB_ONLYDIR));
+	return $files;
+}
+
+/**
+ * 获取所有钩子，包括系统，应用，模板
+ */
+function sp_get_hooks(){
+	
+	$return_hooks = F('all_hooks');
+	if(!empty($return_hooks)){
+		return $return_hooks;
+	}
+	
+	$return_hooks=array();
+	
+	$system_hooks=array(
+		"url_dispatch","app_init","app_begin","app_end",
+		"action_begin","action_end","module_check","path_info",
+		"template_filter","view_begin","view_end","view_parse",
+		"view_filter"
+	);
+	
+	$app_hooks=array();
+	
+	$apps=sp_scan_dir(SPAPP."*",GLOB_ONLYDIR);
+	
+	foreach ($apps as $app){
+		$hooks_file=SPAPP.$app."/hooks.php";
+		if(is_file($hooks_file)){
+			$hooks=include $hooks_file;
+			$app_hooks=is_array($hooks)?array_merge($app_hooks,$hooks):$app_hooks;
+		}
+	}
+	
+	$tpl_hooks=array();
+	
+	$tpls=sp_scan_dir("tpl/*",GLOB_ONLYDIR);
+	
+	foreach ($tpls as $tpl){
+		$hooks_file="tpl/$tpl/hooks".C("TMPL_TEMPLATE_SUFFIX");
+		if(is_file($hooks_file)){
+			$hooks=file_get_contents($hooks_file);
+			$hooks=preg_replace("/[^0-9A-Za-z_-]/u", ",", $hooks);
+			$hooks=explode(",", $hooks);
+			$hooks=array_filter($hooks);
+			$tpl_hooks=is_array($hooks)?array_merge($tpl_hooks,$hooks):$tpl_hooks;
+		}
+	}
+	
+	$return_hooks=array_merge($system_hooks,$app_hooks,$tpl_hooks);
+	
+	F('all_hooks',$return_hooks);
+	return $return_hooks;
+	
+}
+

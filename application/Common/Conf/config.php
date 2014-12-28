@@ -49,6 +49,8 @@ $configs= array(
 		'SP_ADMIN_TMPL_ACTION_SUCCESS' 	=> 'Admin/success.html', // 默认成功跳转对应的模板文件,注：相对于后台模板路径
 		'TMPL_EXCEPTION_FILE'   => SPSTATIC.'exception.html',
 		
+		'AUTOLOAD_NAMESPACE' => array('plugins' => './plugins/'), //扩展模块列表
+		
 	
 		"UCENTER_ENABLED"		=>0, //UCenter 开启1, 关闭0
 		"COMMENT_NEED_CHECK"	=>0, //评论是否需审核 审核1，不审核0
@@ -71,6 +73,7 @@ $configs= array(
 		'TMPL_PARSE_STRING'=>array(
 			'/Public/upload'=>'/data/upload',
 			'__UPLOAD__' => __ROOT__.'/data/upload/',
+			'__STATICS__' => __ROOT__.'/statics/',
 		)
 );
 

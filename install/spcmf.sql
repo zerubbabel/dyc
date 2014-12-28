@@ -264,7 +264,20 @@ INSERT INTO `sp_options` VALUES (1, 'member_email_active', '{"title":"ThinkCMF\\
 
 -- --------------------------------------------------------
 
-
+CREATE TABLE `sp_plugins` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `name` varchar(50) NOT NULL COMMENT '插件名，英文',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '插件名称',
+  `description` text COMMENT '插件描述',
+  `type` tinyint(2) DEFAULT '0' COMMENT '插件类型, 1:网站；8;微信',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态；1开启；',
+  `config` text COMMENT '插件配置',
+  `hooks` varchar(255) DEFAULT NULL COMMENT '实现的钩子;以“，”分隔',
+  `author` varchar(50) DEFAULT '' COMMENT '插件作者',
+  `version` varchar(20) DEFAULT '' COMMENT '插件版本号',
+  `createtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
 -- 
 -- 表的结构 `sp_posts`
@@ -656,7 +669,7 @@ INSERT INTO `sp_menu` VALUES (569, 284, 'Admin', 'Route', 'delete', '', 1, 0, '�
 INSERT INTO `sp_menu` VALUES (572, 284, 'Admin', 'Route', 'ban', '', 1, 0, '路由禁止', '', '', 0);
 INSERT INTO `sp_menu` VALUES (573, 284, 'Admin', 'Route', 'open', '', 1, 0, '路由启用', '', '', 0);
 INSERT INTO `sp_menu` VALUES (574, 284, 'Admin', 'Route', 'listorders', '', 1, 0, '路由排序', '', '', 0);
-
+INSERT INTO `sp_menu` VALUES ('588', '260', 'Admin', 'Plugin', 'index', '', '1', '1', '插件管理', '', '', '0');
 -- --------------------------------------------------------
 
 -- 
