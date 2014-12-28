@@ -1260,3 +1260,33 @@ function sp_get_hooks(){
 	
 }
 
+
+/**
+ * 生成访问插件的url
+ * @param string $url url 格式：插件名://控制器名/方法
+ * @param array $param 参数
+ */
+function sp_plugin_url($url, $param = array()){
+	$url        = parse_url($url);
+	$case       = C('URL_CASE_INSENSITIVE');
+	$plugin     = $case ? parse_name($url['scheme']) : $url['scheme'];
+	$controller = $case ? parse_name($url['host']) : $url['host'];
+	$action     = trim($case ? strtolower($url['path']) : $url['path'], '/');
+
+	/* 解析URL带的参数 */
+	if(isset($url['query'])){
+		parse_str($url['query'], $query);
+		$param = array_merge($query, $param);
+	}
+
+	/* 基础参数 */
+	$params = array(
+			'_plugin'     => $plugin,
+			'_controller' => $controller,
+			'_action'     => $action,
+	);
+	$params = array_merge($params, $param); //添加额外参数
+
+	return U('api/plugin/execute', $params);
+}
+
