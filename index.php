@@ -35,7 +35,7 @@ define('SPSTATIC',   'statics/');
 //定义缓存存放路径
 define("RUNTIME_PATH", SITE_PATH . "/data/runtime/");
 //版本号
-define("SIMPLEWIND_CMF_VERSION", 'X1.3.0');
+define("SIMPLEWIND_CMF_VERSION", 'X1.4.0');
 
 if(function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])){
 	
@@ -51,4 +51,3 @@ define('THINK_PATH',SPAPP_PATH.'Core/');
 define('ENGINE_NAME','cluster');
 require THINK_PATH.'ThinkPHP.php';
 
-?>
