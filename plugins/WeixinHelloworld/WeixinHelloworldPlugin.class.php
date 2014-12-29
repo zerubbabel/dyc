@@ -21,7 +21,8 @@ class WeixinHelloworldPlugin extends Plugin{
             'status'=>1,
             'author'=>'无名',
             'version'=>'1.0',
-        	'type'=>8
+        	'type'=>8,
+        	'trigger'=>'hello,你好',//触发器
         );
 
         public function install(){
