@@ -38,7 +38,7 @@ class AppframeController extends Controller {
      * @param String $type AJAX返回数据格式
      * @return void
      */
-    protected function ajaxReturn($data, $type = '') {
+    protected function ajaxReturn($data, $type = '',$json_option=0) {
         if (func_num_args() > 2) {// 兼容3.0之前用法
             $args = func_get_args();
             array_shift($args);
