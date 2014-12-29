@@ -32,6 +32,7 @@
 	            {$user.user_nicename}<b class="caret"></b></a>
 	            <ul class="dropdown-menu pull-right">
 	               <li><a href="{:u('user/center/index')}"><i class="fa fa-user"></i> &nbsp;个人中心</a></li>
+                       <li><a href="{:u('tpl/add/index')}"><i class="fa fa-user"></i> &nbsp;发布模版</a></li>
 	               <li class="divider"></li>
 	               <li><a href="{:u('user/index/logout')}"><i class="fa fa-sign-out"></i> &nbsp;退出</a></li>
 	            </ul>
@@ -50,7 +51,7 @@
           	</li>
 		</ul>
 		<div class="pull-right">
-        	<form method="post" class="form-inline" action="{:U('search/index')}" style="margin:18px 0;">
+        	<form method="post" class="form-inline" action="{:U('portal/search/index')}" style="margin:18px 0;">
 				 <input type="text" class="" placeholder="Search" name="keyword" value="{:I('get.keyword')}"/>
 				 <input type="submit" class="btn btn-info" value="Go" style="margin:0"/>
 			</form>
