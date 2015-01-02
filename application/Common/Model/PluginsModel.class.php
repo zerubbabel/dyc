@@ -32,9 +32,15 @@ class PluginsModel extends CommonModel{
 				}
 				$obj    =   new $class;
 				$plugins[$value]	= $obj->info;
-				if($plugins[$value]){
-					$plugins[$value]['status']=3;//未安装
+				
+				if(!isset($obj->info['type']) || $obj->info['type']==1){//只获取普通插件，微信插件在微信中使用
+					if($plugins[$value]){
+						$plugins[$value]['status']=3;//未安装
+					}
+				}else{
+					unset($plugins[$value]);
 				}
+				
 			}
 		}
 		return $plugins;
