@@ -193,7 +193,7 @@ class UeditorController extends Controller {
 			case 'uploadvideo':
 				/* 上传文件 */
 			case 'uploadfile':
-				$this->_ueditor_upload(array('exts'       =>    array('jpg', 'gif', 'png', 'jpeg','txt','pdf','doc','docx','xls','xlsx')));
+				$this->_ueditor_upload(array('exts'  =>    array('jpg', 'gif', 'png', 'jpeg','txt','pdf','doc','docx','xls','xlsx','zip','rar','ppt','pptx',)));
 				break;
 		
 				/* 列出图片 */
