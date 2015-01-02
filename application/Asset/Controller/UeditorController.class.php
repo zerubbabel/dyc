@@ -169,4 +169,119 @@ class UeditorController extends Controller {
 		$response= "{'url':'" . implode( "ue_separate_ue" , $tmpNames ) . "','tip':'远程图片抓取成功！','srcUrl':'" . $uri . "'}";
 		exit($response);
 	}
+	
+	
+	function upload(){
+		date_default_timezone_set("Asia/chongqing");
+		error_reporting(E_ERROR);
+		header("Content-Type: text/html; charset=utf-8");
+		
+		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./statics/js/ueditor/config.json")), true);
+		$action = $_GET['action'];
+		
+		switch ($action) {
+			case 'config':
+				$result =  json_encode($CONFIG);
+				break;
+		
+				/* 上传图片 */
+			case 'uploadimage':
+				/* 上传涂鸦 */
+			case 'uploadscrawl':
+				$this->_ueditor_upload();
+				/* 上传视频 */
+			case 'uploadvideo':
+				/* 上传文件 */
+			case 'uploadfile':
+				$this->_ueditor_upload(array('exts'       =>    array('jpg', 'gif', 'png', 'jpeg','txt','pdf','doc','docx','xls','xlsx')));
+				break;
+		
+				/* 列出图片 */
+			case 'listimage':
+				$result = include("action_list.php");
+				break;
+				/* 列出文件 */
+			case 'listfile':
+				$result = include("action_list.php");
+				break;
+		
+				/* 抓取远程文件 */
+			case 'catchimage':
+				$result = include("action_crawler.php");
+				break;
+		
+			default:
+				$result = json_encode(array(
+				'state'=> '请求地址出错'
+						));
+						break;
+		}
+		
+		/* 输出结果 */
+		if (isset($_GET["callback"])) {
+			if (preg_match("/^[\w_]+$/", $_GET["callback"])) {
+				echo htmlspecialchars($_GET["callback"]) . '(' . $result . ')';
+			} else {
+				echo json_encode(array(
+						'state'=> 'callback参数不合法'
+				));
+			}
+		} else {
+			exit($result) ;
+		}
+	}
+	
+	private function _ueditor_upload($config=array()){
+		//上传处理类
+		$mconfig=array(
+				'rootPath' => './'. C("UPLOADPATH"),
+				'savePath' => "ueditor/",
+				'maxSize' => 11048576,
+				'saveName'   =>    array('uniqid',''),
+				'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),
+				'autoSub'    =>    false,
+		);
+		
+		if(is_array($config)){
+			$config=array_merge($mconfig,$config);
+		}else{
+			$config=$mconfig;
+		}
+		$upload = new \Think\Upload($config);//
+		
+		$file = $title = $oriName = $state ='0';
+		
+		$info=$upload->upload();
+		
+		//开始上传
+		if ($info) {
+			
+			
+		//上传成功
+			$title = $oriName = $info['upfile']['name'];
+			$size=$info['upfile']['size'];
+		
+					$state = 'SUCCESS';
+					$file = C("TMPL_PARSE_STRING.__UPLOAD__")."ueditor/".$info['upfile']['savename'];
+							if(strpos($file, "https")===0 || strpos($file, "http")===0){
+		
+		}else{//local
+		$host=(is_ssl() ? 'https' : 'http')."://".$_SERVER['HTTP_HOST'];
+		$file=$host.$file;
+		}
+		} else {
+		$state = $upload->getError();
+		}
+			//$response= "{'url':'" .$file . "','title':'" . $title . "','original':'" . $oriName . "','state':'" . $state . "'}";
+			
+			$response=array(
+					"state" => $state,
+					"url" => $file,
+					"title" => $title,
+					"original" =>$oriName,
+			);
+			
+			
+			exit(json_encode($response));
+	}
 }
