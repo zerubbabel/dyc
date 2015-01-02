@@ -9,6 +9,7 @@ if(file_exists("data/conf/config.php")){
 }else{
     $runtime_config=array();
 }
+define("THINKCMF_CORE_TAGLIBS", 'cx,Common\Lib\Taglib\TagLibSpadmin,Common\Lib\Taglib\TagLibHome');
 $configs= array(
 		"LOAD_EXT_FILE"=>"extend",
 		'UPLOADPATH' => 'data/upload/',
