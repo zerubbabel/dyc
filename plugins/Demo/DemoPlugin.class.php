@@ -6,16 +6,16 @@
 // +----------------------------------------------------------------------
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
-namespace plugins\Demo;
+namespace plugins\Demo;//Demo插件英文名，改成你的插件英文就行了
 use Common\Lib\Plugin;
 
 /**
  * Demo
  */
-class DemoPlugin extends Plugin{
+class DemoPlugin extends Plugin{//Demo插件英文名，改成你的插件英文就行了
 
         public $info = array(
-            'name'=>'Demo',
+            'name'=>'Demo',//Demo插件英文名，改成你的插件英文就行了
             'title'=>'demo!',
             'description'=>'demo',
             'status'=>1,

@@ -137,7 +137,7 @@ abstract class Plugin{
     /**
      * 获取插件的配置数组
      */
-    final public function getConfig($name=''){
+    public function getConfig($name=''){
     	
         static $_config = array();
         if(empty($name)){

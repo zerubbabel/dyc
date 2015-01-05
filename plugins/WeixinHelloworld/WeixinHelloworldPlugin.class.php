@@ -7,12 +7,12 @@
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
 namespace plugins\WeixinHelloworld;
-use Common\Lib\Plugin;
+use Weixin\Lib\WeixinPlugin;
 
 /**
  * 微信Helloworld
  */
-class WeixinHelloworldPlugin extends Plugin{
+class WeixinHelloworldPlugin extends WeixinPlugin{
 
         public $info = array(
             'name'=>'WeixinHelloworld',

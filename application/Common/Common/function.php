@@ -5,6 +5,10 @@ function get_current_admin_id(){
 	return $_SESSION['ADMIN_ID'];
 }
 
+function sp_get_current_admin_id(){
+	return get_current_admin_id();
+}
+
 function sp_is_user_login(){
 	return  !empty($_SESSION['user']);
 }
@@ -1266,7 +1270,7 @@ function sp_get_hooks(){
  * @param string $url url 格式：插件名://控制器名/方法
  * @param array $param 参数
  */
-function sp_plugin_url($url, $param = array()){
+function sp_plugin_url($url, $param = array(),$domain=false){
 	$url        = parse_url($url);
 	$case       = C('URL_CASE_INSENSITIVE');
 	$plugin     = $case ? parse_name($url['scheme']) : $url['scheme'];
@@ -1287,6 +1291,6 @@ function sp_plugin_url($url, $param = array()){
 	);
 	$params = array_merge($params, $param); //添加额外参数
 
-	return U('api/plugin/execute', $params);
+	return U('api/plugin/execute', $params,true,$domain);
 }
 
