@@ -10,13 +10,21 @@ class UserController extends AdminbaseController{
 		$this->role_obj = D("Common/Role");
 	}
 	function index(){
-		$users=$this->users_obj->where(array("user_type"=>1))->select();
+		$count=$this->users_obj->where(array("user_type"=>1))->count();
+		$page = $this->page($count, 20);
+		$users = $this->users_obj
+		->where(array("user_type"=>1))
+		->order("create_time DESC")
+		->limit($page->firstRow . ',' . $page->listRows)
+		->select();
+		
 		$roles_src=$this->role_obj->select();
 		$roles=array();
 		foreach ($roles_src as $r){
 			$roleid=$r['id'];
 			$roles["$roleid"]=$r;
 		}
+		$this->assign("page", $page->show('Admin'));
 		$this->assign("roles",$roles);
 		$this->assign("users",$users);
 		$this->display();
@@ -24,7 +32,7 @@ class UserController extends AdminbaseController{
 	
 	
 	function add(){
-		$roles=$this->role_obj->where("status=1")->select();
+		$roles=$this->role_obj->where("status=1")->order("id desc")->select();
 		$this->assign("roles",$roles);
 		$this->display();
 	}
@@ -46,7 +54,7 @@ class UserController extends AdminbaseController{
 	
 	function edit(){
 		$id= intval(I("get.id"));
-		$roles=$this->role_obj->where("status=1")->select();
+		$roles=$this->role_obj->where("status=1")->order("id desc")->select();
 		$this->assign("roles",$roles);
 			
 		$user=$this->users_obj->where(array("id"=>$id))->find();
