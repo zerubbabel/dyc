@@ -80,7 +80,7 @@ abstract class Driver {
         if(!empty($config)) {
             $this->config   =   array_merge($this->config,$config);
             if(is_array($this->config['params'])){
-                $this->options  +=   $this->config['params'];
+                $this->options  =   $this->config['params'] + $this->options;
             }
         }
     }
@@ -105,7 +105,7 @@ abstract class Driver {
                 if($autoConnection){
                     trace($e->getMessage(),'','ERR');
                     return $this->connect($autoConnection,$linkNum);
-                }else{
+                }elseif($config['debug']){
                     E($e->getMessage());
                 }
             }
@@ -154,8 +154,10 @@ abstract class Driver {
         // 调试开始
         $this->debug(true);
         $this->PDOStatement = $this->_linkID->prepare($str);
-        if(false === $this->PDOStatement)
-            E($this->error());
+        if(false === $this->PDOStatement){
+            $this->error();
+            return false;
+        }
         foreach ($this->bind as $key => $val) {
             if(is_array($val)){
                 $this->PDOStatement->bindValue($key, $val[0], $val[1]);
@@ -201,7 +203,8 @@ abstract class Driver {
         $this->debug(true);
         $this->PDOStatement =   $this->_linkID->prepare($str);
         if(false === $this->PDOStatement) {
-            E($this->error());
+            $this->error();
+            return false;
         }
         foreach ($this->bind as $key => $val) {
             if(is_array($val)){

@@ -113,12 +113,9 @@ class Hook {
     static public function exec($name, $tag,&$params=NULL) {
         if('Behavior' == substr($name,-8) ){
             // 行为扩展必须用run入口方法
-        	$class = $name;
             $tag    =   'run';
-        }else{
-        	$class   =  "plugins\\{$name}\\{$name}Plugin";
         }
-        $addon   = new $class();
+        $addon   = new $name();
         return $addon->$tag($params);
     }
 }
