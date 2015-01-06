@@ -98,7 +98,11 @@ class UserController extends AdminbaseController{
 	
 	function userinfo_post(){
 		if (IS_POST) {
-			if ($this->users_obj->create()) {
+			$_POST['id']=get_current_admin_id();
+			$create_result=$this->users_obj
+			->field("user_login,user_email,last_login_ip,last_login_time,create_time,user_activation_key,user_status,role_id,score,user_type",true)//排除相关字段
+			->create();
+			if ($create_result) {
 				if ($this->users_obj->save()!==false) {
 					$this->success("保存成功！");
 				} else {

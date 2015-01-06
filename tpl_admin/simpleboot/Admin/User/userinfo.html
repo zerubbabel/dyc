@@ -15,6 +15,36 @@
               <input type="text" class="input-xlarge" name="user_nicename" value="{$user_nicename}">
             </div>
           </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">性别:</label>
+            <div class="controls">
+              <select name="sex">
+              	<php>$sexs=array("0"=>"保密","1"=>"男","2"=>"女");</php>
+              	<foreach name="sexs" item="vo">
+					<php>$sexselected=$key==$sex?"selected":"";</php>
+					<option value="{$key}" {$sexselected}>{$vo}</option>
+				</foreach>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+				<label class="control-label" for="input-birthday">生日</label>
+				<div class="controls">
+					<input class="J_date" type="text" id="input-birthday" placeholder="2013-01-04" name="birthday" value="{$birthday}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input-user_url">个人网址</label>
+				<div class="controls">
+					<input type="text" id="input-user_url" placeholder="http://thinkcmf.com" name="user_url" value="{$user_url}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input-signature">个性签名</label>
+				<div class="controls">
+					<textarea id="input-signature" placeholder="个性签名" name="signature">{$signature}</textarea>
+				</div>
+			</div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary btn_submit  J_ajax_submit_btn">更新</button>
           </div>
