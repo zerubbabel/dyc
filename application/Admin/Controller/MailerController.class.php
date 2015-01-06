@@ -17,7 +17,7 @@ class MailerController extends AdminbaseController {
     	$_POST = array_map('trim', $_POST);
     	if(in_array('', $_POST)) $this->error("不能留空！");
     	$configs['SP_MAIL_ADDRESS'] = $_POST['address'];
-    	
+    	$configs['SP_MAIL_SENDER'] = $_POST['sender'];
     	$configs['SP_MAIL_SMTP'] = $_POST['smtp'];
     	$configs['SP_MAIL_LOGINNAME'] = $_POST['loginname'];
     	$configs['SP_MAIL_PASSWORD'] = $_POST['password'];

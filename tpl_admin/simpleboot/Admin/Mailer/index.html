@@ -9,7 +9,14 @@
 	    <table cellpadding="2" cellspacing="2">
 	        <tbody>
 	        	<tr>
-	        		<td width="100">邮箱地址:</td>
+	        		<td width="100">发件人:</td>
+	        		<td>
+	        			<input type="text" class="input mr5" name="sender" value="{$Think.config.SP_MAIL_SENDER}" />
+	        			<span class="must_red">*</span>
+	        		</td>
+	        	</tr>
+	        	<tr>
+	        		<td>邮箱地址:</td>
 	        		<td>
 	        			<input type="text" class="input mr5" name="address" value="{$Think.config.SP_MAIL_ADDRESS}" />
 	        			<span class="must_red">*</span>
