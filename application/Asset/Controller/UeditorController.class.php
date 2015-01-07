@@ -3,6 +3,7 @@ namespace Asset\Controller;
 use Think\Controller;
 class UeditorController extends Controller {
 	
+	
 	private $stateMap = array( //上传状态映射表，国际化用户需考虑此处数据的国际化
         "SUCCESS", //上传成功标记，在UEditor中内不可改变，否则flash判断会出错
         "文件大小超出 upload_max_filesize 限制",
@@ -24,6 +25,14 @@ class UeditorController extends Controller {
         "ERROR_HTTP_LINK" => "链接不是http链接",
         "ERROR_HTTP_CONTENTTYPE" => "链接contentType不正确"
     );
+	
+	function _initialize() {
+		$adminid=sp_get_current_admin_id();
+		$userid=sp_get_current_userid();
+		if(empty($adminid) && empty($userid)){
+			exit("非法上传！");
+		}
+	}
 	
 	/**
 	 * ueditor 1.3.6 upload img
