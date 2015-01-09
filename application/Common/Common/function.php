@@ -1177,7 +1177,7 @@ function sp_get_plugin_config($name){
  * @param int $flags
  */
 function sp_scan_dir($pattern,$flags=null){
-	$files = array_map('basename',glob($pattern, GLOB_ONLYDIR));
+	$files = array_map('basename',glob($pattern, $flags));
 	return $files;
 }
 

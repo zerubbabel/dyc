@@ -182,37 +182,23 @@ class MenuController extends AdminbaseController {
     }
     
     public function spmy_export_menu(){
-    	$menus=$this->Menu->order(array("app" => "ASC","model" => "ASC","action" => "ASC"))->select();
-    	$menus_tree=array();
+    	$menus=$this->Menu->get_menu_tree(0);
     	
-    	$apps=scandir(SPAPP);
-    	import('@.ORG.Dir');
-    	$dir=new \Dir();
-    	foreach ($apps as $a){
-    		if(is_dir(SPAPP.$a)){
-    			if(!(strpos($a, ".") === 0)){
-    				$menudir=SPAPP.$a."/Menu";
-    				$dir->del($menudir);
-    			}
-    		}
-    	}
-    	
+    	$menus_str= var_export($menus,true);
+    	$menus_str=preg_replace("/\s+\d+\s=>\s(\n|\r)/", "\n", $menus_str);
+
     	foreach ($menus as $m){
-    		$mm=$m;
-    		unset($mm['app']);
-    		unset($mm['model']);
-    		unset($mm['id']);
-    		unset($mm['parentid']);
-    		$menus_tree[$m['app']][$m['model']][]=$mm;
-    	}
-    	foreach ($menus_tree as $app=>$models){
+    		$app=$m['app'];
     		$menudir=SPAPP.$app."/Menu";
-    		foreach ($models as $model =>$a){
-    			if(!file_exists($menudir)){
-    				mkdir($menudir);
-    			}
-    			file_put_contents($menudir."/$model.php", "<?php\treturn " . var_export($a, true) . ";?>");
+    		if(!file_exists($menudir)){
+    			mkdir($menudir);
     		}
+    		$model=strtolower($m['model']);
+    		
+    		$menus_str= var_export($m,true);
+    		$menus_str=preg_replace("/\s+\d+\s=>\s(\n|\r)/", "\n", $menus_str);
+    		
+    		file_put_contents($menudir."/admin_$model.php", "<?php\nreturn $menus_str;");
     		
     	}
     	$this->display("export_menu");
@@ -232,51 +218,69 @@ class MenuController extends AdminbaseController {
     	$this->display();
     } */
     
+    private function _import_menu($menus,$parentid=0,&$error_menus=array()){
+    	foreach ($menus as $menu){
+    	
+    		$app=$menu['app'];
+    		$model=$menu['model'];
+    		$action=$menu['action'];
+    			
+    		$where['app']=$app;
+    		$where['model']=$model;
+    		$where['action']=$action;
+    		$children=isset($menu['children'])?$menu['children']:false;
+    		unset($menu['children']);
+    		$find_menu=$this->Menu->where($where)->find();
+    		if($find_menu){
+    			$newmenu=array_merge($find_menu,$menu);
+    			$result=$this->Menu->save($newmenu);
+    			if($result===false){
+    				$error_menus[]="$app/$model/$action";
+    				$parentid2=false;
+    			}else{
+    				$parentid2=$find_menu['id'];
+    			}
+    		}else{
+    			$menu['parentid']=$parentid;
+    			$result=$this->Menu->add($menu);
+    			if($result===false){
+    				$error_menus[]="$app/$model/$action";
+    				$parentid2=false;
+    			}else{
+    				$parentid2=$result;
+    			}
+    		}
+    		
+    		if($children && $parentid!==false){
+    			$this->_import_menu($children,$parentid2,$error_menus);
+    		}
+    	}
+    	
+    }
+    
     public function spmy_import_menu(){
-    	$apps=scandir(SPAPP);
+    	
+    	$apps=sp_scan_dir(SPAPP."*",GLOB_ONLYDIR);
     	$error_menus=array();
     	foreach ($apps as $app){
     		if(is_dir(SPAPP.$app)){
-    			if(!(strpos($app, ".") === 0)){
-    				$menudir=SPAPP.$app."/Menu";
-    				$menu_files=scandir($menudir);
-    				if(count($menu_files)){
-    					foreach ($menu_files as $mf){
-    						if(!(strpos($mf, ".") === 0) && strpos($mf,".php")){//是php文件
-    							$mf_path=$menudir."/$mf";
-    							if(file_exists($mf_path)){
-    								$model=str_replace(".php", "", $mf);
-    								$menudatas=include   $mf_path;
-    								if(is_array($menudatas) && !empty($menudatas)){
-    									foreach ($menudatas as $menu){
-    										$action=$menu['action'];
-    										
-    										$where['app']=$app;
-    										$where['model']=$model;
-    										$where['action']=$action;
-    										$old_menu=$this->Menu->where($where)->find();
-    										if($old_menu){
-    											$newmenu=array_merge($old_menu,$menu);
-    											$result=$this->Menu->save($newmenu);
-    											if($result===false){
-    												$error_menus[]="$app/$model/$action";
-    											}
-    										}
-    									}
-    									/* $data=$menudatas;
-    									$data['parentid']=0;
-    									unset($data['items']);
-    									$id=$this->Menu->add($data);
-    									if(!empty($menudatas['items'])){
-    										$this->_import_submenu($rootmenudatas['items'],$id);
-    									} */
-    								}
-    							}
-    							
+    			$menudir=SPAPP.$app."/Menu";
+    			$menu_files=sp_scan_dir($menudir."/admin_*.php",null);
+    			if(count($menu_files)){
+    				foreach ($menu_files as $mf){
+    					//是php文件
+    					$mf_path=$menudir."/$mf";
+    					if(file_exists($mf_path)){
+    						$menudatas=include   $mf_path;
+    						if(is_array($menudatas) && !empty($menudatas)){
+    							$this->_import_menu(array($menudatas),0,$error_menus);
     						}
     					}
+    						
+    						
     				}
     			}
+    			 
     		}
     	}
 		$this->assign("errormenus",$error_menus);

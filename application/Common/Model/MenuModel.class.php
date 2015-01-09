@@ -126,34 +126,7 @@ class MenuModel extends CommonModel {
      * 菜单树状结构集合
      */
     public function menu_json() {
-       // $Panel = M("AdminPanel")->where(array("userid" => AppframeAction::$Cache['uid']))->select();
-        $items['0changyong'] = array(
-            "id" => "",
-            "name" => "常用菜单",
-            "parent" => "changyong",
-            "url" => U("Menu/public_changyong"),
-        );
-        /* foreach ($Panel as $r) {
-            $items[$r['menuid'] . '0changyong'] = array(
-                "icon" => "",
-                "id" => $r['menuid'] . '0changyong',
-                "name" => $r['name'],
-                "parent" => "changyong",
-                "url" => $r['url'],
-            );
-        } */
-        $changyong = array(
-            "changyong" => array(
-                "icon" => "",
-                "id" => "changyong",
-                "name" => "常用",
-                "parent" => "",
-                "url" => "",
-                "items" => $items
-            )
-        );
         $data = $this->get_tree(0);
-        //return array_merge($changyong, $data);
         return $data;
     }
 
@@ -235,6 +208,28 @@ class MenuModel extends CommonModel {
     		$result = array_merge($result2, $result);
     	}
     	return $result;
+    }
+    /**
+     * 得到某父级菜单所有子菜单，包括自己
+     * @param number $parentid 
+     */
+    public function get_menu_tree($parentid=0){
+    	$menus=$this->where(array("parentid"=>$parentid))->order(array("listorder"=>"ASC"))->select();
+    	
+    	if($menus){
+    		foreach ($menus as $key=>$menu){
+    			$children=$this->get_menu_tree($menu['id']);
+    			if(!empty($children)){
+    				$menus[$key]['children']=$children;
+    			}
+    			unset($menus[$key]['id']);
+    			unset($menus[$key]['parentid']);
+    		}
+    		return $menus;
+    	}else{
+    		return $menus;
+    	}
+    	
     }
 
 }
