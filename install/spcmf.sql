@@ -492,7 +492,6 @@ CREATE TABLE `sp_users` (
   `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '注册时间',
   `user_activation_key` varchar(60) NOT NULL DEFAULT '' COMMENT '激活码',
   `user_status` int(11) NOT NULL DEFAULT '1' COMMENT '用户状态 0：禁用； 1：正常 ；2：未验证',
-  `role_id` smallint(6) DEFAULT NULL COMMENT '用户角色id',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '用户积分',
   `user_type` smallint(1) DEFAULT '1' COMMENT '用户类型，1:admin ;2:会员',
   PRIMARY KEY (`id`),
