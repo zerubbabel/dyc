@@ -5,18 +5,18 @@
   <div id="error_tips">
     <h2>
     <if condition="empty($errormenus)">
-    	菜单恢复成功！
+    	菜单导入成功！
     <else/>
-    	菜单恢复失败！
+    	菜单导入失败！
     </if>
     </h2>
     <div class="error_cont">
       <ul>
         <if condition="empty($errormenus)">
-    		菜单恢复成功！
+    		菜单导入成功！
 	    <else/>
 	    	<foreach name="errormenus" item="vo">
-	    		<li>{$vo}恢复失败!</li>
+	    		<li>{$vo}导入失败!</li>
 	    	</foreach>
 	    </if>
       </ul>

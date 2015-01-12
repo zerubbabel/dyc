@@ -24,7 +24,7 @@ class AdminbaseController extends AppframeController {
     		$users_obj= M("Users");
     		$id=$_SESSION['ADMIN_ID'];
     		$user=$users_obj->where("id=$id")->find();
-    		if(!$this->check_access($user['role_id'])){
+    		if(!$this->check_access($id)){
     			$this->error("您没有访问权限！");
     			exit();
     		}
@@ -182,45 +182,17 @@ class AdminbaseController extends AppframeController {
         return $find;
     }
 
-    /**
-     * 当前位置
-     * @param $id 菜单id
-     */
-    final public static function current_pos($id) {
-        $menudb = M("Menu");
-        $r = $menudb->where(array('id' => $id))->find();
-        $str = '';
-        if ($r['parentid']) {
-            $str = self::current_pos($r['parentid']);
-        }
-        return $str . $r['name'] . ' > ';
-    }
-    
-    private function check_access($roleid){
+    private function check_access($uid){
     	
-    		//如果用户角色是1，则无需判断
-    		if($roleid == 1){
-    			return true;
-    		}
-    		$role_obj= M("Role");
-    		$role=$role_obj->field("status")->where("id=$roleid")->find();
-    		if(!empty($role) && $role['status']==1){
-    			$group=MODULE_NAME;
-    			$model=CONTROLLER_NAME;
-    			$action=ACTION_NAME;
-    			if(MODULE_NAME.CONTROLLER_NAME.ACTION_NAME!="AdminIndexindex"){
-    				$access_obj = M("Access");
-    				$count = $access_obj->where ( "role_id=$roleid and g='$group' and m='$model' and a='$action'")->count();
-    				return $count;
-    			}else{
-    				return true;
-    			}
-    		}else{
-    			return false;
-    		}
-    		
-    		
-    		
+    	//如果用户角色是1，则无需判断
+    	if($uid == 1){
+    		return true;
+    	}
+    	if(MODULE_NAME.CONTROLLER_NAME.ACTION_NAME!="AdminIndexindex"){
+    		return sp_auth_check($uid);
+    	}else{
+    		return true;
+    	}
     }
 }
 

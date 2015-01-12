@@ -8,10 +8,12 @@ use Common\Controller\AdminbaseController;
 class MenuController extends AdminbaseController {
 
     protected $Menu;
+    protected $auth_rule_model;
 
     function _initialize() {
         parent::_initialize();
         $this->Menu = D("Common/Menu");
+        $this->auth_rule_model = D("Common/AuthRule");
     }
 
     /**
@@ -251,6 +253,14 @@ class MenuController extends AdminbaseController {
     			}
     		}
     		
+    		$name=strtolower("$app/$model/$action");
+    		$mwhere=array("name"=>$name);
+    		
+    		$find_rule=$this->auth_rule_model->where($mwhere)->find();
+    		if(!$find_rule){
+    			$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu['name']));//type 1-admin rule;2-user rule
+    		}
+    		
     		if($children && $parentid!==false){
     			$this->_import_menu($children,$parentid2,$error_menus);
     		}
@@ -378,6 +388,14 @@ class MenuController extends AdminbaseController {
     										if($result!==false){
     											$newmenus[]=   $g."/".$m."/".$a."";
     										}
+    									}
+    									
+    									$name=strtolower("$g/$m/$a");
+    									$mwhere=array("name"=>$name);
+    									
+    									$find_rule=$this->auth_rule_model->where($mwhere)->find();
+    									if(!$find_rule){
+    										$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu['name']));//type 1-admin rule;2-user rule
     									}
     								}
     							}

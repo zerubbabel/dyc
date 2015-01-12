@@ -25,12 +25,12 @@
             <tr>
               <td>角色:</td>
               <td>
- 				<select name="role_id" class="normal_select">
- 					<foreach name="roles" item="vo">
- 					<php>$role_id_selected=$vo['id']==$role_id?"selected":"";</php>
- 						<option value="{$vo.id}" {$role_id_selected}>{$vo.name}</option>
- 					</foreach>
-                </select>
+ 				<foreach name="roles" item="vo">
+                <label class="checkbox inline">
+                <php>$role_id_checked=in_array($vo['id'],$role_ids)?"checked":"";</php>
+				  <input value="{$vo.id}" type="checkbox" name="role_id[]" {$role_id_checked}/>{$vo.name}
+				</label>
+ 				</foreach>
 				</td>
             </tr>
           </tbody>

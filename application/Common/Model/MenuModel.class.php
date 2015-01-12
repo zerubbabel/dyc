@@ -80,8 +80,6 @@ class MenuModel extends CommonModel {
         } 
         
          $array = array();
-        //实例化权限表
-        $privdb = M("Access");
         foreach ($result as $v) {
         	
             //方法
@@ -97,9 +95,9 @@ class MenuModel extends CommonModel {
                 	$action = $_match[1];
                 }
                    
-                $r = $privdb->where(array('g' => $v['app'], 'm' => $v['model'], 'a' => $action, 'role_id' => session("roleid")))->find();
+                $rule_name=strtolower($v['app']."/".$v['model']."/".$action);
                 
-                if ($r){
+                if ( sp_auth_check(sp_get_current_admin_id(),$rule_name)){
                 	$array[] = $v;
                 }
                    

@@ -25,12 +25,11 @@
             <tr>
               <td>角色:</td>
               <td>
- 				<select name="role_id"  class="normal_select">
- 					<foreach name="roles" item="vo">
- 						<option value="{$vo.id}">{$vo.name}</option>
- 					</foreach>
-                  
-                </select>
+                <foreach name="roles" item="vo">
+                <label class="checkbox inline">
+				  <input value="{$vo.id}" type="checkbox" name="role_id[]"/>{$vo.name}
+				</label>
+ 				</foreach>
 				</td>
             </tr>
            
