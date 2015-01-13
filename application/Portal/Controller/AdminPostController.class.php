@@ -166,7 +166,7 @@ class AdminPostController extends AdminbaseController {
 		->limit($page->firstRow . ',' . $page->listRows)
 		->order("a.listorder ASC,b.post_modified DESC")->select();
 		$users_obj = M("Users");
-		$users_data=$users_obj->field("id,user_login,role_id")->where("user_status=1")->select();
+		$users_data=$users_obj->field("id,user_login")->where("user_status=1")->select();
 		$users=array();
 		foreach ($users_data as $u){
 			$users[$u['id']]=$u;
