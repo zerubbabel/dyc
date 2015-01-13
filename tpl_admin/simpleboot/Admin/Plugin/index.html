@@ -37,13 +37,13 @@
 		            	<a href="{:U('plugin/install',array('name'=>$vo['name']))}" class="J_ajax_dialog_btn"  data-msg="确定安装该插件吗？">安装</a>
 		            	<else/>
 		            		<a href="{:U('plugin/setting',array('id'=>$vo['id']))}">设置</a>|
+		            		<a href="{:U('plugin/update',array('name'=>$vo['name']))}" class="J_ajax_dialog_btn"  data-msg="确定更新该插件吗？">更新</a>|
 			            	<if condition="$vo['status']==0">
 			            		<a href="{:U('plugin/toggle',array('id'=>$vo['id'],'enable'=>1))}" class="J_ajax_dialog_btn"  data-msg="确定启用该插件吗？">启用</a>|
 			            	<else/>
 			            		<a href="{:U('plugin/toggle',array('id'=>$vo['id'],'disable'=>1))}" class="J_ajax_dialog_btn"  data-msg="确定禁用该插件吗？">禁用</a>|
 			            	</if>
-		            	
-		            	<a href="{:U('plugin/uninstall',array('id'=>$vo['id']))}" class="J_ajax_dialog_btn"  data-msg="确定卸载该插件吗？">卸载</a>
+		            		<a href="{:U('plugin/uninstall',array('id'=>$vo['id']))}" class="J_ajax_dialog_btn"  data-msg="确定卸载该插件吗？">卸载</a>
 		            </if>
 		            	
 			        </td>

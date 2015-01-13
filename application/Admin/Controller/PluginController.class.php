@@ -131,6 +131,39 @@ class PluginController extends AdminbaseController{
 		}
 	}
 	
+	public function update(){
+		$plugin_name     =   trim(I('name'));
+		$class          =   sp_get_plugin_class($plugin_name);
+		if(!class_exists($class))
+			$this->error('插件不存在!');
+		$plugin  =   new $class;
+		$info = $plugin->info;
+		if(!$info || !$plugin->checkInfo())//检测信息的正确性
+			$this->error('插件信息缺失!');
+		
+		$methods=get_class_methods($plugin);
+		
+		$system_hooks=sp_get_hooks();
+		
+		$plugin_hooks=array_intersect($system_hooks, $methods);
+		
+		$info['hooks']=implode(",", $plugin_hooks);
+		
+		$info['config']=json_encode($plugin->getConfig());
+		
+		$data           =   $this->plugins_model->create($info);
+		
+		if(!$data){
+			$this->error($this->plugins_model->getError());
+		}
+			
+		if($this->plugins_model->where(array("name"=>$plugin_name))->save($data)!==false){
+			$this->success('更新成功!');
+		}else{
+			$this->error('写入插件数据失败!');
+		}
+	}
+	
 	/**
 	 * 卸载插件
 	 */
