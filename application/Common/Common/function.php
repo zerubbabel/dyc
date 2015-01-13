@@ -1197,7 +1197,7 @@ function sp_get_hooks(){
 		"url_dispatch","app_init","app_begin","app_end",
 		"action_begin","action_end","module_check","path_info",
 		"template_filter","view_begin","view_end","view_parse",
-		"view_filter"
+		"view_filter","body_start","footer","footer_end","sider","comment",'admin_home'
 	);
 	
 	$app_hooks=array();
@@ -1228,6 +1228,8 @@ function sp_get_hooks(){
 	}
 	
 	$return_hooks=array_merge($system_hooks,$app_hooks,$tpl_hooks);
+	
+	$return_hooks=array_unique($return_hooks);
 	
 	F('all_hooks',$return_hooks);
 	return $return_hooks;
