@@ -9,7 +9,7 @@ return array (
   'name' => '菜单管理',
   'icon' => 'list',
   'remark' => '',
-  'listorder' => '0',
+  'listorder' => '20',
   'children' => 
   array (
     array (

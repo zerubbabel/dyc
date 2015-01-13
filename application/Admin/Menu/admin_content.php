@@ -9,7 +9,7 @@ return array (
   'name' => '内容管理',
   'icon' => 'th',
   'remark' => '',
-  'listorder' => '10',
+  'listorder' => '30',
   'children' => 
   array (
     array (

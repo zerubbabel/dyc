@@ -9,7 +9,7 @@ return array (
   'name' => '扩展工具',
   'icon' => 'cloud',
   'remark' => '',
-  'listorder' => '30',
+  'listorder' => '40',
   'children' => 
   array (
     array (
@@ -174,6 +174,18 @@ return array (
           'type' => '1',
           'status' => '0',
           'name' => '插件卸载',
+          'icon' => '',
+          'remark' => '',
+          'listorder' => '0',
+        ),
+        array (
+          'app' => 'Admin',
+          'model' => 'Plugin',
+          'action' => 'update',
+          'data' => '',
+          'type' => '1',
+          'status' => '0',
+          'name' => '插件更新',
           'icon' => '',
           'remark' => '',
           'listorder' => '0',
