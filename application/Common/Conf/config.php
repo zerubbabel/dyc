@@ -52,7 +52,8 @@ $configs= array(
 		
 		'AUTOLOAD_NAMESPACE' => array('plugins' => './plugins/'), //扩展模块列表
 		
-	
+		'ERROR_PAGE'            =>__ROOT__.'/',
+		
 		"UCENTER_ENABLED"		=>0, //UCenter 开启1, 关闭0
 		"COMMENT_NEED_CHECK"	=>0, //评论是否需审核 审核1，不审核0
 		
