@@ -122,10 +122,10 @@ class ProfileController extends MemberbaseController {
     		$first=array_shift($info);
     		$file=$first['savename'];
     		$_SESSION['avatar']=$file;
-    		$this->ajaxReturn(array("file"=>$file),"上传成功！",1,"AJAX_UPLOAD");
+    		$this->ajaxReturn(sp_ajax_return(array("file"=>$file),"上传成功！",1),"AJAX_UPLOAD");
     	} else {
     		//上传失败，返回错误
-    		$this->ajaxReturn(array(),$upload->getError(),0,"AJAX_UPLOAD");
+    		$this->ajaxReturn(sp_ajax_return(array(),$upload->getError(),0),"AJAX_UPLOAD");
     	}
     }
     

@@ -1281,3 +1281,19 @@ function sp_auth_check($uid,$name=null,$relation='or'){
 	return $iauth_obj->check($uid, $name, $relation);
 }
 
+/**
+ * 兼容之前版本的ajax的转化方法，如果你之前用参数只有两个可以不用这个转化，如有两个以上的参数请升级一下
+ * @param array $data
+ * @param string $info
+ * @param int $status
+ */
+function sp_ajax_return($data,$info,$status){
+	$info = array();
+	$info['data'] = $data;
+	$info['info'] = $info;
+	$info['status'] = $status;
+	$data = $info;
+	
+	return $data;
+}
+
