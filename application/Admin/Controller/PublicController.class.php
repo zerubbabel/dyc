@@ -14,8 +14,7 @@ class PublicController extends AdminbaseController {
     		$this->success(L('LOGIN_SUCCESS'),U("Index/index"));
     	}else{
     		if(empty($_SESSION['adminlogin'])){
-    			header("Content-Type:text/html; charset=utf-8");
-    			$this->error("请从后台管理入口登录!",__ROOT__."/");
+    			redirect(__ROOT__."/");
     		}else{
     			$this->display(":login");
     		}
