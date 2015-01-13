@@ -47,6 +47,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td>开启手机模板：</td>
+						<td>
+							<php>$mobile_tpl_enabled_checked=empty($mobile_tpl_enabled)?'':'checked';</php>
+							<label class="checkbox inline">
+								<input type="checkbox" name="options[mobile_tpl_enabled]" {$mobile_tpl_enabled_checked} value="1"/>
+							</label>
+						</td>
+					</tr>
+					<tr>
 						<td>后台风格：</td>
 						<td>
 							<select name="options[site_adminstyle]" class="normal_select" >

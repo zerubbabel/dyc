@@ -129,11 +129,14 @@ class HomeBaseController extends AppframeController {
 			cookie('think_template',$theme,864000);
 		}
 		
-		if(sp_is_mobile()){
-			if(file_exists($tmpl_path."/".$theme."_mobile")){
-				$theme  =   $theme."_mobile";
+		if(C('MOBILE_TPL_ENABLED')){//开启手机模板支持
+			if(sp_is_mobile()){
+				if(file_exists($tmpl_path."/".$theme."_mobile")){
+					$theme  =   $theme."_mobile";
+				}
 			}
 		}
+		
 		
 		
 		
