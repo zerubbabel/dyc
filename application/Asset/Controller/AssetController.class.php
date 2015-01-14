@@ -9,9 +9,11 @@ class AssetController extends AdminbaseController {
 
 
     function _initialize() {
-        //默认图片类型
-        $this->imgext = array('jpg', 'gif', 'png', 'bmp', 'jpeg','zip');
-        //当前登陆用户名 0 表示游客
+    	$adminid=sp_get_current_admin_id();
+    	$userid=sp_get_current_userid();
+    	if(empty($adminid) && empty($userid)){
+    		exit("非法上传！");
+    	}
     }
 
     /**

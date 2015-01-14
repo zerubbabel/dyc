@@ -251,12 +251,11 @@ var swfu = '';
 			upload_url:"{:u('asset/swfupload')}",
 			file_post_name : "Filedata",
 			post_params:{
-			                        "SWFUPLOADSESSID":"1368090057",
+			                        "{:C('VAR_SESSION_ID')}":"{:session_id()}",
 			                        "thumb_width":"0",
 			                        "thumb_height":"0",
 			                        "watermark_enable":"1",
-			                        "filetype_post":"jpg|jpeg|gif|png|bmp|zip",
-			                        "swf_auth_key":"6d13c3d7ccf4d88a35d41f5d9fea0aed"
+			                        "filetype_post":"jpg|jpeg|gif|png|bmp|zip"
 			},
 			file_size_limit:"20240KB",
 			file_types:"*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.zip",

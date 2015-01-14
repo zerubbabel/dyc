@@ -54,6 +54,8 @@ $configs= array(
 		
 		'ERROR_PAGE'            =>__ROOT__.'/',
 		
+		'VAR_SESSION_ID'        => 'session_id',
+		
 		"UCENTER_ENABLED"		=>0, //UCenter 开启1, 关闭0
 		"COMMENT_NEED_CHECK"	=>0, //评论是否需审核 审核1，不审核0
 		
