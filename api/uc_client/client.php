@@ -8,7 +8,7 @@
 */
 
 if(!defined('UC_API')) {
-	exit('Access denied');
+	exit('please add your uc config in the api\uc_client\config.inc.php file!');
 }
 
 error_reporting(0);
