@@ -33,7 +33,7 @@ define('SPSTATIC',   SITE_PATH.'statics/');
 //定义缓存存放路径
 define("RUNTIME_PATH", SITE_PATH . "/data/runtime/");
 //版本号
-define("SIMPLEWIND_CMF_VERSION", 'X1.4.0');
+define("SIMPLEWIND_CMF_VERSION", 'X1.5.0 beta');
 
 define("THINKCMF_CORE_TAGLIBS", 'cx,Common\Lib\Taglib\TagLibSpadmin,Common\Lib\Taglib\TagLibHome');
 
