@@ -107,9 +107,7 @@ class PluginController extends AdminbaseController{
 		}
 		
 		$methods=get_class_methods($plugin);
-		F('all_hooks',NULL);//清缓存
-		S("hooks",NULL);
-		$system_hooks=sp_get_hooks();
+		$system_hooks=sp_get_hooks(true);
 		
 		$plugin_hooks=array_intersect($system_hooks, $methods);
 		
