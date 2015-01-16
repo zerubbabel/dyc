@@ -232,4 +232,3 @@ class MenuModel extends CommonModel {
 
 }
 
-?>

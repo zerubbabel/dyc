@@ -72,4 +72,3 @@ class CommonModel extends Model {
 
 }
 
-?>
