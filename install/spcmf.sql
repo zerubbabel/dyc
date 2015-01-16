@@ -285,6 +285,7 @@ CREATE TABLE `sp_plugins` (
   `author` varchar(50) DEFAULT '' COMMENT '插件作者',
   `version` varchar(20) DEFAULT '' COMMENT '插件版本号',
   `createtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
+  `listorder` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
