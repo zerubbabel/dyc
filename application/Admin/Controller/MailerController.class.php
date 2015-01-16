@@ -65,4 +65,3 @@ class MailerController extends AdminbaseController {
     }
 }
 
-?>

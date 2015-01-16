@@ -143,4 +143,3 @@ class AppframeController extends Controller {
 
 }
 
-?>

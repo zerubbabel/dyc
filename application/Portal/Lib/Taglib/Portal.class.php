@@ -66,4 +66,3 @@ class Portal extends TagLib {
 
 }
 
-?>

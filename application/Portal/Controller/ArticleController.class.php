@@ -67,4 +67,3 @@ class ArticleController extends HomeBaseController {
     	
     }
 }
-?>

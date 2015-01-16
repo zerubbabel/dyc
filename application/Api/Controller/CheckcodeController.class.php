@@ -54,4 +54,3 @@ class CheckcodeController extends Controller {
 
 }
 
-?>

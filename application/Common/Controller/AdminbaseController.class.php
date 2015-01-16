@@ -196,4 +196,3 @@ class AdminbaseController extends AppframeController {
     }
 }
 
-?>

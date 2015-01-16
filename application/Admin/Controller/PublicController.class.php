@@ -75,4 +75,3 @@ class PublicController extends AdminbaseController {
 
 }
 
-?>

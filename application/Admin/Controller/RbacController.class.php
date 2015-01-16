@@ -235,4 +235,3 @@ class RbacController extends AdminbaseController {
 
 }
 
-?>
