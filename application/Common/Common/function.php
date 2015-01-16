@@ -1184,15 +1184,15 @@ function sp_scan_dir($pattern,$flags=null){
 /**
  * 获取所有钩子，包括系统，应用，模板
  */
-function sp_get_hooks(){
-	
-	$return_hooks = F('all_hooks');
-	if(!empty($return_hooks)){
-		return $return_hooks;
+function sp_get_hooks($refresh=false){
+	if(!$refresh){
+		$return_hooks = F('all_hooks');
+		if(!empty($return_hooks)){
+			return $return_hooks;
+		}
 	}
 	
 	$return_hooks=array();
-	
 	$system_hooks=array(
 		"url_dispatch","app_init","app_begin","app_end",
 		"action_begin","action_end","module_check","path_info",
@@ -1203,7 +1203,6 @@ function sp_get_hooks(){
 	$app_hooks=array();
 	
 	$apps=sp_scan_dir(SPAPP."*",GLOB_ONLYDIR);
-	
 	foreach ($apps as $app){
 		$hooks_file=SPAPP.$app."/hooks.php";
 		if(is_file($hooks_file)){
