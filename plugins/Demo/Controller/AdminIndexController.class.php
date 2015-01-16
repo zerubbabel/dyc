@@ -6,7 +6,7 @@ use Api\Controller\PluginController;//插件控制器基类
 class AdminIndexController extends PluginController{
 	
 	function _initialize(){
-		$adminid=sp_get_current_admin_id();
+		$adminid=sp_get_current_admin_id();//获取后台管理员id，可判断是否登录
 		if(!empty($adminid)){
 			$this->assign("adminid",$adminid);
 		}else{
