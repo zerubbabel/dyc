@@ -13,8 +13,6 @@ class IndexController extends PluginController{
 		//$users_model=D("Common/Users");//也可以这样实例化Common模块下的Users模型
 		$users=$users_model->limit(0,5)->select();
 		
-		print_r($users);
-
 		$this->assign("users",$users);
 		
 		$this->display(":index");

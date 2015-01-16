@@ -114,6 +114,12 @@ class PluginController extends AdminbaseController{
 		
 		$info['hooks']=implode(",", $plugin_hooks);
 		
+		if(!empty($plugin->has_admin)){
+			$info['has_admin'] = 1;
+		}else{
+			$info['has_admin'] = 0;
+		}
+		
 		$info['config']=json_encode($plugin->getConfig());
 		
 		$data           =   $this->plugins_model->create($info);
@@ -148,6 +154,12 @@ class PluginController extends AdminbaseController{
 		$plugin_hooks=array_intersect($system_hooks, $methods);
 		
 		$info['hooks']=implode(",", $plugin_hooks);
+		
+		if(!empty($plugin->has_admin)){
+			$info['has_admin'] = 1;
+		}else{
+			$info['has_admin'] = 0;
+		}
 		
 		$info['config']=json_encode($plugin->getConfig());
 		

@@ -20,7 +20,7 @@
 	            <th>描述</th>
 	            <th>作者</th>
 	            <th width="45">状态</th>
-	            <th width="120">操作</th>
+	            <th width="150">操作</th>
 	          </tr>
 	        </thead>
 	        <tbody>
@@ -37,6 +37,12 @@
 		            	<a href="{:U('plugin/install',array('name'=>$vo['name']))}" class="J_ajax_dialog_btn"  data-msg="确定安装该插件吗？">安装</a>
 		            	<else/>
 		            		<a href="{:U('plugin/setting',array('id'=>$vo['id']))}">设置</a>|
+		            		<if condition="!empty($vo['has_admin'])">
+		            		<a href="javascript:parent.openapp('{:sp_plugin_url($vo['name'].'://AdminIndex/index')}','plugin_{$vo.name}','{$vo.title}')">管理</a>|
+		            		<else/>
+		            		<a href="javascript:;" style="color:#ccc;">管理</a>|
+		            		</if>
+		            		
 		            		<a href="{:U('plugin/update',array('name'=>$vo['name']))}" class="J_ajax_dialog_btn"  data-msg="确定更新该插件吗？">更新</a>|
 			            	<if condition="$vo['status']==0">
 			            		<a href="{:U('plugin/toggle',array('id'=>$vo['id'],'enable'=>1))}" class="J_ajax_dialog_btn"  data-msg="确定启用该插件吗？">启用</a>|
