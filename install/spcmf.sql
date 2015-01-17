@@ -844,6 +844,8 @@ INSERT INTO `sp_menu` VALUES ('152', '151', 'Admin', 'User', 'edit_post', '', '1
 INSERT INTO `sp_menu` VALUES ('153', '149', 'Admin', 'User', 'add', '', '1', '0', '管理员添加', '', '', '1000');
 INSERT INTO `sp_menu` VALUES ('154', '153', 'Admin', 'User', 'add_post', '', '1', '0', '添加提交', '', '', '0');
 INSERT INTO `sp_menu` VALUES ('155', '47', 'Admin', 'Plugin', 'update', '', '1', '0', '插件更新', '', '', '0');
+INSERT INTO `sp_menu` VALUES ('156', '39', 'Admin', 'Storage', 'index', '', '1', '1', '文件存储', '', '', '0');
+INSERT INTO `sp_menu` VALUES ('157', '156', 'Admin', 'Storage', 'setting_post', '', '1', '0', '文件存储设置提交', '', '', '0');
 -- --------------------------------------------------------
 
 -- 
