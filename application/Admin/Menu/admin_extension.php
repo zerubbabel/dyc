@@ -194,6 +194,33 @@ return array (
     ),
     array (
       'app' => 'Admin',
+      'model' => 'Storage',
+      'action' => 'index',
+      'data' => '',
+      'type' => '1',
+      'status' => '1',
+      'name' => '文件存储',
+      'icon' => '',
+      'remark' => '',
+      'listorder' => '0',
+      'children' => 
+      array (
+        array (
+          'app' => 'Admin',
+          'model' => 'Storage',
+          'action' => 'setting_post',
+          'data' => '',
+          'type' => '1',
+          'status' => '0',
+          'name' => '文件存储设置提交',
+          'icon' => '',
+          'remark' => '',
+          'listorder' => '0',
+        ),
+      ),
+    ),
+    array (
+      'app' => 'Admin',
       'model' => 'Slide',
       'action' => 'default',
       'data' => '',
