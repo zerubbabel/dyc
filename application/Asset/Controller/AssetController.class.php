@@ -25,7 +25,7 @@ class AssetController extends AdminbaseController {
             //上传处理类
             $config=array(
             		'rootPath' => './'.C("UPLOADPATH"),
-            		'savePath' => './',
+            		'savePath' => '',
             		'maxSize' => 11048576,
             		'saveName'   =>    array('uniqid',''),
             		'exts'       =>    array('jpg', 'gif', 'png', 'jpeg',"txt",'zip'),
@@ -38,7 +38,13 @@ class AssetController extends AdminbaseController {
                 //上传成功
                 //写入附件数据库信息
                 $first=array_shift($info);
-				echo "1," . C("TMPL_PARSE_STRING.__UPLOAD__").$first['savename'].",".'1,'.$first['name'];
+                if(!empty($first['url'])){
+                	$url=$first['url'];
+                }else{
+                	$url=C("TMPL_PARSE_STRING.__UPLOAD__").$first['savename'];
+                }
+                
+				echo "1," . $url.",".'1,'.$first['name'];
 				exit;
             } else {
                 //上传失败，返回错误

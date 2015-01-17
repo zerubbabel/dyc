@@ -123,7 +123,7 @@ function sp_clear_cache(){
 		import ( "ORG.Util.Dir" );
 		$dirs = array ();
 		// runtime/
-		$rootdirs = scandir ( RUNTIME_PATH );
+		$rootdirs = sp_scan_dir( RUNTIME_PATH."*" );
 		//$noneed_clear=array(".","..","Data");
 		$noneed_clear=array(".","..");
 		$rootdirs=array_diff($rootdirs, $noneed_clear);
@@ -133,7 +133,7 @@ function sp_clear_cache(){
 				$dir = RUNTIME_PATH . $dir;
 				if (is_dir ( $dir )) {
 					array_push ( $dirs, $dir );
-					$tmprootdirs = scandir ( $dir );
+					$tmprootdirs = sp_scan_dir ( $dir."/*" );
 					foreach ( $tmprootdirs as $tdir ) {
 						if ($tdir != "." && $tdir != "..") {
 							$tdir = $dir . '/' . $tdir;
@@ -278,6 +278,30 @@ function sp_get_cmf_settings($key=""){
 	return $cmf_settings;
 }
 
+
+function sp_set_cmf_setting($data){
+	if(empty($data)){
+		return false;
+	}
+	$cmf_settings['option_name']="cmf_settings";
+	$options_model=M("Options");
+	$find_setting=$options_model->where("option_name='cmf_settings'")->find();
+	F("cmf_settings",null);
+	if($find_setting){
+		$setting=json_decode($find_setting,true);
+		if($setting){
+			$setting=array_merge($setting,$data);
+		}else {
+			$setting=$data;
+		}
+		
+		$cmf_settings['option_value']=json_encode($setting);
+		return $options_model->where("option_name='cmf_settings'")->save($cmf_settings);
+	}else{
+		$cmf_settings['option_value']=json_encode($data);
+		return $options_model->add($cmf_settings);
+	}
+}
 
 
 

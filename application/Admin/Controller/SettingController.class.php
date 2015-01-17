@@ -14,12 +14,12 @@ class SettingController extends AdminbaseController{
 	function site(){
 		$option=$this->options_obj->where("option_name='site_options'")->find();
 		$cmf_settings=$this->options_obj->where("option_name='cmf_settings'")->getField("option_value");
-		$tpls=scandir(C("SP_TMPL_PATH"));
+		$tpls=sp_scan_dir(C("SP_TMPL_PATH")."*",GLOB_ONLYDIR);
 		$noneed=array(".","..",".svn");
 		$tpls=array_diff($tpls, $noneed);
 		$this->assign("templates",$tpls);
 		
-		$adminstyles=scandir(SPSTATIC."simpleboot/themes");
+		$adminstyles=sp_scan_dir(SPSTATIC."simpleboot/themes/*",GLOB_ONLYDIR);
 		$adminstyles=array_diff($adminstyles, $noneed);
 		$this->assign("adminstyles",$adminstyles);
 		if($option){
@@ -58,17 +58,10 @@ class SettingController extends AdminbaseController{
 				$r=$this->options_obj->add($data);
 			}
 			
-			$cmf_settings['option_name']="cmf_settings";
 			$banned_usernames=preg_replace("/[^0-9A-Za-z_\x{4e00}-\x{9fa5}-]/u", ",", $_POST['cmf_settings']['banned_usernames']);
 			$_POST['cmf_settings']['banned_usernames']=$banned_usernames;
-			$cmf_settings['option_value']=json_encode($_POST['cmf_settings']);
 
-			F("cmf_settings",null);
-			if($this->options_obj->where("option_name='cmf_settings'")->find()){
-				$this->options_obj->where("option_name='cmf_settings'")->save($cmf_settings);
-			}else{
-				$r=$this->options_obj->add($cmf_settings);
-			}
+			sp_set_cmf_setting($_POST['cmf_settings']);
 			
 			
 			

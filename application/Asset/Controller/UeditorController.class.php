@@ -406,7 +406,6 @@ class UeditorController extends Controller {
 		$file = $title = $oriName = $state ='0';
 		
 		$info=$upload->upload();
-		
 		//开始上传
 		if ($info) {
 			//上传成功
@@ -414,12 +413,17 @@ class UeditorController extends Controller {
 			$size=$info['upfile']['size'];
 		
 			$state = 'SUCCESS';
-			$file = C("TMPL_PARSE_STRING.__UPLOAD__")."ueditor/$date/".$info['upfile']['savename'];
-			if(strpos($file, "https")===0 || strpos($file, "http")===0){
+			
+			if(!empty($info['upfile']['url'])){
+				$url=$info['upfile']['url'];
+			}else{
+				$url = C("TMPL_PARSE_STRING.__UPLOAD__")."ueditor/$date/".$info['upfile']['savename'];
+			}
+			if(strpos($url, "https")===0 || strpos($url, "http")===0){
 		
 			}else{//local
 				$host=(is_ssl() ? 'https' : 'http')."://".$_SERVER['HTTP_HOST'];
-				$file=$host.$file;
+				$url=$host.$url;
 			}
 		} else {
 			$state = $upload->getError();
@@ -427,7 +431,7 @@ class UeditorController extends Controller {
 		
 		$response=array(
 				"state" => $state,
-				"url" => $file,
+				"url" => $url,
 				"title" => $title,
 				"original" =>$oriName,
 		);

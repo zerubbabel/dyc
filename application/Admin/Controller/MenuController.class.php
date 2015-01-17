@@ -346,7 +346,7 @@ class MenuController extends AdminbaseController {
     		if(is_dir(SPAPP.$g)){
     			if(!(strpos($g, ".") === 0)){
     				$actiondir=SPAPP.$g."/Controller";
-    				$actions=scandir($actiondir);
+    				$actions=sp_scan_dir($actiondir."/*");
     				if(count($actions)){
     					foreach ($actions as $mf){
     						if(!(strpos($mf, ".") === 0)){

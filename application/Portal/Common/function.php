@@ -401,7 +401,7 @@ function sp_get_terms($tag){
 
 function sp_admin_get_tpl_file_list(){
 	$template_path=C("SP_TMPL_PATH").C("SP_DEFAULT_THEME")."/Portal/";
-	$files=scandir($template_path);
+	$files=sp_scan_dir($template_path."*");
 	$tpl_files=array();
 	foreach ($files as $f){
 		if($f!="." || $f!=".."){
