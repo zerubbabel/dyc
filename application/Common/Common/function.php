@@ -80,7 +80,7 @@ function sp_get_user_avatar_url($avatar){
 		if(strpos($avatar, "http")===0){
 			return $avatar;
 		}else {
-			return __ROOT__."/".C("UPLOADPATH")."avatar/".$avatar;
+			return sp_get_asset_upload_path("avatar/".$avatar);
 		}
 		
 	}else{
@@ -152,7 +152,7 @@ function sp_clear_cache(){
 			$dirtool->del ( $dir );
 		}
 		
-		if(defined('IS_SAE') && IS_SAE){
+		if(sp_is_sae()){
 			$global_mc=@memcache_init();
 			if($global_mc){
 				$global_mc->flush();
@@ -190,7 +190,7 @@ function sp_save_var($path,$value){
 }
 
 function sp_set_dynamic_config($data){
-	if(defined('IS_SAE') && IS_SAE){
+	if(sp_is_sae()){
 		$kv = new SaeKV();
 		$ret = $kv->init();
 		$configs=$kv->get("THINKCMF_DYNAMIC_CONFIG");
@@ -699,7 +699,7 @@ function sp_get_comments($tag="field:*;limit:0,5;order:createtime desc;",$where=
 
 function sp_file_write($file,$content){
 	
-	if(defined('IS_SAE') && IS_SAE){
+	if(sp_is_sae()){
 		$s=new SaeStorage();
 		$arr=explode('/',ltrim($file,'./'));
 		$domain=array_shift($arr);
@@ -714,6 +714,18 @@ function sp_file_write($file,$content){
 		} catch ( Exception $e ) {
 			return false;
 		}
+	}
+}
+
+function sp_file_read($file){
+	if(sp_is_sae()){
+		$s=new SaeStorage();
+		$arr=explode('/',ltrim($file,'./'));
+		$domain=array_shift($arr);
+		$save_path=implode('/',$arr);
+		return $s->read($domain,$save_path);
+	}else{
+		file_get_contents($file);
 	}
 }
 
@@ -1311,12 +1323,23 @@ function sp_auth_check($uid,$name=null,$relation='or'){
  * @param int $status
  */
 function sp_ajax_return($data,$info,$status){
-	$info = array();
-	$info['data'] = $data;
-	$info['info'] = $info;
-	$info['status'] = $status;
-	$data = $info;
+	$return = array();
+	$return['data'] = $data;
+	$return['info'] = $info;
+	$return['status'] = $status;
+	$data = $return;
 	
 	return $data;
+}
+
+/**
+ * 判断是否为SAE
+ */
+function sp_is_sae(){
+	if(defined('APP_MODE') && APP_MODE=='sae'){
+		return true;
+	}else{
+		return false;
+	}
 }
 
