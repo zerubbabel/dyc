@@ -37,7 +37,6 @@ class RbacController extends AdminbaseController {
     	if (IS_POST) {
     		if ($this->Role->create()) {
     			if ($this->Role->add()!==false) {
-    				$this->assign("jumpUrl", U("Rbac/rolemanage"));
     				$this->success("添加角色成功",U("rbac/index"));
     			} else {
     				$this->error("添加失败！");
