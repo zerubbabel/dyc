@@ -65,7 +65,7 @@ class CommentController extends MemberbaseController{
 			}
 			
 			if ($this->comments_model->create()){
-				$this->check_last_action(60);
+				$this->check_last_action(intval(C("COMMENT_TIME_INTERVAL")));
 				$result=$this->comments_model->add();
 				if ($result!==false){
 					

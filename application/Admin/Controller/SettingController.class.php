@@ -46,6 +46,9 @@ class SettingController extends AdminbaseController{
 			$configs["URL_HTML_SUFFIX"]=$_POST['options']['html_suffix'];
 			$configs["UCENTER_ENABLED"]=empty($_POST['options']['ucenter_enabled'])?0:1;
 			$configs["COMMENT_NEED_CHECK"]=empty($_POST['options']['comment_need_check'])?0:1;
+			$comment_time_interval=intval($_POST['options']['comment_time_interval']);
+			$configs["COMMENT_TIME_INTERVAL"]=$comment_time_interval;
+			$_POST['options']['comment_time_interval']=$comment_time_interval;
 			$configs["MOBILE_TPL_ENABLED"]=empty($_POST['options']['mobile_tpl_enabled'])?0:1;
 				
 			sp_set_dynamic_config($configs);//sae use same function

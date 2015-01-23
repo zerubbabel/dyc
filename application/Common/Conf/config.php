@@ -52,12 +52,13 @@ $configs= array(
 		
 		'AUTOLOAD_NAMESPACE' => array('plugins' => './plugins/'), //扩展模块列表
 		
-		'ERROR_PAGE'            =>__ROOT__.'/',
+		'ERROR_PAGE'            =>'',//不要设置，否则会让404变302
 		
 		'VAR_SESSION_ID'        => 'session_id',
 		
 		"UCENTER_ENABLED"		=>0, //UCenter 开启1, 关闭0
 		"COMMENT_NEED_CHECK"	=>0, //评论是否需审核 审核1，不审核0
+		"COMMENT_TIME_INTERVAL"	=>60, //评论时间间隔 单位s
 		
 		/* URL设置 */
  		'URL_CASE_INSENSITIVE'  => true,   // 默认false 表示URL区分大小写 true则表示不区分大小写
