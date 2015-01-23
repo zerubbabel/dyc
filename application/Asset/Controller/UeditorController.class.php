@@ -136,7 +136,7 @@ class UeditorController extends Controller {
 				continue;
 			}
 			//获取请求头
-			if(!IS_SAE){//SAE下无效
+			if(!sp_is_sae()){//SAE下无效
 				$heads = get_headers( $imgUrl );
 				//死链检测
 				if ( !( stristr( $heads[ 0 ] , "200" ) && stristr( $heads[ 0 ] , "OK" ) ) ) {
@@ -308,7 +308,7 @@ class UeditorController extends Controller {
 				continue;
 			}
 			//获取请求头
-			if(defined('IS_SAE') && !IS_SAE){//SAE下无效
+			if(sp_is_sae()){//SAE下无效
 				$heads = get_headers( $imgUrl );
 				//死链检测
 				if ( !( stristr( $heads[ 0 ] , "200" ) && stristr( $heads[ 0 ] , "OK" ) ) ) {
