@@ -19,8 +19,11 @@ if (file_exists('./install.lock')) {
 @set_time_limit(1000);
 if (phpversion() <= '5.3.0')
     set_magic_quotes_runtime(0);
-if ('5.3.0' > phpversion())
-    exit('您的php版本过低，不能安装本软件，请升级到5.3.0或更高版本再安装，谢谢！');
+if ('5.3.0' > phpversion()){
+	header("Content-type:text/html;charset=utf-8");
+	exit('您的php版本过低，不能安装本软件，请升级到5.3.0或更高版本再安装，谢谢！');
+}
+    
 
 date_default_timezone_set('PRC');
 error_reporting(E_ALL & ~E_NOTICE);
