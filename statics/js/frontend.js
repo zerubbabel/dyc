@@ -221,7 +221,7 @@
 
     //所有的删除操作，删除数据后刷新页面
     if ($('a.J_ajax_del').length) {
-        Wind.use('artDialog', function () {
+        Wind.use('noty', function () {
             $('.J_ajax_del').on('click', function (e) {
                 e.preventDefault();
                 var $_this = this,
