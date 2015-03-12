@@ -741,7 +741,7 @@ function sp_content_page($content,$pagetpl='{first}{prev}{liststart}{list}{liste
 	$PageParam = C("VAR_PAGE");
 	$page = new \Page($totalsize,$pagesize);
 	$page->setLinkWraper("li");
-	$page->SetPager('default', $pagetpl, array("listlong" => "6", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
+	$page->SetPager('default', $pagetpl, array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
 	$content=$contents[$page->firstRow];
 	$data['content']=$content;
 	$data['page']=$page->show('default');
@@ -1401,4 +1401,3 @@ function sp_alpha_id($in, $to_num = false, $pad_up = 4, $passKey = null){
 
 	return $out;
 }
-
