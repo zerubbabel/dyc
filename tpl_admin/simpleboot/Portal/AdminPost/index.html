@@ -16,11 +16,6 @@
         &nbsp;&nbsp;时间：
         <input type="text" name="start_time" class="input length_2 J_date" value="{$formget.start_time|default=''}" style="width:80px;" autocomplete="off">-<input type="text" class="input length_2 J_date" name="end_time" value="{$formget.end_time}" style="width:80px;" autocomplete="off">
         
-        <!-- 
-        <select class="select_2" name="searchtype" style="width:70px;">
-          <option value='0' >标题</option>
-        </select>
-         -->
                &nbsp; &nbsp;关键字：
         <input type="text" class="input length_2" name="keyword" style="width:200px;" value="{$formget.keyword}" placeholder="请输入关键字...">
         <input type="submit" class="btn" value="搜索"/>
@@ -62,8 +57,7 @@
 		            	</a>
 		            </td>
 		            <td>{$vo.post_hits}</td>
-                    <td><php> $excerpt_status = empty($vo['post_excerpt'])?"未填写":'已填写';</php>
-                    </td>
+                    <td>{$excerpt_status = empty($vo['post_excerpt'])?"未填写":'已填写'}</td>
     	            <td>
     	            <php>$smeta=json_decode($vo['smeta'],true);</php>
     	            	<if condition="!empty($smeta['thumb'])"> 
