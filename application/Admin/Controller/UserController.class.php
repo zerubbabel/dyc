@@ -150,7 +150,33 @@ class UserController extends AdminbaseController{
 		}
 	}
 	
-	
+	    function ban(){
+        $id=intval($_GET['id']);
+    	if ($id) {
+    		$rst = M("Users")->where(array("id"=>$id,"user_type"=>1))->setField('user_status','0');
+    		if ($rst) {
+    			$this->success("管理员停用成功！", U("user/index"));
+    		} else {
+    			$this->error('管理员停用失败！');
+    		}
+    	} else {
+    		$this->error('数据传入失败！');
+    	}
+    }
+    
+    function cancelban(){
+    	$id=intval($_GET['id']);
+    	if ($id) {
+    		$rst = M("Users")->where(array("id"=>$id,"user_type"=>1))->setField('user_status','1');
+    		if ($rst) {
+    			$this->success("管理员启用成功！", U("user/index"));
+    		} else {
+    			$this->error('管理员启用失败！');
+    		}
+    	} else {
+    		$this->error('数据传入失败！');
+    	}
+    }
 	
 	
 	

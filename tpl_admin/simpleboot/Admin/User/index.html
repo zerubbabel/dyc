@@ -14,10 +14,12 @@
             <th>最后登录IP</th>
             <th>最后登录时间</th>
             <th>E-mail</th>
+            <th>状态</th>
             <th width="120">管理操作</th>
           </tr>
         </thead>
         <tbody>
+        <php>$user_statuses=array("0"=>"停用","1"=>"启用","2"=>"未验证");</php>
         <foreach name="users" item="vo">
           <tr>
             <td>{$vo.id}</td>
@@ -31,13 +33,24 @@
 	            </if>
             </td>
             <td>{$vo.user_email}</td>
+            <td>{$user_statuses[$vo['user_status']]}</td>
             <td>
 	            <if condition="$vo['id'] eq 1">
 	            <font color="#cccccc">修改</font> | 
 	            <font color="#cccccc">删除</font>
+	            <if condition="$vo['user_status'] eq 1">
+                    <font color="#cccccc">停用</font>
+                	<else />
+                    <font color="#cccccc">启用</font>
+                    </if>
 	            <else />
 	            <a href='{:U("user/edit",array("id"=>$vo["id"]))}'>修改</a> | 
-	            <a class="J_ajax_del" href="{:U('user/delete',array('id'=>$vo['id']))}">删除</a>
+	            <a class="J_ajax_del" href="{:U('user/delete',array('id'=>$vo['id']))}">删除</a> | 
+                    <if condition="$vo['user_status'] eq 1">
+                    <a href="{:U('user/ban',array('id'=>$vo['id']))}" class="J_ajax_dialog_btn" data-msg="您确定要停用此用户吗？">停用</a>
+	            	<else />
+                    <a href="{:U('user/cancelban',array('id'=>$vo['id']))}" class="J_ajax_dialog_btn" data-msg="您确定要启用此用户吗？">启用</a>
+                    </if>
 	            </if>
             </td>
           </tr>
