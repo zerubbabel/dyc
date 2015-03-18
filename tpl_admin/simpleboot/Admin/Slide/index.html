@@ -26,36 +26,39 @@
       <table width="100%" class="table table-hover">
         <thead>
 	          <tr>
-	            <th width="16"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></th>
+                <th width="15"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></th>
 	            <th width="50">排序</th>
-	            <th width="100">ID</th>
-	            <th>标题</th>
-	            <th>描述</th>
-	            <th>链接</th>
-	            <th>图片</th>
-	            <th width="45">状态</th>
-	            <th width="120">操作</th>
+	            <th width="50">ID</th>
+	            <th width="200">标题</th>
+	            <th width="200">描述</th>
+	            <th width="100">链接</th>
+	            <th width="50">图片</th>
+	            <th width="50">状态</th>
+	            <th width="60">操作</th>
 	          </tr>
         </thead>
-        	<foreach name="slides" item="vo">
+            <foreach name="slides" item="vo">
 	        	<tr>
 		            <td><input type="checkbox" class="J_check" data-yid="J_check_y" data-xid="J_check_x" name="ids[]" value="{$vo.slide_id}"></td>
 		            <td><input name='listorders[{$vo.slide_id}]' class="input input-order mr5"  type='text' size='3' value='{$vo.listorder}'></td>
 		            <td>{$vo.slide_id}</td>
 		            <td>{$vo.slide_name}</td>
-    	            <td><php> $slide_des = mb_substr($vo['slide_des'], 0, 48, 'utf-8'); echo $slide_des;</php></td>
+    	            <td>{$slide_des = mb_substr($vo['slide_des'], 0, 48, 'utf-8')}</td>
                     <td>{$vo.slide_url}</td>
                     <td>
-	                    <php>
-	                    if(!empty($vo['slide_pic'])){
-	                    </php>
+	            		<if condition="!empty($vo['slide_pic'])">
 	                    <a href="{:sp_get_asset_upload_path($vo['slide_pic'])}" target="_blank">查看</a>
-	                    <php>}</php>
+                    	</if>
                     </td>
                     <td>{$status[$vo['slide_status']]}</td>
 		            <td>
-		            	<a href="{:U('slide/edit',array('id'=>$vo['slide_id']))}">修改</a>|
-		            	<a href="{:U('slide/delete',array('id'=>$vo['slide_id']))}" class="J_ajax_del" >删除</a>
+		            	<a href="{:U('slide/edit',array('id'=>$vo['slide_id']))}">修改</a><br>
+		            	<a href="{:U('slide/delete',array('id'=>$vo['slide_id']))}" class="J_ajax_del" >删除</a><br>
+	            		<if condition="empty($vo['slide_status']) eq 1">
+	                    <a href="{:u('slide/cancelban',array('id'=>$vo['slide_id']))}">显示</a>
+	            		<else />
+	                    <a href="{:u('slide/ban',array('id'=>$vo['slide_id']))}">隐藏</a>
+                    	</if>
 					</td>
 	          	</tr>
           </foreach>
