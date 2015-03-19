@@ -85,29 +85,32 @@ body fieldset legend {
         <tr>
           <td>
           	<span class="switch_list cc">
-          	<php>
+              <php>
           		$status_yes=$post['post_status']==1?"checked":"";
           		$status_no=$post['post_status']==0?"checked":"";
+          		$istop_yes=$post['istop']==1?"checked":"";
+          		$istop_no=$post['istop']==0?"checked":"";
+          		$recommended_yes=$post['recommended']==1?"checked":"";
+          		$recommended_no=$post['recommended']==0?"checked":"";
           	</php>
 			<label><input type="radio" name="post[post_status]" value="1" {$status_yes}><span>审核通过</span></label>
-			<label><input type="radio" name="post[post_status]" value="0" {$status_no}><span>待审核</span></label>
-		 	</span>
-		 </td>
-        </tr>
-        
-        <tr>
-          <td>
-              <span class="switch_list cc">
-			<label><input type="radio" name="post[istop]" value="1" ><span>置顶</span></label>
-			<label><input type="radio" name="post[istop]" value="0" ><span>未置顶</span></label>
+			<label><input type="radio" name="post[post_status]" value="0" {$status_no}><span>未审核</span></label>
 		 	</span>
 		 </td>
         </tr>
         <tr>
           <td>
           	<span class="switch_list cc">
-			<label><input type="radio" name="post[recommended]" value="1" ><span>推荐</span></label>
-			<label><input type="radio" name="post[recommended]" value="0" ><span>未推荐</span></label>
+			<label><input type="radio" name="post[istop]" value="1" {$istop_yes}><span>置顶</span></label>
+			<label><input type="radio" name="post[istop]" value="0" {$istop_no}><span>未置顶</span></label>
+		 	</span>
+		 </td>
+        </tr>
+        <tr>
+          <td>
+          	<span class="switch_list cc">
+			<label><input type="radio" name="post[recommended]" value="1" {$recommended_yes}><span>推荐</span></label>
+			<label><input type="radio" name="post[recommended]" value="0" {$status_no}><span>未推荐</span></label>
 		 	</span>
 		 </td>
         </tr>
