@@ -1,5 +1,3 @@
-
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- 
@@ -297,6 +295,7 @@ CREATE TABLE `sp_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned DEFAULT '0' COMMENT '发表者id',
   `post_keywords` varchar(150) NOT NULL COMMENT 'seo keywords',
+  `post_source` varchar(150) NOT NULL COMMENT '转载文章的来源',
   `post_date` datetime DEFAULT '0000-00-00 00:00:00' COMMENT 'post创建日期，永久不变，一般不显示给用户',
   `post_content` longtext COMMENT 'post内容',
   `post_title` text COMMENT 'post标题',
