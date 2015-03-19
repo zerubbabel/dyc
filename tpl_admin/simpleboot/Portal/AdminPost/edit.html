@@ -140,6 +140,11 @@ body fieldset legend {
               <th width="80">关键词</th>
               <td><input type='text' name='post[post_keywords]' id='keywords' style='width:400px' value="{$post['post_keywords']}"  class='input' placeholder='请输入关键字'> 多关键词之间用空格隔开</td>
             </tr>
+            
+            <tr>
+              <th width="80">文章来源</th>
+              <td><input type='text' name='post[post_source]' id='source' value="{$post['post_source']}" style='width:400px'   class='input' placeholder='请输入文章来源'></td>
+            </tr>
             <tr>
               <th width="80">摘要 </th>
               <td><textarea name='post[post_excerpt]' id='description' required style='width:98%;height:50px;'  placeholder='请填写摘要'>{$post.post_excerpt}</textarea><span class="must_red">*</span></td>
