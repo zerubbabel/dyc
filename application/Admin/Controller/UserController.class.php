@@ -153,7 +153,7 @@ class UserController extends AdminbaseController{
 	    function ban(){
         $id=intval($_GET['id']);
     	if ($id) {
-    		$rst = M("Users")->where(array("id"=>$id,"user_type"=>1))->setField('user_status','0');
+    		$rst = $this->users_obj->where(array("id"=>$id,"user_type"=>1))->setField('user_status','0');
     		if ($rst) {
     			$this->success("管理员停用成功！", U("user/index"));
     		} else {
@@ -167,7 +167,7 @@ class UserController extends AdminbaseController{
     function cancelban(){
     	$id=intval($_GET['id']);
     	if ($id) {
-    		$rst = M("Users")->where(array("id"=>$id,"user_type"=>1))->setField('user_status','1');
+    		$rst = $this->users_obj->where(array("id"=>$id,"user_type"=>1))->setField('user_status','1');
     		if ($rst) {
     			$this->success("管理员启用成功！", U("user/index"));
     		} else {
