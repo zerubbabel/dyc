@@ -464,27 +464,6 @@ function sp_getcontent_imgs($content){
 	return $imgs_data;
 }
 
-/*
- * 作用：写入新消息
- * 参数：$from	发送者id
- * 		$to		消息接受者id
- * 		$content  消息内容
- * 		$targetid 相应数据表中的id的值
- * 		$mestype可选值：topic_comment(话题评论)、topic_answer(话题回复)、topic_collect(话题收藏)、topic_love(喜欢)
- */
-function insertMes($from, $to, $content, $targetid, $mestype){
-	$data = array(
-			'mes_from'	=> $from,
-			'mes_to'	=> $to,
-			'mes_content' => $content,
-			'post_time'	=> time(),
-			'target_id'	=> $targetid,
-			'mes_type'	=> $mestype,
-			'mes_status'=> '2', //未读
-	);
-	return M('Message')->add($data);
-}
-
 
 /**
  * 
@@ -540,15 +519,6 @@ function sp_get_apphome_tpl($tplname,$default_tplname,$default_theme=""){
 	return $tplname;
 }
 
-//面包屑导航
-function sp_bread_nav($nav_id){
-	$navTable = M('Nav');
-	$path = $navTable->where("id=$nav_id")->getField('path');
-	if(!$path) return array();
-	$path = str_replace('-',',',$path);
-	$bread_path = $navTable->where("id in ($path)")->order('id')->select();
-	return $bread_path;
-}
 
 /*
  * 作用：去除字符串中的指定字符
