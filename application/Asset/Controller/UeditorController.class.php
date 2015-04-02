@@ -392,7 +392,7 @@ class UeditorController extends Controller {
 		$mconfig=array(
 				'rootPath' => './'. C("UPLOADPATH"),
 				'savePath' => "ueditor/$date/",
-				'maxSize' => 110485760,//10M
+				'maxSize' => 10485760,//10M
 				'saveName'   =>    array('uniqid',''),
 				'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),
 				'autoSub'    =>    false,
