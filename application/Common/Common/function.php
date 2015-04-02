@@ -132,13 +132,15 @@ function sp_clear_cache(){
 			if ($dir != "." && $dir != "..") {
 				$dir = RUNTIME_PATH . $dir;
 				if (is_dir ( $dir )) {
-					array_push ( $dirs, $dir );
+					//array_push ( $dirs, $dir );
 					$tmprootdirs = sp_scan_dir ( $dir."/*" );
 					foreach ( $tmprootdirs as $tdir ) {
 						if ($tdir != "." && $tdir != "..") {
 							$tdir = $dir . '/' . $tdir;
 							if (is_dir ( $tdir )) {
 								array_push ( $dirs, $tdir );
+							}else{
+								@unlink($tdir);
 							}
 						}
 					}
@@ -149,7 +151,7 @@ function sp_clear_cache(){
 		}
 		$dirtool=new \Dir("");
 		foreach ( $dirs as $dir ) {
-			$dirtool->del ( $dir );
+			$dirtool->delDir ( $dir );
 		}
 		
 		if(sp_is_sae()){
