@@ -109,10 +109,6 @@ class AdminbaseController extends AppframeController {
 		return $file;
     }
 
-    //扩展方法，当用户没有权限操作，用于记录日志的扩展方法
-    public function _ErrorLog() {
-        
-    }
 
     /**
      * 初始化后台菜单
@@ -152,34 +148,6 @@ class AdminbaseController extends AppframeController {
         $Page = new \Page($Total_Size, $Page_Size, $Current_Page, $listRows, $PageParam, $PageLink, $Static);
         $Page->SetPager('Admin', '{first}{prev}&nbsp;{liststart}{list}{listend}&nbsp;{next}{last}', array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
         return $Page;
-    }
-
-    /**
-     * 获取菜单导航
-     * @param type $app
-     * @param type $model
-     * @param type $action
-     */
-    public static function getMenu() {
-
-        $menuid = (int) $_GET['menuid'];
-        $menuid = $menuid ? $menuid : cookie("menuid", "", array("prefix" => ""));
-        //cookie("menuid",$menuid);
-
-        $db = D("Common/Menu");
-        $info = $db->cache(true, 60)->where(array("id" => $menuid))->getField("id,action,app,model,parentid,data,type,name");
-        $find = $db->cache(true, 60)->where(array("parentid" => $menuid, "status" => 1))->getField("id,action,app,model,parentid,data,type,name");
-
-        if ($find) {
-            array_unshift($find, $info[$menuid]);
-        } else {
-            $find = $info;
-        }
-        foreach ($find as $k => $v) {
-            $find[$k]['data'] = $find[$k]['data']."&menuid=$menuid" ;
-        }
-
-        return $find;
     }
 
     private function check_access($uid){
