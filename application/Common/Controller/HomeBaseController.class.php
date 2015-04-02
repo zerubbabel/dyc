@@ -142,10 +142,11 @@ class HomeBaseController extends AppframeController {
 		
 		C('SP_DEFAULT_THEME',$theme);
 		
+		$current_tmpl_path=$tmpl_path.$theme."/";
 		// 获取当前主题的模版路径
-		define('THEME_PATH',   $tmpl_path.$theme."/");
+		define('THEME_PATH', $current_tmpl_path);
 		
-		C("TMPL_PARSE_STRING.__TMPL__",__ROOT__."/".THEME_PATH);
+		C("TMPL_PARSE_STRING.__TMPL__",__ROOT__."/".$current_tmpl_path);
 		
 		C('SP_VIEW_PATH',$tmpl_path);
 		C('DEFAULT_THEME',$theme);
@@ -171,7 +172,7 @@ class HomeBaseController extends AppframeController {
 			$template = "/".CONTROLLER_NAME . $depr . $template;
 		}
 		
-		$file=THEME_PATH.$module.$template.C('TMPL_TEMPLATE_SUFFIX');
+		$file=$current_tmpl_path.$module.$template.C('TMPL_TEMPLATE_SUFFIX');
 		if(!is_file($file)) E(L('_TEMPLATE_NOT_EXIST_').':'.$file);
 		return $file;
 	}
