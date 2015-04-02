@@ -184,6 +184,10 @@
                             $('<span class="tips_success">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('slow').delay(1000).fadeOut(function () {
                             });
                         } else if (data.state === 'fail') {
+                        	var $verify_img=form.find(".verify_img");
+                        	if($verify_img.length){
+                        		$verify_img.attr("src",$verify_img.attr("src")+1); 
+                        	}
                             $('<span class="tips_error">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('fast');
                             btn.removeProp('disabled').removeClass('disabled');
                         }

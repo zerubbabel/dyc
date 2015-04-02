@@ -331,7 +331,7 @@ function sp_set_cmf_setting($data){
 function sp_verifycode_img($imgparam='code_len=4&font_size=20&width=238&height=50&font_color=&background=',$imgattrs='style="cursor: pointer;" title="点击获取"'){
 	$src=U('Api/Checkcode/index',$imgparam);
 	$img=<<<hello
-<img  src="$src" onclick="this.src='$src&time='+Math.random();" $imgattrs/>
+<img class="verify_img" src="$src" onclick="this.src='$src&time='+Math.random();" $imgattrs/>
 hello;
 	return $img;
 }
@@ -1372,4 +1372,18 @@ function sp_alpha_id($in, $to_num = false, $pad_up = 4, $passKey = null){
 	}
 
 	return $out;
+}
+
+/**
+ * 验证码检查，验证完后销毁验证码增加安全性 ,<br>返回true验证码正确，false验证码错误
+ * @return boolean <br>true：验证码正确，false：验证码错误
+ */
+function sp_check_verify_code(){
+	if($_SESSION['_verify_']['verify']==strtolower($_REQUEST['verify'])){
+		$_SESSION['_verify_']['verify']=null;//验证完销毁验证码
+		return true;
+	}else{
+		$_SESSION['_verify_']['verify']=null;//验证完销毁验证码
+		return false;
+	}
 }
