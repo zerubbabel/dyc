@@ -228,8 +228,10 @@ class UeditorController extends Controller {
 				/* 上传涂鸦 */
 			case 'uploadscrawl':
 				$result = $this->_ueditor_upload();
+				break;
 				/* 上传视频 */
 			case 'uploadvideo':
+				$result = $this->_ueditor_upload(array('maxSize' => 1073741824,/*1G*/'exts'  =>    array('mp4', 'avi', 'wmv','rm','rmvb','mkv')));
 				break;
 				/* 上传文件 */
 			case 'uploadfile':
