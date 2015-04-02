@@ -22,6 +22,7 @@ class MailerController extends AdminbaseController {
     	$configs['SP_MAIL_LOGINNAME'] = $_POST['loginname'];
     	$configs['SP_MAIL_PASSWORD'] = $_POST['password'];
     	$rst=sp_set_dynamic_config($configs);
+    	sp_clear_cache();
     	if ($rst) {
     		$this->success("保存成功！");
     	} else {
