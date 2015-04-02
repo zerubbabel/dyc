@@ -45,15 +45,18 @@ class iAuth{
         $list = array(); //保存验证通过的规则名
         
         $role_user_model=M("RoleUser");
-        $groups=$role_user_model->where(array("user_id"=>$uid))->getField("role_id",true);
+        
+        $role_user_join = C('DB_PREFIX').'role as b on a.role_id =b.id';
+        
+        $groups=$role_user_model->alias("a")->join($role_user_join)->where(array("user_id"=>$uid,"status"=>1))->getField("role_id",true);
         
         if(in_array(1, $groups)){
         	return true;
         }
-        	
-        $role_model=M("Role");
-        
-        $groups=$role_model->where(array("id"=>array("in",$groups),"status"=>1))->getField("id",true);
+
+        if(empty($groups)){
+        	return false;
+        }
         
         $auth_access_model=M("AuthAccess");
         
