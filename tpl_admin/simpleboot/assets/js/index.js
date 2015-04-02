@@ -7,7 +7,7 @@ $(function () {
 	$mainiframe=$("#mainiframe");
 	$content=$("#content");
 	$loading=$("#loading");
-	var headerheight=86;
+	var headerheight=45;
 	$content.height($(window).height()-headerheight);
 	
 	
