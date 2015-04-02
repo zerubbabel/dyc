@@ -51,12 +51,12 @@ class RbacController extends AdminbaseController {
      * 删除角色
      */
     public function roledelete() {
-    	$users_obj = D("Common/Users");
         $id = intval(I("get.id"));
         if ($id == 1) {
             $this->error("超级管理员角色不能被删除！");
         }
-        $count=$users_obj->where("role_id=$id")->count();
+        $role_user_model=M("RoleUser");
+        $count=$role_user_model->where("role_id=$id")->count();
         if($count){
         	$this->error("该角色已经有用户！");
         }else{
