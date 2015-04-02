@@ -7,11 +7,11 @@ $(function () {
 	$mainiframe=$("#mainiframe");
 	$content=$("#content");
 	$loading=$("#loading");
-	var headerheight=45;
+	var headerheight=86;
 	$content.height($(window).height()-headerheight);
 	
 	
-	$nav_wraper.height($(window).height()-headerheight);
+	$nav_wraper.height($(window).height()-45);
 	//$nav_wraper.niceScroll();
 	$(window).resize(function(){
 		$content.height($(window).height()-headerheight);
