@@ -108,6 +108,17 @@ class MenuController extends AdminbaseController {
     	if (IS_POST) {
     		if ($this->Menu->create()) {
     			if ($this->Menu->add()!==false) {
+    				$app=I("post.app");
+    				$model=I("post.model");
+    				$action=I("post.action");
+    				$name=strtolower("$app/$model/$action");
+    				$menu_name=I("post.name");
+    				$mwhere=array("name"=>$name);
+    				
+    				$find_rule=$this->auth_rule_model->where($mwhere)->find();
+    				if(!$find_rule){
+    					$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				}
     				$to=empty($_SESSION['admin_menu_index'])?"Menu/index":$_SESSION['admin_menu_index'];
     				$this->success("添加成功！", U($to));
     			} else {
@@ -163,6 +174,20 @@ class MenuController extends AdminbaseController {
     	if (IS_POST) {
     		if ($this->Menu->create()) {
     			if ($this->Menu->save() !== false) {
+    				$app=I("post.app");
+    				$model=I("post.model");
+    				$action=I("post.action");
+    				$name=strtolower("$app/$model/$action");
+    				$menu_name=I("post.name");
+    				$mwhere=array("name"=>$name);
+    				
+    				$find_rule=$this->auth_rule_model->where($mwhere)->find();
+    				if(!$find_rule){
+    					$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				}else{
+    					$this->auth_rule_model->where($mwhere)->save(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				}
+    				
     				$this->success("更新成功！");
     			} else {
     				$this->error("更新失败！");
@@ -259,6 +284,8 @@ class MenuController extends AdminbaseController {
     		$find_rule=$this->auth_rule_model->where($mwhere)->find();
     		if(!$find_rule){
     			$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu['name']));//type 1-admin rule;2-user rule
+    		}else{
+    			$this->auth_rule_model->where($mwhere)->save(array("module"=>$app,"type"=>"admin_url","title"=>$menu['name']));//type 1-admin rule;2-user rule
     		}
     		
     		if($children && $parentid!==false){
@@ -395,7 +422,7 @@ class MenuController extends AdminbaseController {
     									
     									$find_rule=$this->auth_rule_model->where($mwhere)->find();
     									if(!$find_rule){
-    										$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu['name']));//type 1-admin rule;2-user rule
+    										$this->auth_rule_model->add(array("name"=>$name,"module"=>$g,"type"=>"admin_url","title"=>""));//type 1-admin rule;2-user rule
     									}
     								}
     							}
