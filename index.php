@@ -32,8 +32,10 @@ define('SPAPP',   './application/');
 define('SPSTATIC',   SITE_PATH.'statics/');
 //定义缓存存放路径
 define("RUNTIME_PATH", SITE_PATH . "/data/runtime/");
+//静态缓存目录
+define("HTML_PATH", SITE_PATH . "/data/runtime/Html/");
 //版本号
-define("SIMPLEWIND_CMF_VERSION", 'X1.5.0');
+define("SIMPLEWIND_CMF_VERSION", 'X1.6.0');
 
 define("THINKCMF_CORE_TAGLIBS", 'cx,Common\Lib\Taglib\TagLibSpadmin,Common\Lib\Taglib\TagLibHome');
 
