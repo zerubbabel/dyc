@@ -61,9 +61,9 @@
 		            </td>
 		            <td>{$vo.post_hits}</td>
 		            <td>{$vo.comment_count}</td>
-                    <td>{$excerpt_status = empty($vo['post_keywords'])?" ":'已填写'}</td>
-                    <td>{$excerpt_status = empty($vo['post_source'])?" ":'已填写'}</td>
-                    <td>{$excerpt_status = empty($vo['post_excerpt'])?" ":'已填写'}</td>
+                    <td>{$excerpt_keywords = empty($vo['post_keywords'])?" ":'已填写'}</td>
+                    <td>{$excerpt_source = empty($vo['post_source'])?" ":'已填写'}</td>
+                    <td>{$excerpt_excerpt = empty($vo['post_excerpt'])?" ":'已填写'}</td>
     	            <td>
     	            <php>$smeta=json_decode($vo['smeta'],true);</php>
     	            	<if condition="!empty($smeta['thumb'])"> 
