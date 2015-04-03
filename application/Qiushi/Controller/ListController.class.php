@@ -1,10 +1,10 @@
 <?php
-namespace Qiushi\Action;
-use Common\Action\HomeBaseAction;
+namespace Qiushi\Controller;
+use Common\Controller\HomeBaseController;
 /**
  * 文章列表
 */
-class ListAction extends HomeBaseAction {
+class ListController extends HomeBaseController {
 
 	//文章内页
 	public function index() {
@@ -13,4 +13,3 @@ class ListAction extends HomeBaseAction {
 	
 	
 }
-?>

@@ -3,9 +3,9 @@
 /**
  * 文章内页
  */
-namespace Qiushi\Action;
-use Common\Action\HomeBaseAction;
-class ArticleAction extends HomeBaseAction {
+namespace Qiushi\Controller;
+use Common\Controller\HomeBaseController;
+class ArticleController extends HomeBaseController {
     //文章内页
     public function index() {
     	$this->display(":article");
@@ -44,4 +44,3 @@ class ArticleAction extends HomeBaseAction {
 		
 	}
 }
-?>
