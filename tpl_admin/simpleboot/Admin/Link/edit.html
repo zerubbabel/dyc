@@ -34,8 +34,8 @@
 						<div class="controls">
 							<select name="link_target" class="normal_select">
 								<foreach name="targets" item="vo">
-								<php>$selected=$link_target==$key?"selected='selected'":"";</php>
-								<option value="{$key}">{$vo}</option>
+								<php>$link_target_selected=$link_target==$key?"selected='selected'":"";</php>
+								<option value="{$key}" {$link_target_selected}>{$vo}</option>
 								</foreach>
 							</select>
 						</div>
