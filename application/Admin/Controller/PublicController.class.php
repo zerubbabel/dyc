@@ -61,7 +61,7 @@ class PublicController extends AdminbaseController {
     				
     				$groups=$role_user_model->alias("a")->join($role_user_join)->where(array("user_id"=>$result["id"],"status"=>1))->getField("role_id",true);
     				
-    				if(empty($groups) || empty($result['user_status'])){
+    				if( $result["id"]!=1 && ( empty($groups) || empty($result['user_status']) ) ){
     					$this->error(L('USE_DISABLED'));
     				}
     				//登入成功页面跳转
