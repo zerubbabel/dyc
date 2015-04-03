@@ -34,7 +34,7 @@
 	            <th width="100">链接</th>
 	            <th width="50">图片</th>
 	            <th width="50">状态</th>
-	            <th width="60">操作</th>
+	            <th width="80">操作</th>
 	          </tr>
         </thead>
             <foreach name="slides" item="vo">
@@ -52,8 +52,8 @@
                     </td>
                     <td>{$status[$vo['slide_status']]}</td>
 		            <td>
-		            	<a href="{:U('slide/edit',array('id'=>$vo['slide_id']))}">修改</a><br>
-		            	<a href="{:U('slide/delete',array('id'=>$vo['slide_id']))}" class="J_ajax_del" >删除</a><br>
+		            	<a href="{:U('slide/edit',array('id'=>$vo['slide_id']))}">修改</a>
+		            	<a href="{:U('slide/delete',array('id'=>$vo['slide_id']))}" class="J_ajax_del" >删除</a>
 	            		<if condition="empty($vo['slide_status']) eq 1">
 	                    <a href="{:u('slide/cancelban',array('id'=>$vo['slide_id']))}">显示</a>
 	            		<else />
