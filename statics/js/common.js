@@ -192,7 +192,7 @@
                         } else if (data.state === 'fail') {
                         	var $verify_img=form.find(".verify_img");
                         	if($verify_img.length){
-                        		$verify_img.attr("src",$verify_img.attr("src")+1); 
+                        		$verify_img.attr("src",$verify_img.attr("src")+"&refresh="+Math.random()); 
                         	}
                             $('<span class="tips_error">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('fast');
                             btn.removeProp('disabled').removeClass('disabled');
