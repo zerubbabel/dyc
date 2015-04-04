@@ -118,7 +118,10 @@ class Hook {
         }else{
         	$class   =  "plugins\\{$name}\\{$name}Plugin";
         }
-        $addon   = new $class();
-        return $addon->$tag($params);
+        if(class_exists($class)){ //插件或者行为存在时才执行
+        	$addon   = new $class();
+        	return $addon->$tag($params);
+        }
+        
     }
 }
