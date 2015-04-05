@@ -47,10 +47,6 @@ return array (
 	'textarea' => array (
 		'title' => '多行文本',
 		'type' => 'textarea',
-		'options' => array (
-			'1' => 'ThinkCMFX',
-			'2' => 'ThinkCMF' 
-		),
 		'value' => '这里是你要填写的内容',
 		'tip' => '这是多行文本组件' 
 	) 
