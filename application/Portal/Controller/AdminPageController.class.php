@@ -130,7 +130,9 @@ class AdminPageController extends AdminbaseController {
 			$_POST['post']['post_date']=date("Y-m-d H:i:s",time());
 			$_POST['post']['smeta']=json_encode($_POST['smeta']);
 			$_POST['post']['post_author']=get_current_admin_id();
-			$result=$this->posts_obj->add($_POST['post']);
+			$page=I("post.post");
+			$page['post_content']=htmlspecialchars_decode($page['post_content']);
+			$result=$this->posts_obj->add($page);
 			if ($result) {
 				$this->success("添加成功！");
 			} else {
@@ -161,7 +163,9 @@ class AdminPageController extends AdminbaseController {
 			
 			$_POST['post']['smeta']=json_encode($_POST['smeta']);
 			unset($_POST['post']['post_author']);
-			$result=$this->posts_obj->save($_POST['post']);
+			$page=I("post.post");
+			$page['post_content']=htmlspecialchars_decode($page['post_content']);
+			$result=$this->posts_obj->save($page);
 			if ($result !== false) {
 				//
 				$this->success("保存成功！");
