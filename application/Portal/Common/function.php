@@ -264,17 +264,6 @@ function sp_sql_posts_paged_bycatid($cid,$tag,$pagesize=20,$pagetpl='{first}{pre
 
 }
 /**
- * @字符串截取函数
- * @用法示例{$vo.post_excerpt|subtext=10} 
- * @return 截取后字符串
- */
-function subtext($text,$length)
-{
-    if(mb_strlen($text, 'utf8') > $length)
-        return mb_substr($text, 0, $length, 'utf8').'...';
-    return $text;
-}
-/**
  * @param int $tid 分类表下的tid.
  * @param string $tag 
  * @处理标签函数
