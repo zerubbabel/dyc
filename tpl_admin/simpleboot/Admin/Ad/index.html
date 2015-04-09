@@ -11,8 +11,15 @@
       	<php>
         		$status=array("1"=>"显示","0"=>"隐藏");
         </php>
-	    <table width="100%" class="table table-hover">
+	    <table width="100%" class="table table-hover table-bordered">
 	        <thead>
+	        	<tr>
+	        		<td colspan="6">
+	        			<label class="checkbox inline" for="check_all"><input type="checkbox" class="J_check_all" data-direction="y" data-checklist="J_check_y" id="check_all">全选</label>  
+	        			<button class="btn btn-primary J_ajax_submit_btn" type="submit" data-action="{:u('ad/toggle',array('display'=>1))}" data-subcheck="true" >显示</button>
+        				<button class="btn btn-primary J_ajax_submit_btn" type="submit" data-action="{:u('ad/toggle',array('hide'=>1))}" data-subcheck="true" >隐藏</button>
+	        		</td>
+	          	</tr>
 	          <tr>
 	          	<th width="16"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></th>
 	            <th width="50">ID</th>

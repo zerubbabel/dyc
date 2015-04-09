@@ -18,8 +18,14 @@
   </form>
   <form class="J_ajaxForm" action="" method="post">
     <div class="table_list">
-      <table width="100%" class="table table-hover">
+      <table width="100%" class="table table-hover table-bordered">
         <thead>
+        	<tr>
+          		<td colspan="6">
+          			<label class="checkbox inline" for="check_all"><input type="checkbox" class="J_check_all" data-direction="y" data-checklist="J_check_y" id="check_all">全选</label>                
+        			<button class="btn J_ajax_submit_btn btn-primary" type="submit" data-action="{:U('AdminPage/clean')}" data-subcheck="true">删除</button>
+          		</td>
+          	</tr>
 	          <tr>
 	            <td width="16"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></td>
 	            <td width="100">ID</td>
