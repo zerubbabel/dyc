@@ -44,7 +44,7 @@ class AdminPostController extends AdminbaseController {
 			$_POST['post']['post_date']=date("Y-m-d H:i:s",time());
 			$_POST['post']['post_author']=get_current_admin_id();
 			$article=I("post.post");
-			$article['smeta']==json_encode($_POST['smeta']);
+			$article['smeta']=json_encode($_POST['smeta']);
 			$article['post_content']=htmlspecialchars_decode($article['post_content']);
 			$result=$this->posts_obj->add($article);
 			if ($result) {
@@ -99,7 +99,7 @@ class AdminPostController extends AdminbaseController {
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
 			unset($_POST['post']['post_author']);
 			$article=I("post.post");
-			$article['smeta']==json_encode($_POST['smeta']);
+			$article['smeta']=json_encode($_POST['smeta']);
 			$article['post_content']=htmlspecialchars_decode($article['post_content']);
 			$result=$this->posts_obj->save($article);
 			if ($result!==false) {
