@@ -25,7 +25,7 @@ var GV = {
 		
 		$.post("{:U('user/index/is_login')}",{},function(data){
 			if(data.status==1){
-				if(data.user.avatar!=""){
+				if(data.user.avatar){
 					$("#main-menu-user .headicon").attr("src",data.user.avatar.indexOf("http")==0?data.user.avatar:"__UPLOAD__avatar/"+data.user.avatar);
 				}
 				
