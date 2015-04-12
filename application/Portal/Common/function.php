@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * 查询文章列表，不做分页<br>
  * @处理标签函数
  * @以字符串方式传入,通过sp_param_lable函数解析为以下变量
  * ids:调用指定id的一个或多个数据,如 1,2,3
@@ -8,6 +9,8 @@
  * field:调用post指定字段,如(id,post_title...) 默认全部
  * limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
  * order:推荐方式(post_date) (desc/asc/rand())
+ * 
+ * $where:查询条件，（暂只支持数组），格式和thinkphp where方法一样；
  */
 function sp_sql_posts($tag,$where=array()){
 	if(!is_array($where)){
@@ -131,6 +134,8 @@ function sp_sql_posts_bycatid($cid,$tag,$where=array()){
 }
 
 /**
+ * 文章分页查询方法
+ * @param string $tag
  * @ 处理标签函数
  * @ $tag以字符串方式传入,通过sp_param_lable函数解析为以下变量。例："cid:1,2;order:post_date desc,listorder desc;"
  * ids:调用指定id的一个或多个数据,如 1,2,3
@@ -138,6 +143,10 @@ function sp_sql_posts_bycatid($cid,$tag,$where=array()){
  * field:调用post指定字段,如(id,post_title...) 默认全部
  * limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
  * order:推荐方式(post_date) (desc/asc/rand())
+ * @param int $pagesize
+ * @param string $pagetpl
+ * @return array
+ 
  */
 
 function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
@@ -182,15 +191,16 @@ function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}
 }
 
 /**
- * 功能：根据关键字 搜索文章（包含子分类中文章），已经分页，调用方式同sp_sql_posts_paged
- * create by WelkinVan 2014-12-04
- * param string $keyword 关键字.
- * param string $tag 以字符串方式传入,例："order:post_date desc,listorder desc;"
- * 		field:调用post指定字段,如(id,post_title...) 默认全部
- * 		limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
- * 		order:推荐方式(post_date) (desc/asc/rand())
- * param int $pagesize 分页数字.
- * param string $pagetpl 以字符串方式传入,例："{first}{prev}{liststart}{list}{listend}{next}{last}"
+ * 功能：根据关键字 搜索文章（包含子分类中文章），已经分页，调用方式同sp_sql_posts_paged<br>
+ * @author WelkinVan 2014-12-04
+ * @param string $keyword 关键字.
+ * @param string $tag 以字符串方式传入,例："order:post_date desc,listorder desc;"<br>
+ * 		field:调用post指定字段,如(id,post_title...) 默认全部<br>
+ * 		limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)<br>
+ * 		order:推荐方式(post_date) (desc/asc/rand())<br>
+ * 		where:查询条件，字符串形式，和sql语句一样
+ * @param int $pagesize 分页数字.
+ * @param string $pagetpl 以字符串方式传入,例："{first}{prev}{liststart}{list}{listend}{next}{last}"
  */
 function sp_sql_posts_paged_bykeyword($keyword,$tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
 	$where=array();
@@ -234,15 +244,16 @@ function sp_sql_posts_paged_bykeyword($keyword,$tag,$pagesize=20,$pagetpl='{firs
 }
 
 /**
- * 功能：根据分类文章分类ID 获取该分类下所有文章（包含子分类中文章），已经分页，调用方式同sp_sql_posts_paged
- * create by labulaka 2014-11-09 14:30:49
- * param int $tid 文章分类ID.
- * param string $tag 以字符串方式传入,例："order:post_date desc,listorder desc;"
- * 		field:调用post指定字段,如(id,post_title...) 默认全部
- * 		limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
- * 		order:推荐方式(post_date) (desc/asc/rand())
- * param int $pagesize 分页数字.
- * param string $pagetpl 以字符串方式传入,例："{first}{prev}{liststart}{list}{listend}{next}{last}"
+ * 功能：根据分类文章分类ID 获取该分类下所有文章（包含子分类中文章），已经分页，调用方式同sp_sql_posts_paged<br>
+ * @author labulaka 2014-11-09 14:30:49
+ * @param int $tid 文章分类ID.
+ * @param string $tag 以字符串方式传入,例："order:post_date desc,listorder desc;"<br>
+ * 		field:调用post指定字段,如(id,post_title...) 默认全部<br>
+ * 		limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)<br>
+ * 		order:推荐方式(post_date) (desc/asc/rand())<br>
+ *		where:查询条件，字符串形式，和sql语句一样
+ * @param int $pagesize 每页条数.
+ * @param string $pagetpl 以字符串方式传入,例："{first}{prev}{liststart}{list}{listend}{next}{last}"
  */
 
 function sp_sql_posts_paged_bycatid($cid,$tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
@@ -265,9 +276,7 @@ function sp_sql_posts_paged_bycatid($cid,$tag,$pagesize=20,$pagetpl='{first}{pre
 }
 /**
  * @param int $tid 分类表下的tid.
- * @param string $tag 
- * @处理标签函数
- * @以字符串方式传入,通过sp_param_lable函数解析为以下变量
+ * @param string $tag 查询标签，以字符串方式传入,通过sp_param_lable函数解析为以下变量
  * field:调用post指定字段,如(id,post_title...) 默认全部
  * 如：field:post_title;
  * @return array 返回指定id所有页面
@@ -277,24 +286,21 @@ function sp_sql_post($tid,$tag){
 	$tag=sp_param_lable($tag);
 	$field = !empty($tag['field']) ? $tag['field'] : '*';
 
-
 	//根据参数生成查询条件
 	$where['status'] = array('eq',1);
 	$where['tid'] = array('eq',$tid);
 
-
 	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
 	$join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
-	$rs= M("TermRelationships");
+	$term_relationships_model= M("TermRelationships");
 
-	$posts=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->find();
-	return $posts;
+	$post=$term_relationships_model->alias("a")->join($join)->join($join2)->field($field)->where($where)->find();
+	return $post;
 }
 
 /**
- * @处理标签函数
- * @以字符串方式传入,通过sp_param_lable函数解析为以下变量
- * 返回符合条件的所有页面
+ * 获取指定条件的页面列表
+ * @param string $tag 查询标签， 以字符串方式传入,通过sp_param_lable函数解析为以下变量
  * ids:调用指定id的一个或多个数据,如 1,2,3
  * field:调用post指定字段,如(id,post_title...) 默认全部
  * limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
@@ -308,21 +314,22 @@ function sp_sql_pages($tag){
 	$limit = !empty($tag['limit']) ? $tag['limit'] : '';
 	$order = !empty($tag['order']) ? $tag['order'] : 'post_date';
 
-
 	//根据参数生成查询条件
 	$where['post_status'] = array('eq',1);
 	$where['post_type'] = array('eq',2);
+	
+	if (isset($tag['ids'])) {
+		$where['id'] = array('in',$tag['ids']);
+	}
 
-	$rs= M("Posts");
+	$posts_model= M("Posts");
 
-	$posts=$rs->field($field)->where($where)->order($order)->limit($limit)->select();
-	return $posts;
+	$pages=$posts_model->field($field)->where($where)->order($order)->limit($limit)->select();
+	return $$pages;
 }
 
 /**
- * @处理标签函数
- * @以字符串方式传入,通过sp_param_lable函数解析为以下变量
- * 返回指定id=$id的页面
+ * 获取指定id的页面
  */
 function sp_sql_page($id){
 	$where=array();

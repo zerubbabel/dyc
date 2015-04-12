@@ -21,6 +21,7 @@ class AdminPostController extends AdminbaseController {
 	function add(){
 		$terms = $this->terms_obj->order(array("listorder"=>"asc"))->select();
 		$term_id = intval(I("get.term"));
+		$this->_getTermTree();
 		$term=$this->terms_obj->where("term_id=$term_id")->find();
 		$this->assign("author","1");
 		$this->assign("term",$term);
@@ -65,7 +66,7 @@ class AdminPostController extends AdminbaseController {
 		$id=  intval(I("get.id"));
 		
 		$term_relationship = M('TermRelationships')->where("object_id=$id")->getField("term_id",true);
-		
+		$this->_getTermTree($term_relationship);
 		$terms=$this->terms_obj->select();
 		$post=$this->posts_obj->where("id=$id")->find();
 		$this->assign("post",$post);
@@ -215,6 +216,30 @@ class AdminPostController extends AdminbaseController {
 		
 		$tree->init($array);
 		$str="<option value='\$id' \$selected>\$spacer\$name</option>";
+		$taxonomys = $tree->get_tree(0, $str);
+		$this->assign("taxonomys", $taxonomys);
+	}
+	
+	private function _getTermTree($term=array()){
+		$result = $this->terms_obj->order(array("listorder"=>"asc"))->select();
+		
+		$tree = new \Tree();
+		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
+		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
+		foreach ($result as $r) {
+			$r['str_manage'] = '<a href="' . U("AdminTerm/add", array("parent" => $r['term_id'])) . '">添加子类</a> | <a href="' . U("AdminTerm/edit", array("id" => $r['term_id'])) . '">修改</a> | <a class="J_ajax_del" href="' . U("AdminTerm/delete", array("id" => $r['term_id'])) . '">删除</a> ';
+			$r['visit'] = "<a href='#'>访问</a>";
+			$r['taxonomys'] = $this->taxonomys[$r['taxonomy']];
+			$r['id']=$r['term_id'];
+			$r['parentid']=$r['parent'];
+			$r['selected']=in_array($r['term_id'], $term)?"selected":"";
+			$r['checked'] =in_array($r['term_id'], $term)?"checked":"";
+			$array[] = $r;
+		}
+		
+		$tree->init($array);
+		$str="<option value='\$id' \$selected>\$spacer\$name</option>";
+		//$str="<label class='checkbox'><input type='checkbox' value='\$id' name='term[]' \$checked>\$spacer\$name</label>";
 		$taxonomys = $tree->get_tree(0, $str);
 		$this->assign("taxonomys", $taxonomys);
 	}
