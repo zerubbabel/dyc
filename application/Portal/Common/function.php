@@ -163,7 +163,7 @@ function sp_sql_posts_bycatid($cid,$tag,$where=array()){
  *	where:查询条件，字符串形式，和sql语句一样
  * @param int $pagesize 每页条数.
  * @param string $pagetpl 以字符串方式传入,例："{first}{prev}{liststart}{list}{listend}{next}{last}"
- * @return array
+ * @return array 带分页数据的文章列表
  
  */
 
@@ -208,6 +208,7 @@ function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}
 
 	$content['posts']=$posts;
 	$content['page']=$page->show('default');
+	$content['count']=$totalsize;
 	return $content;
 }
 
