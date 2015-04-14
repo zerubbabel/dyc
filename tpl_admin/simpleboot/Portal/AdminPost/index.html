@@ -45,6 +45,7 @@
 	            <th width="15"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></th>
                 <th width="50">排序</th>
 	            <th width="50">ID</th>
+                <th width="70">文章分类</th>
 	            <th>标题</th>
 	            <th width="50">点击量</th>
                 <th width="50">评论量</th>
@@ -62,12 +63,14 @@
         		$status=array("1"=>"已审核","0"=>"未审核");
         		$top_status=array("1"=>"已置顶","0"=>"未置顶");
         		$recommend_status=array("1"=>"已推荐","0"=>"未推荐");
+                $t=0;
         	</php>
         	<foreach name="posts" item="vo">
 	        	<tr>
 		            <td><input type="checkbox" class="J_check" data-yid="J_check_y" data-xid="J_check_x" name="ids[]" value="{$vo.tid}" ></td>
 		            <td><input name='listorders[{$vo.tid}]' class="input input-order"  type='text' size='3' value='{$vo.listorder}'></td>
 		            <td><a>{$vo.tid}</a></td>
+    	            <td><a href="{:u('list/index',array('id'=>$terms[$t]['term_id']))}" target="_blank">{$terms[$t]['name']}</a></td>
 		            <td>
 		            	<a href="{:U('portal/article/index',array('id'=>$vo['tid']))}" target="_blank">
 		            		<span>{$vo.post_title}</span>
@@ -93,6 +96,7 @@
 		            	<a href="{:U('AdminPost/delete',array('term'=>empty($term['term_id'])?'':$term['term_id'],'tid'=>$vo['tid']))}" class="J_ajax_del" >删除</a>
 					</td>
 	          	</tr>
+                  <php>$t++;</php>
           </foreach>
           	<tr>
           		<td colspan="14">
