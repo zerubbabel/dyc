@@ -189,7 +189,7 @@ class AdminPostController extends AdminbaseController {
 		foreach ($users_data as $u){
 			$users[$u['id']]=$u;
 		}
-    	/*$terms = $this->terms_obj
+    	/**$terms = $this->terms_obj
 		*->field("term_id,name")
 		*->order(array("term_id = $term_id"))
 		*->limit($page->firstRow . ',' . $page->listRows)
