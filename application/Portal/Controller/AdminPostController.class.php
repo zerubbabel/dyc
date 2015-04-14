@@ -189,13 +189,14 @@ class AdminPostController extends AdminbaseController {
 		foreach ($users_data as $u){
 			$users[$u['id']]=$u;
 		}
-    	$terms = $this->terms_obj
-		->field("term_id,name")
-		->order(array("term_id = $term_id"))
-		->limit($page->firstRow . ',' . $page->listRows)
-		->select();	
+    	/**$terms = $this->terms_obj
+		*->field("term_id,name")
+		*->order(array("term_id = $term_id"))
+		*->limit($page->firstRow . ',' . $page->listRows)
+		*->select();
+        */
 		$this->assign("users",$users);
-    	$this->assign("terms",$terms);
+    	//$this->assign("terms",$terms);
 		$this->assign("Page", $page->show('Admin'));
 		$this->assign("current_page",$page->GetCurrentPage());
 		unset($_GET[C('VAR_URL_PARAMS')]);
