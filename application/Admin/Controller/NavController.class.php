@@ -249,7 +249,6 @@ class NavController extends AdminbaseController {
 	
 	private function _select(){
 		$apps=sp_scan_dir(SPAPP."*");
-		$host=(is_ssl() ? 'https' : 'http')."://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'];
 		$navs=array();
 		foreach ($apps as $a){
 		
@@ -260,8 +259,7 @@ class NavController extends AdminbaseController {
 					if(file_exists($navfile)){
 						$navgeturls=include $navfile;
 						foreach ($navgeturls as $url){
-							//echo U("$app/$url");
-							$nav= file_get_contents($host.U("$app/$url"));
+							$nav= file_get_contents(U("$app/$url",array(),false,true));
 							$nav=json_decode($nav,true);
 							$navs[]=$nav;
 						}
