@@ -14,12 +14,6 @@ class AdminTermController extends AdminbaseController {
 	function index(){
 		$result = $this->terms_obj->order(array("listorder"=>"asc"))->select();
 		
-       /*  $tree = new PathTree();
-        $tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-        $tree->nbsp = '---';
-       	$tree->init($result);
-       	$tree=$tree->get_tree();
-       	$this->assign("terms",$tree); */
 		$tree = new \Tree();
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
@@ -45,19 +39,27 @@ class AdminTermController extends AdminbaseController {
 		$taxonomys = $tree->get_tree(0, $str);
 		$this->assign("taxonomys", $taxonomys);
 		$this->display();
-        //$this->display();
 	}
 	
 	
 	function add(){
 	 	$parentid = intval(I("get.parent"));
-	 	$tree = new \PathTree();
+	 	$tree = new \Tree();
 	 	$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-	 	$tree->nbsp = '---';
-	 	$result = $this->terms_obj->order(array("path"=>"asc"))->select();
-	 	$tree->init($result);
-	 	$tree=$tree->get_tree();
-	 	$this->assign("terms",$tree);
+	 	$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
+	 	$terms = $this->terms_obj->order(array("path"=>"asc"))->select();
+	 	
+	 	$new_terms=array();
+	 	foreach ($terms as $r) {
+	 		$r['id']=$r['term_id'];
+	 		$r['parentid']=$r['parent'];
+	 		$new_terms[] = $r;
+	 	}
+	 	$tree->init($new_terms);
+	 	$tree_tpl="<option value='\$id'>\$spacer\$name</option>";
+	 	$tree=$tree->get_tree(0,$tree_tpl);
+	 	
+	 	$this->assign("terms_tree",$tree);
 	 	$this->assign("parent",$parentid);
 	 	$this->display();
 	}
@@ -78,15 +80,25 @@ class AdminTermController extends AdminbaseController {
 	
 	function edit(){
 		$id = intval(I("get.id"));
-		$tree = new \PathTree();
-		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-		$tree->nbsp = '---';
-		$result = $this->terms_obj->where(array("term_id" => array("NEQ",$id), "path"=>array("notlike","%-$id-%")))->order(array("path"=>"asc"))->select();
-		$tree->init($result);
-		$tree=$tree->get_tree();
-		
 		$data=$this->terms_obj->where(array("term_id" => $id))->find();
-		$this->assign("terms",$tree);
+		$tree = new \Tree();
+		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
+		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
+		$terms = $this->terms_obj->where(array("term_id" => array("NEQ",$id), "path"=>array("notlike","%-$id-%")))->order(array("path"=>"asc"))->select();
+		
+		$new_terms=array();
+		foreach ($terms as $r) {
+			$r['id']=$r['term_id'];
+			$r['parentid']=$r['parent'];
+			$r['selected']=$data['parent']==$r['term_id']?"selected":"";
+			$new_terms[] = $r;
+		}
+		
+		$tree->init($new_terms);
+		$tree_tpl="<option value='\$id' \$selected>\$spacer\$name</option>";
+		$tree=$tree->get_tree(0,$tree_tpl);
+		
+		$this->assign("terms_tree",$tree);
 		$this->assign("data",$data);
 		$this->display();
 	}
@@ -121,9 +133,11 @@ class AdminTermController extends AdminbaseController {
 	public function delete() {
 		$id = intval(I("get.id"));
 		$count = $this->terms_obj->where(array("parent" => $id))->count();
+		
 		if ($count > 0) {
 			$this->error("该菜单下还有子类，无法删除！");
 		}
+		
 		if ($this->terms_obj->delete($id)!==false) {
 			$this->success("删除成功！");
 		} else {
@@ -131,27 +145,4 @@ class AdminTermController extends AdminbaseController {
 		}
 	}
 	
-	/* public function show(){
-		$result = $this->terms_obj->order(array("listorder"=>"asc"))->select();
-		$tree = new \Tree();
-		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
-		foreach ($result as $r) {
-			$r['id']=$r['term_id'];
-			$r['parentid']=$r['parent'];
-			$name=$r['name'];
-			$url=U('post/lists',array('term'=>$r['term_id']));
-			$r['name']="<a class='term_link' href='$url' >$name</a>";
-			$array[$r['term_id']] = $r;
-		}
-		$str = "<tr>
-				<td >\$spacer\$name</td>
-				</tr>";
-		$tree->init($array);
-		
-		$categorys = $tree->get_tree(0, $str);;
-			
-		$this->assign("categorys", $categorys);
-		$this->display();
-	} */
 }

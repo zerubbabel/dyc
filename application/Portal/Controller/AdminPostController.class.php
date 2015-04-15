@@ -65,7 +65,7 @@ class AdminPostController extends AdminbaseController {
 	public function edit(){
 		$id=  intval(I("get.id"));
 		
-		$term_relationship = M('TermRelationships')->where("object_id=$id")->getField("term_id",true);
+		$term_relationship = M('TermRelationships')->where(array("object_id"=>$id,"status"=>1))->getField("term_id",true);
 		$this->_getTermTree($term_relationship);
 		$terms=$this->terms_obj->select();
 		$post=$this->posts_obj->where("id=$id")->find();
@@ -88,6 +88,8 @@ class AdminPostController extends AdminbaseController {
 				$find_term_relationship=$this->terms_relationship->where(array("object_id"=>$post_id,"term_id"=>$mterm_id))->count();
 				if(empty($find_term_relationship)){
 					$this->terms_relationship->add(array("term_id"=>intval($mterm_id),"object_id"=>$post_id));
+				}else{
+					$this->terms_relationship->where(array("object_id"=>$post_id,"term_id"=>$mterm_id))->save(array("status"=>1));
 				}
 			}
 			
@@ -246,7 +248,6 @@ class AdminPostController extends AdminbaseController {
 		
 		$tree->init($array);
 		$str="<option value='\$id' \$selected>\$spacer\$name</option>";
-		//$str="<label class='checkbox'><input type='checkbox' value='\$id' name='term[]' \$checked>\$spacer\$name</label>";
 		$taxonomys = $tree->get_tree(0, $str);
 		$this->assign("taxonomys", $taxonomys);
 	}
@@ -377,14 +378,11 @@ class AdminPostController extends AdminbaseController {
 		}
 	}
 	
-	
-	
-	
 	function move(){
 		if(IS_POST){
 			if(isset($_GET['ids']) && isset($_POST['term_id'])){
 				$tids=$_GET['ids'];
-				if ( $this->terms_relationship->where("tid in ($tids)")->save($_POST)) {
+				if ( $this->terms_relationship->where("tid in ($tids)")->save($_POST) !== false) {
 					$this->success("移动成功！");
 				} else {
 					$this->error("移动失败！");
@@ -392,14 +390,22 @@ class AdminPostController extends AdminbaseController {
 			}
 		}else{
 			$parentid = intval(I("get.parent"));
-			$tree = new \PathTree();
-			$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
-			$tree->nbsp = '---';
-			$result =$this->terms_obj->order(array("path"=>"asc"))->select();
-			$tree->init($result);
-			$tree=$tree->get_tree();
-			$this->assign("terms",$tree);
 			
+			$tree = new \Tree();
+			$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
+			$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
+			$terms = $this->terms_obj->order(array("path"=>"asc"))->select();
+			$new_terms=array();
+			foreach ($terms as $r) {
+				$r['id']=$r['term_id'];
+				$r['parentid']=$r['parent'];
+				$new_terms[] = $r;
+			}
+			$tree->init($new_terms);
+			$tree_tpl="<option value='\$id'>\$spacer\$name</option>";
+			$tree=$tree->get_tree(0,$tree_tpl);
+			 
+			$this->assign("terms_tree",$tree);
 			$this->display();
 		}
 	}
@@ -453,7 +459,5 @@ class AdminPostController extends AdminbaseController {
 			}
 		}
 	}
-	
-	
 	
 }
