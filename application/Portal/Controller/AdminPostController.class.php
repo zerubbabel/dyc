@@ -425,7 +425,14 @@ class AdminPostController extends AdminbaseController {
 			$data=array("post_status"=>"0");
 			$status=$this->terms_relationship->where("tid in ($tids)")->delete();
 			if($status!==false){
-				$status=$this->posts_obj->where("id in ($ids)")->delete();
+				foreach ($_POST['ids'] as $post_id){
+					$post_id=intval($post_id);
+					$count=$this->terms_relationship->where(array("object_id"=>$post_id))->count();
+					if(empty($count)){
+						$status=$this->posts_obj->where(array("id"=>$post_id))->delete();
+					}
+				}
+				
 			}
 			
 			if ($status!==false) {
@@ -439,7 +446,11 @@ class AdminPostController extends AdminbaseController {
 				$tid = intval(I("get.tid"));
 				$status=$this->terms_relationship->where("tid = $tid")->delete();
 				if($status!==false){
-					$status=$this->posts_obj->where("id=$id")->delete();
+					$count=$this->terms_relationship->where(array("object_id"=>$post_id))->count();
+					if(empty($count)){
+						$status=$this->posts_obj->where("id=$id")->delete();
+					}
+					
 				}
 				if ($status!==false) {
 					$this->success("删除成功！");
