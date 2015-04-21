@@ -37,7 +37,7 @@ $configs= array(
 		'VAR_ACTION'            =>  'a',    // 默认操作获取变量
 		
 		'APP_USE_NAMESPACE'     =>   true, // 关闭应用的命名空间定义
-		'APP_AUTOLOAD_LAYER'    =>  'Action,Model', // 模块自动加载的类库后缀
+		'APP_AUTOLOAD_LAYER'    =>  'Controller,Model', // 模块自动加载的类库后缀
 		
 		'SP_TMPL_PATH'     		=> 'tpl/',       // 前台模板文件根目录
 		'SP_DEFAULT_THEME'		=> 'simplebootx',       // 前台模板文件
