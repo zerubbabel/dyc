@@ -118,6 +118,7 @@ class UserController extends AdminbaseController{
 		}
 		
 		if ($this->users_model->where("id=$id")->delete()!==false) {
+			M("RoleUser")->where(array("user_id"=>$id))->delete();
 			$this->success("删除成功！");
 		} else {
 			$this->error("删除失败！");
