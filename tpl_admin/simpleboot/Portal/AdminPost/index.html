@@ -32,7 +32,7 @@
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/recommend',array('recommend'=>1))}" data-subcheck="true">推荐</button>
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/recommend',array('unrecommend'=>1))}" data-subcheck="true">取消推荐</button>
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/delete')}" data-subcheck="true" data-msg="你确定删除吗？">删除</button>
-				<button class="btn btn-primary btn-small" type="button" id="J_Content_remove">批量移动</button>
+				<button class="btn btn-primary btn-small J_articles_move" type="button">批量移动</button>
 			</div>
 			<table class="table table-hover table-bordered table-list">
 				<thead>
@@ -112,7 +112,7 @@
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/recommend',array('recommend'=>1))}" data-subcheck="true">推荐</button>
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/recommend',array('unrecommend'=>1))}" data-subcheck="true">取消推荐</button>
 				<button class="btn btn-primary btn-small J_ajax_submit_btn" type="submit" data-action="{:U('AdminPost/delete')}" data-subcheck="true" data-msg="你确定删除吗？">删除</button>
-				<button class="btn btn-primary btn-small" type="button" id="J_Content_remove">批量移动</button>
+				<button class="btn btn-primary btn-small J_articles_move" type="button">批量移动</button>
 			</div>
 			<div class="pagination">{$Page}</div>
 
@@ -133,7 +133,7 @@
 			setCookie("refersh_time", 0);
 			Wind.use('ajaxForm', 'artDialog', 'iframeTools', function() {
 				//批量移动
-				$('#J_Content_remove').click(
+				$('.J_articles_move').click(
 						function(e) {
 							var str = 0;
 							var id = tag = '';
