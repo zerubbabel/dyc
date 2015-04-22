@@ -446,7 +446,7 @@ class AdminPostController extends AdminbaseController {
 				$tid = intval(I("get.tid"));
 				$status=$this->term_relationships_model->where("tid = $tid")->delete();
 				if($status!==false){
-					$count=$this->term_relationships_model->where(array("object_id"=>$post_id))->count();
+					$count=$this->term_relationships_model->where(array("object_id"=>$id))->count();
 					if(empty($count)){
 						$status=$this->posts_model->where("id=$id")->delete();
 					}
