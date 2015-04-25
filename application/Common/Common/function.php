@@ -191,7 +191,17 @@ function sp_save_var($path,$value){
 	return $ret;
 }
 
+/**
+ * 更新系统配置文件
+ * @param array $data <br>如：array("URL_MODEL"=>0);
+ * @return boolean
+ */
 function sp_set_dynamic_config($data){
+	
+	if(!is_array($data)){
+		return false;
+	}
+	
 	if(sp_is_sae()){
 		$kv = new SaeKV();
 		$ret = $kv->init();
