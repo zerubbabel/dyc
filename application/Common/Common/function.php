@@ -290,7 +290,7 @@ function sp_set_cmf_setting($data){
 	$find_setting=$options_model->where("option_name='cmf_settings'")->find();
 	F("cmf_settings",null);
 	if($find_setting){
-		$setting=json_decode($find_setting,true);
+		$setting=json_decode($find_setting['option_value'],true);
 		if($setting){
 			$setting=array_merge($setting,$data);
 		}else {
