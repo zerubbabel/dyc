@@ -457,13 +457,13 @@ function sp_get_menu_tree($id="main"){
 
 
 /**
- * 11
+ *获取html文本里的img
  * @param string $content
  * @return array
  */
 function sp_getcontent_imgs($content){
 	import("phpQuery");
-	phpQuery::newDocumentHTML($content);
+	\phpQuery::newDocumentHTML($content);
 	$pq=pq();
 	$imgs=$pq->find("img");
 	$imgs_data=array();
@@ -476,7 +476,7 @@ function sp_getcontent_imgs($content){
 			$imgs_data[]=$im;
 		}
 	}
-	phpQuery::$documents=null;
+	\phpQuery::$documents=null;
 	return $imgs_data;
 }
 
