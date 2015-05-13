@@ -83,7 +83,7 @@ class HomeBaseController extends AppframeController {
 		$send_result=sp_send_email($_SESSION['user']['user_email'], $title, $content);
 	
 		if($send_result['error']){
-			$this->error('激活邮件发送失败！');
+			$this->error('激活邮件发送失败，请尝试登录后，手动发送激活邮件！');
 		}
 	}
 	
