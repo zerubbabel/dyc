@@ -1482,3 +1482,53 @@ function sp_check_verify_code(){
 	$verify = new \Think\Verify();
 	return $verify->check($_REQUEST['verify'], "");
 }
+/**
+ * 执行SQL文件  sae 环境下file_get_contents() 函数好像有间歇性bug。
+ * Author: 5iymt <1145769693@qq.com>
+ */
+function execute_sql_file($sql_path) {
+    	
+	$context = stream_context_create ( array (
+			'http' => array (
+					'timeout' => 30 
+			) 
+	) ) ;// 超时时间，单位为秒
+	
+	// 读取SQL文件
+	$sql = file_get_contents ( $sql_path, 0, $context );
+	$sql = str_replace ( "\r", "\n", $sql );
+	$sql = explode ( ";\n", $sql );
+	
+	// 替换表前缀
+	$orginal = 'sp_';
+	$prefix = C ( 'DB_PREFIX' );
+	$sql = str_replace ( "{$orginal}", "{$prefix}", $sql );
+	
+	// 开始安装
+	foreach ( $sql as $value ) {
+		$value = trim ( $value );
+		if (empty ( $value )){
+			continue;
+		}
+		$res = M ()->execute ( $value );
+	}
+}
+/**
+ * 插件R方法扩展 建立多插件之间的互相调用。提供无限可能
+ * 使用方式 get_plugns_return('Chat://Index/index',array())
+ * Author: 5iymt <1145769693@qq.com>
+ */
+function sp_get_plugns_return($url, $params = array()){
+	$url        = parse_url($url);
+	$case       = C('URL_CASE_INSENSITIVE');
+	$plugin     = $case ? parse_name($url['scheme']) : $url['scheme'];
+	$controller = $case ? parse_name($url['host']) : $url['host'];
+	$action     = trim($case ? strtolower($url['path']) : $url['path'], '/');
+	
+	/* 解析URL带的参数 */
+	if(isset($url['query'])){
+		parse_str($url['query'], $query);
+		$params = array_merge($query, $params);
+	}
+	return R("plugins://{$plugin}/{$controller}/{$action}", $params);
+}
