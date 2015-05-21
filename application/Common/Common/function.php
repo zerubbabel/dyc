@@ -1482,11 +1482,13 @@ function sp_check_verify_code(){
 	$verify = new \Think\Verify();
 	return $verify->check($_REQUEST['verify'], "");
 }
+
 /**
  * 执行SQL文件  sae 环境下file_get_contents() 函数好像有间歇性bug。
- * Author: 5iymt <1145769693@qq.com>
+ * @param string $sql_path sql文件路径
+ * @author 5iymt <1145769693@qq.com>
  */
-function execute_sql_file($sql_path) {
+function sp_execute_sql_file($sql_path) {
     	
 	$context = stream_context_create ( array (
 			'http' => array (
@@ -1513,12 +1515,15 @@ function execute_sql_file($sql_path) {
 		$res = M ()->execute ( $value );
 	}
 }
+
 /**
  * 插件R方法扩展 建立多插件之间的互相调用。提供无限可能
  * 使用方式 get_plugns_return('Chat://Index/index',array())
- * Author: 5iymt <1145769693@qq.com>
+ * @param string $url 调用地址
+ * @param array $params 调用参数
+ * @author 5iymt <1145769693@qq.com>
  */
-function sp_get_plugns_return($url, $params = array()){
+function sp_get_plugins_return($url, $params = array()){
 	$url        = parse_url($url);
 	$case       = C('URL_CASE_INSENSITIVE');
 	$plugin     = $case ? parse_name($url['scheme']) : $url['scheme'];
