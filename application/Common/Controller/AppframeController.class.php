@@ -29,6 +29,8 @@ class AppframeController extends Controller {
         //获取令牌
         $tokenValue = $tokenAray[$tokenKey];
         return $tokenKey . '_' . $tokenValue;
+        
+        $this->ajaxReturn(array("data"=>$data,"status"=>1));
     }
 
     /**

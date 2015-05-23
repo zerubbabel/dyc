@@ -574,10 +574,10 @@ function sp_get_apphome_tpl($tplname,$default_tplname,$default_theme=""){
 	}
 	$theme=empty($default_theme)?$theme:$default_theme;
 	$themepath=C("SP_TMPL_PATH").$theme."/".MODULE_NAME."/";
-	$tplpath=$themepath.$tplname.C("TMPL_TEMPLATE_SUFFIX");
-	$defaultpl=$themepath.$default_tplname.C("TMPL_TEMPLATE_SUFFIX");
-	if(file_exists($tplpath)){
-	}else if(file_exists($defaultpl)){
+	$tplpath = sp_add_template_file_suffix($themepath.$tplname);
+	$defaultpl = sp_add_template_file_suffix($themepath.$default_tplname);
+	if(file_exists_case($tplpath)){
+	}else if(file_exists_case($defaultpl)){
 		$tplname=$default_tplname;
 	}else{
 		$tplname="404";
@@ -1320,8 +1320,8 @@ function sp_get_hooks($refresh=false){
 	$tpls=sp_scan_dir("tpl/*",GLOB_ONLYDIR);
 	
 	foreach ($tpls as $tpl){
-		$hooks_file="tpl/$tpl/hooks".C("TMPL_TEMPLATE_SUFFIX");
-		if(is_file($hooks_file)){
+		$hooks_file= sp_add_template_file_suffix("tpl/$tpl/hooks");
+		if(file_exists_case($hooks_file)){
 			$hooks=file_get_contents($hooks_file);
 			$hooks=preg_replace("/[^0-9A-Za-z_-]/u", ",", $hooks);
 			$hooks=explode(",", $hooks);
@@ -1536,4 +1536,23 @@ function sp_get_plugins_return($url, $params = array()){
 		$params = array_merge($query, $params);
 	}
 	return R("plugins://{$plugin}/{$controller}/{$action}", $params);
+}
+
+/**
+ * 给没有后缀的模板文件，添加后缀名
+ * @param string $filename_nosuffix
+ */
+function sp_add_template_file_suffix($filename_nosuffix){
+    
+    
+    
+    if(file_exists_case($filename_nosuffix.C('TMPL_TEMPLATE_SUFFIX'))){
+        $filename_nosuffix = $filename_nosuffix.C('TMPL_TEMPLATE_SUFFIX');
+    }else if(file_exists_case($filename_nosuffix.".php")){
+        $filename_nosuffix = $filename_nosuffix.".php";
+    }else{
+        $filename_nosuffix = $filename_nosuffix.C('TMPL_TEMPLATE_SUFFIX');
+    }
+    
+    return $filename_nosuffix;
 }

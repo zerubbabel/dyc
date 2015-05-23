@@ -172,8 +172,8 @@ class HomeBaseController extends AppframeController {
 			$template = "/".CONTROLLER_NAME . $depr . $template;
 		}
 		
-		$file=$current_tmpl_path.$module.$template.C('TMPL_TEMPLATE_SUFFIX');
-		if(!is_file($file)) E(L('_TEMPLATE_NOT_EXIST_').':'.$file);
+		$file = sp_add_template_file_suffix($current_tmpl_path.$module.$template);
+		if(!file_exists_case($file)) E(L('_TEMPLATE_NOT_EXIST_').':'.$file);
 		return $file;
 	}
 	
@@ -187,15 +187,15 @@ class HomeBaseController extends AppframeController {
 		}
 		$tpl_path=C("SP_TMPL_PATH").$theme."/";
 		$defaultjump=THINK_PATH.'Tpl/dispatch_jump.tpl';
-		$action_success=$tpl_path.C("SP_TMPL_ACTION_SUCCESS").C("TMPL_TEMPLATE_SUFFIX");
-		$action_error=$tpl_path.C("SP_TMPL_ACTION_ERROR").C("TMPL_TEMPLATE_SUFFIX");
-		if(file_exists($action_success)){
+		$action_success = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_SUCCESS"));
+		$action_error = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_ERROR"));
+		if(file_exists_case($action_success)){
 			C("TMPL_ACTION_SUCCESS",$action_success);
 		}else{
 			C("TMPL_ACTION_SUCCESS",$defaultjump);
 		}
 		
-		if(file_exists($action_error)){
+		if(file_exists_case($action_error)){
 			C("TMPL_ACTION_ERROR",$action_error);
 		}else{
 			C("TMPL_ACTION_ERROR",$defaultjump);
