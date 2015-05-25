@@ -1557,3 +1557,40 @@ function sp_add_template_file_suffix($filename_nosuffix){
     
     return $filename_nosuffix;
 }
+
+/**
+ * 获取当前主题名
+ * @param string $default_theme 指定的默认模板名
+ * @return string
+ */
+function sp_get_current_theme($default_theme=''){
+    $theme      =    C('SP_DEFAULT_THEME');
+    if(C('TMPL_DETECT_THEME')){// 自动侦测模板主题
+        $t = C('VAR_TEMPLATE');
+        if (isset($_GET[$t])){
+            $theme = $_GET[$t];
+        }elseif(cookie('think_template')){
+            $theme = cookie('think_template');
+        }
+    }
+    $theme=empty($default_theme)?$theme:$default_theme;
+    
+    return $theme;
+}
+
+/**
+ * 判断模板文件是否存在，区分大小写
+ * @param string $file 模板文件路径，相对于当前模板根目录，不带模板后缀名
+ */
+function sp_template_file_exists($file){
+    $theme= sp_get_current_theme();
+    $filepath=C("SP_TMPL_PATH").$theme."/".$file;
+    $tplpath = sp_add_template_file_suffix($filepath);
+    
+    if(file_exists_case($tplpath)){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
