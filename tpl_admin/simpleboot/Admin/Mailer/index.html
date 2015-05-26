@@ -30,6 +30,13 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label">SMTP服务器端口:</label>
+						<div class="controls">
+							<input type="text" class="input mr5" name="smtp_port" value="{$Think.config.SP_MAIL_SMTP_PORT}" placeholder="默认为25"/>
+							<span class="must_red">*</span>
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label">邮箱登录帐号:</label>
 						<div class="controls">
 							<input type="text" class="input mr5" name="loginname" value="{$Think.config.SP_MAIL_LOGINNAME}" />

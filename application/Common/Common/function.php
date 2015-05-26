@@ -629,6 +629,9 @@ function sp_send_email($address,$subject,$message){
 	$mail->Subject=$subject;
 	// 设置SMTP服务器。
 	$mail->Host=C('SP_MAIL_SMTP');
+	// 设置SMTP服务器端口。
+	$port=C('SP_MAIL_SMTP_PORT');
+	$mail->Port=empty($port)?"25":$port;
 	// 设置为"需要验证"
 	$mail->SMTPAuth=true;
 	// 设置用户名和密码。
