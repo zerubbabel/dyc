@@ -105,6 +105,7 @@ class AdminbaseController extends AppframeController {
 		C('DEFAULT_THEME',$theme);
 		
 		$file = sp_add_template_file_suffix(THEME_PATH.$module.$template);
+		$file= str_replace("//",'/',$file);
 		if(!file_exists_case($file)) E(L('_TEMPLATE_NOT_EXIST_').':'.$file);
 		return $file;
     }

@@ -173,6 +173,7 @@ class HomeBaseController extends AppframeController {
 		}
 		
 		$file = sp_add_template_file_suffix($current_tmpl_path.$module.$template);
+		$file= str_replace("//",'/',$file);
 		if(!file_exists_case($file)) E(L('_TEMPLATE_NOT_EXIST_').':'.$file);
 		return $file;
 	}
