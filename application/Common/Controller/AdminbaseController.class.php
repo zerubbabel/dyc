@@ -85,6 +85,7 @@ class AdminbaseController extends AppframeController {
      */
     public function parseTemplate($template='') {
     	$tmpl_path=C("SP_ADMIN_TMPL_PATH");
+    	define("SP_TMPL_PATH", $tmpl_path);
 		// 获取当前主题名称
 		$theme      =    C('SP_ADMIN_DEFAULT_THEME');
 		
@@ -116,6 +117,7 @@ class AdminbaseController extends AppframeController {
 		
 		C('SP_VIEW_PATH',$tmpl_path);
 		C('DEFAULT_THEME',$theme);
+		define("SP_CURRENT_THEME", $theme);
 		
 		$file = sp_add_template_file_suffix(THEME_PATH.$module.$template);
 		$file= str_replace("//",'/',$file);
