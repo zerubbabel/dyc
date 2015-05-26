@@ -45,12 +45,12 @@ class HomeBaseController extends AppframeController {
 	}
 	
 	protected function  check_user(){
-		
-		if($_SESSION["user"]['user_status']==2){
+	    $user_status=M('Users')->where(array("id"=>sp_get_current_userid()))->getField("user_status");
+		if($user_status==2){
 			$this->error('您还没有激活账号，请激活后再使用！',U("user/login/active"));
 		}
 		
-		if($_SESSION["user"]['user_status']==0){
+		if($user_status==0){
 			$this->error('此账号已经被禁止使用，请联系管理员！',__ROOT__."/");
 		}
 	}
@@ -124,6 +124,7 @@ class HomeBaseController extends AppframeController {
 	public function parseTemplate($template='') {
 		
 		$tmpl_path=C("SP_TMPL_PATH");
+		define("SP_TMPL_PATH", $tmpl_path);
 		// 获取当前主题名称
 		$theme      =    C('SP_DEFAULT_THEME');
 		if(C('TMPL_DETECT_THEME')) {// 自动侦测模板主题
@@ -150,6 +151,8 @@ class HomeBaseController extends AppframeController {
 		
 		
 		
+		
+		
 		C('SP_DEFAULT_THEME',$theme);
 		
 		$current_tmpl_path=$tmpl_path.$theme."/";
@@ -160,6 +163,8 @@ class HomeBaseController extends AppframeController {
 		
 		C('SP_VIEW_PATH',$tmpl_path);
 		C('DEFAULT_THEME',$theme);
+		
+		define("SP_CURRENT_THEME", $theme);
 		
 		if(is_file($template)) {
 			return $template;
