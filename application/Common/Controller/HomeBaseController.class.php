@@ -101,6 +101,16 @@ class HomeBaseController extends AppframeController {
 		parent::display($this->parseTemplate($templateFile), $charset, $contentType);
 	}
 	
+	/**
+	 *  获取输出页面内容
+	 * 调用内置的模板引擎fetch方法，
+	 * @access protected
+	 * @param string $templateFile 指定要调用的模板文件
+	 * 默认为空 由系统自动定位模板文件
+	 * @param string $content 模板输出内容
+	 * @param string $prefix 模板缓存前缀*
+	 * @return string
+	 */
 	public function fetch($templateFile='',$content='',$prefix=''){
 		return parent::fetch($this->parseTemplate($templateFile),$content,$prefix);
 	}
