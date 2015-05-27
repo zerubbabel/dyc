@@ -47,8 +47,8 @@ class AdminPostController extends AdminbaseController {
 					$_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
 				}
 			}
-			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			 
+			//$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
+			$_POST['smeta']['thumb'] = $_POST['photos_url'][0];//默认第一张是封面
 			$_POST['post']['post_date']=date("Y-m-d H:i:s",time());
 			$_POST['post']['post_author']=get_current_admin_id();
 			$article=I("post.post");
