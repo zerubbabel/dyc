@@ -64,7 +64,7 @@ class AdminbaseController extends AppframeController {
     }
     
     /**
-     *  获取输出页面内容
+     * 获取输出页面内容
      * 调用内置的模板引擎fetch方法，
      * @access protected
      * @param string $templateFile 指定要调用的模板文件
@@ -74,7 +74,8 @@ class AdminbaseController extends AppframeController {
      * @return string
      */
     public function fetch($templateFile='',$content='',$prefix=''){
-        return parent::fetch($this->parseTemplate($templateFile),$content,$prefix);
+        $templateFile = empty($content)?$this->parseTemplate($templateFile):'';
+		return parent::fetch($templateFile,$content,$prefix);
     }
     
     /**
