@@ -4,6 +4,19 @@ ThinkCMFÊÇÒ»¿î»ùÓÚPHP+MYSQL¿ª·¢µÄÖÐÎÄÄÚÈÝ¹ÜÀí¿ò¼Ü¡£ThinkCMFÌá³öÁé»îµÄÓ¦ÓÃ»úÖÆ£¬¿
 ÎÄµµ:http://www.thinkcmf.com/index.php?m=document
 
 ## UPDATE
+X1.6.1
+* ÐÞ¸´µÇÂ¼Ê±ÈÔÈ»¿ÉÒÔ´ò¿ªµÇÂ¼ºÍ×¢²á½çÃæ
+* ÐÞ¸´ºóÌ¨ÎÄÕÂ·ÖÀàÁÐ±í£¬µãÌí¼Ó×ÓÀàµ½Ìí¼Ó·ÖÀà½çÃæ¸¸¼¶·ÖÀàÑ¡Ôñ´íÎó
+* ÐÞ¸´ºóÌ¨ÎÄÕÂ·ÖÀàÄ£°åÐÞ¸´ºó²»¸üÐÂÎÊÌâ
+* ÐÞ¸´±à¼­Æ÷ÀïÍ¼Æ¬ÉÏ´«£¬ ÔÚÎÄ¼þ´æ´¢Ñ¡ÔñÆßÅ£Ê±£¬Í¼Æ¬title,altÊôÐÔ²»¶Ô
+* Ôö¼Ó¶Ôphp¸ñÊ½Ä£°åÎÄ¼þµÄÖ§³Ö
+* ÓÅ»¯sp_get_menu·½·¨,idÎª¿ÕÊ±£¬Ä¬ÈÏÎªÖ÷²Ëµ¥
+* ÐÞ¸´ºóÌ¨Ä£°åÈ±Ê§</head>ÎÊÌâ
+* ÐÞ¸´PortalÓ¦ÓÃÏÂÎÄÕÂ£¬Ò³Ãæ£¬ºÍ·ÖÀà²»´æÔÚÊ±£¬ÎÞ404×´Ì¬Âë
+* Ôö¼Ó¶ÔÄ£°å¼Ì³Ð±êÇ©tc_extendµÄÖ§³Ö
+* ÓÅ»¯»áÔ±µÄÀ­ºÚÆðÓÃ¹¦ÄÜ£¬¸ÄÎªÊµÊ±ÑéÖ¤
+* Ôö¼ÓurlÄ£Ê½¸ü¸Äºó³öÏÖ²»ÄÜ·ÃÎÊÎÊÌâµÄÌáÊ¾ºÍ½â¾ö·½·¨
+* ÐÞ¸´ÎÄÕÂ£¬»ÃµÆÆ¬Ìí¼ÓÖØ¸´Ìá½»ÎÊÌâ
 
 X1.6.0
 * Ôö¼Ó¾²Ì¬»º´æ
