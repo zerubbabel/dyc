@@ -3,8 +3,6 @@ namespace Admin\Controller;
 use Common\Controller\AdminbaseController;
 class MainController extends AdminbaseController {
 	
-	function _initialize() {
-	}
     public function index(){
     	
     	$mysql= mysql_get_server_info();
