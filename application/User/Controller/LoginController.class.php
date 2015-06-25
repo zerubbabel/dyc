@@ -177,6 +177,7 @@ hello;
     						'create_time' => time(),
     						'last_login_time' => time(),
     						'user_status' => '1',
+    				        "user_type"=>2,
     				);
     				$id= $users_model->add($data);
     				$data['id']=$id;
