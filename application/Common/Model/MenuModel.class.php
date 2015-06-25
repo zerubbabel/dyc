@@ -139,7 +139,7 @@ class MenuModel extends CommonModel {
                 $model = ucwords($a['model']);
                 $action = $a['action'];
                 //附带参数
-              $fu = "";
+              	$fu = "";
                 if ($a['data']) {
                     $fu = "?" . htmlspecialchars_decode($a['data']);
                 }

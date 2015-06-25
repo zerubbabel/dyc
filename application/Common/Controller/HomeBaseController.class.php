@@ -150,10 +150,6 @@ class HomeBaseController extends AppframeController {
 		}
 		
 		
-		
-		
-		
-		
 		C('SP_DEFAULT_THEME',$theme);
 		
 		$current_tmpl_path=$tmpl_path.$theme."/";
