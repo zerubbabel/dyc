@@ -27,8 +27,8 @@
                 <td>{$val.total_size}kb</td>
                 <td>{$val.date_str}</td>
                 <td>
-                    <a href="{:u('Admin/backup/del_backup', array('backup'=>$val['name']))}"  class="J_ajax_del">删除</a> | 
-                    <a href="{:u('Admin/backup/import', array('backup'=>$val['name']))}" class="J_ajax_dialog_btn" data-msg="确定恢复吗？">恢复</a>
+                    <a href="{:U('Admin/backup/del_backup', array('backup'=>$val['name']))}"  class="J_ajax_del">删除</a> | 
+                    <a href="{:U('Admin/backup/import', array('backup'=>$val['name']))}" class="J_ajax_dialog_btn" data-msg="确定恢复吗？">恢复</a>
                 </td>
             </tr>
             <volist name="val['vols']" id="vol">
@@ -37,7 +37,7 @@
                 <td>{$vol.size}kb</td>
                 <td>{$val.date_str}</td>
                 <td>
-                    <a href="{:u('Admin/backup/download', array('backup'=>$val['name'], 'file'=>$vol['file']))}">下载</a>
+                    <a href="{:U('Admin/backup/download', array('backup'=>$val['name'], 'file'=>$vol['file']))}">下载</a>
                 </td>
             </tr>
             </volist>
