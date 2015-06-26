@@ -17,6 +17,13 @@ use Think\Controller;
  * 用于调度各个插件的URL访问需求
  */
 class PluginController extends Controller{
+    
+    //5iymt 增加插件跳转页设置 2015-6-12 目录为插件视图目录下的success.html,error.html文件
+	public function __construct(){
+		C("TMPL_ACTION_SUCCESS",'/success');
+		C("TMPL_ACTION_ERROR",'/error');
+		parent::__construct();
+	}
 	
 	public $config=array();
 	
