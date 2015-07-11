@@ -74,8 +74,8 @@ class MenuModel extends CommonModel {
             $result = array_merge($result2, $result);
         }
         //权限检查
-        if (session("roleid") == 1) {
-            //如果角色为 1 直接通过
+        if (sp_get_current_admin_id() == 1) {
+            //如果是超级管理员 直接通过
             return $result;
         } 
         
