@@ -788,9 +788,13 @@ function sp_file_read($file){
 		file_get_contents($file);
 	}
 }
-
+/*修复缩略图使用网络地址时，会出现的错误。5iymt 2015年7月10日*/
 function sp_asset_relative_url($asset_url){
-	return str_replace(C("TMPL_PARSE_STRING.__UPLOAD__"), "", $asset_url);
+    if(strpos($asset_url,"http")===0){
+    	return $asset_url;
+	}else{	
+	    return str_replace(C("TMPL_PARSE_STRING.__UPLOAD__"), "", $asset_url);
+	}
 }
 
 function sp_content_page($content,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
@@ -1602,4 +1606,39 @@ function sp_template_file_exists($file){
         return false;
     }
     
+}
+/**
+*根据菜单id获得菜单的详细信息，可以整合进获取菜单数据的方法(_sp_get_menu_datas)中。
+*@param num $id  菜单id，每个菜单id
+* @author 5iymt <1145769693@qq.com>
+*/
+function sp_get_menu_info($id,$navdata=false){
+    if(empty($id)&&$navdata){
+		//若菜单id不存在，且菜单数据存在。
+		$nav=$navdata;
+	}else{
+		$nav_obj= M("Nav");
+		$id= intval($id);
+		$nav= $nav_obj->where("id=$id")->find();//菜单数据
+	}
+
+	$href=htmlspecialchars_decode($nav['href']);
+	$hrefold=$href;
+
+	if(strpos($hrefold,"{")){//序列 化的数据
+		$href=unserialize(stripslashes($nav['href']));
+		$default_app=strtolower(C("DEFAULT_MODULE"));
+		$href=strtolower(leuu($href['action'],$href['param']));
+		$g=C("VAR_MODULE");
+		$href=preg_replace("/\/$default_app\//", "/",$href);
+		$href=preg_replace("/$g=$default_app&/", "",$href);
+	}else{
+		if($hrefold=="home"){
+			$href=__ROOT__."/";
+		}else{
+			$href=$hrefold;
+		}
+	}
+	$nav['href']=$href;
+	return $nav;
 }
