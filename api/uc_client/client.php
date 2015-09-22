@@ -320,7 +320,7 @@ function uc_user_synlogin($uid) {
 }
 
 function uc_user_synlogout() {
-	if(@include UC_ROOT.'../data/uc_cache/apps.php') {
+	if(@include UC_ROOT.'../../data/uc_cache/apps.php') {
 		if(count($_CACHE['apps']) > 1) {
 			$return = uc_api_post('user', 'synlogout', array());
 		} else {

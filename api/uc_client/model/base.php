@@ -105,7 +105,7 @@ class base {
 	function &cache($cachefile) {
 		static $_CACHE = array();
 		if(!isset($_CACHE[$cachefile])) {
-			$cachepath = UC_DATADIR.'./cache/'.$cachefile.'.php';
+			$cachepath = UC_DATADIR.'../../../data/uc_cache/'.$cachefile.'.php';
 			if(!file_exists($cachepath)) {
 				$this->load('cache');
 				$_ENV['cache']->updatedata($cachefile);

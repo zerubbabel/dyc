@@ -47,7 +47,7 @@ class cachemodel {
 					$s .= '$_CACHE[\''.$m.'\'] = '.var_export($this->$method(), TRUE).";\r\n";
 				}
 				$s .= "\r\n?>";
-				@file_put_contents(UC_DATADIR."./cache/$cachefile.php", $s);
+				@file_put_contents(UC_DATADIR."../../../data/uc_cache/$cachefile.php", $s);
 			}
 		} else {
 			foreach((array)$this->map as $file => $modules) {
@@ -57,7 +57,7 @@ class cachemodel {
 					$s .= '$_CACHE[\''.$m.'\'] = '.var_export($this->$method(), TRUE).";\r\n";
 				}
 				$s .= "\r\n?>";
-				@file_put_contents(UC_DATADIR."./cache/$file.php", $s);
+				@file_put_contents(UC_DATADIR."../../../data/uc_cache/$file.php", $s);
 			}
 		}
 	}
