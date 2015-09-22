@@ -198,7 +198,20 @@ class HomeBaseController extends AppframeController {
 				$theme = cookie('think_template');
 			}
 		}
-		$tpl_path=C("SP_TMPL_PATH").$theme."/";
+		//by ayumi手机提示模板
+		$tpl_path = '';
+		if(C('MOBILE_TPL_ENABLED')){//开启手机模板支持
+			if(sp_is_mobile()){
+				if(file_exists(C("SP_TMPL_PATH")."/".$theme."_mobile")){
+					$theme  =   $theme."_mobile";
+					$tpl_path=C("SP_TMPL_PATH").$theme."/";
+				}
+			}
+		}
+		else{
+			$tpl_path=C("SP_TMPL_PATH").$theme."/";
+		}	
+		//by ayumi手机提示模板
 		$defaultjump=THINK_PATH.'Tpl/dispatch_jump.tpl';
 		$action_success = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_SUCCESS"));
 		$action_error = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_ERROR"));
