@@ -39,7 +39,7 @@ class IndexController extends HomeBaseController {
     		echo uc_user_synlogout();
     	}
     	session("user",null);//只有前台用户退出
-    	redirect(__ROOT__."/");
+    	$this->success("用户退出成功！", __ROOT__."/");
     }
 	
 	public function logout2(){
