@@ -40,6 +40,17 @@ class AdminbaseController extends AppframeController {
     		
     	}
     }
+    
+    /**
+     * 初始化后台菜单
+     */
+    public function initMenu() {
+        $Menu = F("Menu");
+        if (!$Menu) {
+            $Menu=D("Common/Menu")->menu_cache();
+        }
+        return $Menu;
+    }
 
     /**
      * 消息提示
@@ -166,7 +177,10 @@ class AdminbaseController extends AppframeController {
     		return true;
     	}
     	
-    	if(MODULE_NAME.CONTROLLER_NAME.ACTION_NAME!="AdminIndexindex"){
+    	$rule=MODULE_NAME.CONTROLLER_NAME.ACTION_NAME;
+    	$no_need_check_rules=array("AdminIndexindex","AdminMainindex");
+    	
+    	if( !in_array($rule,$no_need_check_rules) ){
     		return sp_auth_check($uid);
     	}else{
     		return true;

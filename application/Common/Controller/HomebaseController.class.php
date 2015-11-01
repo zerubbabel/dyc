@@ -237,7 +237,7 @@ class HomebaseController extends AppframeController {
 		}
 		else{
 			$tpl_path=C("SP_TMPL_PATH").$theme."/";
-		}	
+		}
 		//by ayumi手机提示模板
 		$defaultjump=THINK_PATH.'Tpl/dispatch_jump.tpl';
 		$action_success = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_SUCCESS"));

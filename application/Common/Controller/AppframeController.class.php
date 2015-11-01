@@ -4,7 +4,6 @@ use Think\Controller;
 
 class AppframeController extends Controller {
 
-
     function _initialize() {
         $this->assign("waitSecond", 3);
        	$time=time();

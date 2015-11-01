@@ -37,19 +37,6 @@ class IndexController extends AdminbaseController {
     		}
     	}
     }
-    
-    /**
-     * 初始化后台菜单
-     */
-    public function initMenu() {
-        $Menu = F("Menu");
-        if (!$Menu) {
-            $Menu=D("Common/Menu")->menu_cache();
-        }
-        return $Menu;
-    }
-
-    
 
 }
 
