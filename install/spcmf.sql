@@ -32,6 +32,7 @@ CREATE TABLE `sp_ad` (
 
 CREATE TABLE `sp_asset` (
   `aid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL DEFAULT '0' COMMENT '用户 id',
   `key` varchar(50) NOT NULL,
   `filename` varchar(50) DEFAULT NULL,
   `filesize` int(11) DEFAULT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE `sp_asset` (
   `status` int(2) NOT NULL DEFAULT '1',
   `meta` text,
   `suffix` varchar(50) DEFAULT NULL,
-  `download_times` int(6) NOT NULL,
+  `download_times` int(6) NOT NULL DEFAULT '0' COMMENT '下载次数',
   PRIMARY KEY (`aid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -295,7 +296,7 @@ CREATE TABLE `sp_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned DEFAULT '0' COMMENT '发表者id',
   `post_keywords` varchar(150) NOT NULL COMMENT 'seo keywords',
-  `post_source` varchar(150)  COMMENT '转载文章的来源',
+  `post_source` varchar(150) DEFAULT NULL COMMENT '转载文章的来源',
   `post_date` datetime DEFAULT '2000-01-01 00:00:00' COMMENT 'post创建日期，永久不变，一般不显示给用户',
   `post_content` longtext COMMENT 'post内容',
   `post_title` text COMMENT 'post标题',
@@ -367,7 +368,7 @@ CREATE TABLE `sp_role_user` (
 -- 表的结构 `sp_route`
 --
 
-CREATE TABLE IF NOT EXISTS `sp_route` (
+CREATE TABLE `sp_route` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由id',
   `full_url` varchar(255) DEFAULT NULL COMMENT '完整url， 如：portal/list/index?id=1',
   `url` varchar(255) DEFAULT NULL COMMENT '实际显示的url',
@@ -488,13 +489,15 @@ CREATE TABLE `sp_users` (
   `sex` smallint(1) DEFAULT '0' COMMENT '性别；0：保密，1：男；2：女',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `signature` varchar(255) DEFAULT NULL COMMENT '个性签名',
-  `last_login_ip` varchar(16) NULL COMMENT '最后登录ip',
-  `last_login_time` datetime NULL DEFAULT '2000-01-01 00:00:00' COMMENT '最后登录时间',
+  `last_login_ip` varchar(16) DEFAULT NULL COMMENT '最后登录ip',
+  `last_login_time` datetime NOT NULL DEFAULT '2000-01-01 00:00:00' COMMENT '最后登录时间',
   `create_time` datetime NOT NULL DEFAULT '2000-01-01 00:00:00' COMMENT '注册时间',
   `user_activation_key` varchar(60) NOT NULL DEFAULT '' COMMENT '激活码',
   `user_status` int(11) NOT NULL DEFAULT '1' COMMENT '用户状态 0：禁用； 1：正常 ；2：未验证',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '用户积分',
   `user_type` smallint(1) DEFAULT '1' COMMENT '用户类型，1:admin ;2:会员',
+  `coin` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
+  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
   PRIMARY KEY (`id`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`)
