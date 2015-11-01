@@ -4,8 +4,8 @@
  * 会员注册登录
  */
 namespace User\Controller;
-use Common\Controller\HomeBaseController;
-class IndexController extends HomeBaseController {
+use Common\Controller\HomebaseController;
+class IndexController extends HomebaseController {
     //登录
 	public function index() {
 		$id=I("get.id");
@@ -39,7 +39,7 @@ class IndexController extends HomeBaseController {
     		echo uc_user_synlogout();
     	}
     	session("user",null);//只有前台用户退出
-    	$this->success("用户退出成功！", __ROOT__."/");
+    	redirect(__ROOT__."/");
     }
 	
 	public function logout2(){

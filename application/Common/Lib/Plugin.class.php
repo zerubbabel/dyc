@@ -44,6 +44,15 @@ abstract class Plugin{
     public function __construct(){
         $this->view         =   \Think\Think::instance('Think\View');
         $this->plugin_path   =   './plugins/'.$this->getName().'/';
+        
+        //多语言
+        if (C('LANG_SWITCH_ON',null,false)){
+            $lang_file= $this->plugin_path."Lang/".LANG_SET.".php";
+            if(is_file($lang_file)){
+                $lang=include $lang_file;
+                L($lang);
+            }
+        }
         $TMPL_PARSE_STRING = C('TMPL_PARSE_STRING');
         
         $plugin_root= __ROOT__ . '/plugins/'.$this->getName();

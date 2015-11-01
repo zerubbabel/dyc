@@ -7,11 +7,11 @@
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
-use Common\Controller\HomeBaseController; 
+use Common\Controller\HomebaseController; 
 /**
  * 首页
  */
-class IndexController extends HomeBaseController {
+class IndexController extends HomebaseController {
 	
     //首页
 	public function index() {

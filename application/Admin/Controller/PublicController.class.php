@@ -19,7 +19,7 @@ class PublicController extends AdminbaseController {
     	if(isset($_SESSION['ADMIN_ID'])){//已经登录
     		$this->success(L('LOGIN_SUCCESS'),U("Index/index"));
     	}else{
-    		if(empty($_SESSION['adminlogin'])){
+    		if(false){
     			redirect(__ROOT__."/");
     		}else{
     			$this->display(":login");
@@ -73,7 +73,7 @@ class PublicController extends AdminbaseController {
     				//登入成功页面跳转
     				$_SESSION["ADMIN_ID"]=$result["id"];
     				$_SESSION['name']=$result["user_login"];
-    				$result['last_login_ip']=get_client_ip();
+    				$result['last_login_ip']=get_client_ip(0,true);
     				$result['last_login_time']=date("Y-m-d H:i:s");
     				$user->save($result);
     				setcookie("admin_username",$name,time()+30*24*3600,"/");

@@ -7,8 +7,8 @@
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
-use Common\Controller\HomeBaseController;
-class PageController extends HomeBaseController{
+use Common\Controller\HomebaseController;
+class PageController extends HomebaseController{
 	public function index() {
 		$id=$_GET['id'];
 		$content=sp_sql_page($id);

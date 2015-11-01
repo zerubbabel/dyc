@@ -1,7 +1,7 @@
 <?php
 namespace Common\Controller;
 use Common\Controller\AppframeController;
-class HomeBaseController extends AppframeController {
+class HomebaseController extends AppframeController {
 	
 	public function __construct() {
 		$this->set_action_success_error_tpl();
@@ -37,6 +37,9 @@ class HomeBaseController extends AppframeController {
 		
 	}
 	
+	/**
+	 * 检查用户登录
+	 */
 	protected function check_login(){
 		if(!isset($_SESSION["user"])){
 			$this->error('您还没有登录！',__ROOT__."/");
@@ -44,6 +47,9 @@ class HomeBaseController extends AppframeController {
 		
 	}
 	
+	/**
+	 * 检查用户状态
+	 */
 	protected function  check_user(){
 	    $user_status=M('Users')->where(array("id"=>sp_get_current_userid()))->getField("user_status");
 		if($user_status==2){
@@ -55,7 +61,9 @@ class HomeBaseController extends AppframeController {
 		}
 	}
 	
-	//发送邮件
+	/**
+	 * 发送注册激活邮件
+	 */
 	protected  function _send_to_active(){
 		$option = M('Options')->where(array('option_name'=>'member_email_active'))->find();
 		if(!$option){
@@ -141,14 +149,31 @@ class HomeBaseController extends AppframeController {
 			cookie('think_template',$theme,864000);
 		}
 		
-		if(C('MOBILE_TPL_ENABLED')){//开启手机模板支持
-			if(sp_is_mobile()){
-				if(file_exists($tmpl_path."/".$theme."_mobile")){
-					$theme  =   $theme."_mobile";
-				}
-			}
+		$theme_suffix="";
+		
+		if(C('MOBILE_TPL_ENABLED') && sp_is_mobile()){//开启手机模板支持
+		    
+		    if (C('LANG_SWITCH_ON',null,false)){
+		        if(file_exists($tmpl_path."/".$theme."_mobile_".LANG_SET)){//优先级最高
+		            $theme_suffix  =  "_mobile_".LANG_SET;
+		        }elseif (file_exists($tmpl_path."/".$theme."_mobile")){
+		            $theme_suffix  =  "_mobile";
+		        }elseif (file_exists($tmpl_path."/".$theme."_".LANG_SET)){
+		            $theme_suffix  =  "_".LANG_SET;
+		        }
+		    }else{
+    		    if(file_exists($tmpl_path."/".$theme."_mobile")){
+    		        $theme_suffix  =  "_mobile";
+    		    }
+		    }
+		}else{
+		    $lang_suffix="_".LANG_SET;
+		    if (C('LANG_SWITCH_ON',null,false) && file_exists($tmpl_path."/".$theme.$lang_suffix)){
+		        $theme_suffix = $lang_suffix;
+		    }
 		}
 		
+		$theme=$theme.$theme_suffix;
 		
 		C('SP_DEFAULT_THEME',$theme);
 		
@@ -190,7 +215,9 @@ class HomeBaseController extends AppframeController {
 		return $file;
 	}
 	
-	
+	/**
+	 * 设置错误，成功跳转界面
+	 */
 	private function set_action_success_error_tpl(){
 		$theme      =    C('SP_DEFAULT_THEME');
 		if(C('TMPL_DETECT_THEME')) {// 自动侦测模板主题

@@ -388,7 +388,7 @@ function sp_set_cmf_setting($data){
  * 如：&lt;input type="text" name="verify"/&gt;<br>
  */
 function sp_verifycode_img($imgparam='length=4&font_size=20&width=238&height=50&use_curve=1&use_noise=1',$imgattrs='style="cursor: pointer;" title="点击获取"'){
-	$src=U('Api/Checkcode/index',$imgparam);
+	$src=__ROOT__."/index.php?g=api&m=checkcode&a=index&".$imgparam;
 	$img=<<<hello
 <img class="verify_img" src="$src" onclick="this.src='$src&time='+Math.random();" $imgattrs/>
 hello;
@@ -866,7 +866,7 @@ function sp_check_user_action($object="",$count_limit=1,$ip_limit=false,$expire=
 	$action=MODULE_NAME."-".CONTROLLER_NAME."-".ACTION_NAME;
 	$userid=get_current_userid();
 	
-	$ip=get_client_ip();
+	$ip=get_client_ip(0,true);//修复ip获取
 	
 	$where=array("user"=>$userid,"action"=>$action,"object"=>$object);
 	if($ip_limit){
@@ -1266,6 +1266,17 @@ function hook($hook,$params=array()){
 }
 
 /**
+ * 处理插件钩子,只执行一个
+ * @param string $hook   钩子名称
+ * @param mixed $params 传入参数
+ * @return void
+ */
+function hook_one($hook,$params=array()){
+    return \Think\Hook::listen_one($hook,$params);
+}
+
+
+/**
  * 获取插件类的类名
  * @param strng $name 插件名
  */
@@ -1331,10 +1342,10 @@ function sp_get_hooks($refresh=false){
 	
 	$tpl_hooks=array();
 	
-	$tpls=sp_scan_dir("tpl/*",GLOB_ONLYDIR);
+	$tpls=sp_scan_dir("themes/*",GLOB_ONLYDIR);
 	
 	foreach ($tpls as $tpl){
-		$hooks_file= sp_add_template_file_suffix("tpl/$tpl/hooks");
+		$hooks_file= sp_add_template_file_suffix("themes/$tpl/hooks");
 		if(file_exists_case($hooks_file)){
 			$hooks=file_get_contents($hooks_file);
 			$hooks=preg_replace("/[^0-9A-Za-z_-]/u", ",", $hooks);
@@ -1498,6 +1509,15 @@ function sp_check_verify_code(){
 }
 
 /**
+ * 手机验证码检查，验证完后销毁验证码增加安全性 ,<br>返回true验证码正确，false验证码错误
+ * @return boolean <br>true：手机验证码正确，false：手机验证码错误
+ */
+function sp_check_mobile_verify_code(){
+    return true;
+}
+
+
+/**
  * 执行SQL文件  sae 环境下file_get_contents() 函数好像有间歇性bug。
  * @param string $sql_path sql文件路径
  * @author 5iymt <1145769693@qq.com>
@@ -1607,6 +1627,7 @@ function sp_template_file_exists($file){
     }
     
 }
+
 /**
 *根据菜单id获得菜单的详细信息，可以整合进获取菜单数据的方法(_sp_get_menu_datas)中。
 *@param num $id  菜单id，每个菜单id
@@ -1641,4 +1662,36 @@ function sp_get_menu_info($id,$navdata=false){
 	}
 	$nav['href']=$href;
 	return $nav;
+}
+
+/**
+ * 判断当前的语言包，并返回语言包名
+ */
+function sp_check_lang(){
+    $langSet = C('DEFAULT_LANG');
+    if (C('LANG_SWITCH_ON',null,false)){
+        
+        $varLang =  C('VAR_LANGUAGE',null,'l');
+        $langList = C('LANG_LIST',null,'zh-cn');
+        // 启用了语言包功能
+        // 根据是否启用自动侦测设置获取语言选择
+        if (C('LANG_AUTO_DETECT',null,true)){
+            if(isset($_GET[$varLang])){
+                $langSet = $_GET[$varLang];// url中设置了语言变量
+                cookie('think_language',$langSet,3600);
+            }elseif(cookie('think_language')){// 获取上次用户的选择
+                $langSet = cookie('think_language');
+            }elseif(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){// 自动侦测浏览器语言
+                preg_match('/^([a-z\d\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
+                $langSet = $matches[1];
+                cookie('think_language',$langSet,3600);
+            }
+            if(false === stripos($langList,$langSet)) { // 非法语言参数
+                $langSet = C('DEFAULT_LANG');
+            }
+        }
+    }
+    
+    return strtolower($langSet);
+    
 }

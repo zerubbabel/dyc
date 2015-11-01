@@ -149,6 +149,7 @@ class MenuModel extends CommonModel {
                     "name" => $a['name'],
                     "parent" => $parent,
                     "url" => U("{$name}/{$model}/{$action}{$fu}", array("menuid" => $id)),
+                    'lang'=> strtoupper($name.'_'.$model.'_'.$action)
                 ); 
                 
                 

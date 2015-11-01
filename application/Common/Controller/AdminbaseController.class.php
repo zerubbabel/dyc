@@ -3,7 +3,6 @@
 /**
  * 后台Controller
  */
-//定义是后台
 namespace Common\Controller;
 use Common\Controller\AppframeController;
 
@@ -20,6 +19,7 @@ class AdminbaseController extends AppframeController {
 
     function _initialize(){
        parent::_initialize();
+       $this->load_app_admin_menu_lang();
     	if(isset($_SESSION['ADMIN_ID'])){
     		$users_obj= M("Users");
     		$id=$_SESSION['ADMIN_ID'];
@@ -126,18 +126,6 @@ class AdminbaseController extends AppframeController {
 		return $file;
     }
 
-
-    /**
-     * 初始化后台菜单
-     */
-    public function initMenu() {
-        $Menu = F("Menu");
-        if (!$Menu) {
-            $Menu=D("Common/Menu")->menu_cache();
-        }
-        return $Menu;
-    }
-
     /**
      *  排序 排序字段为listorders数组 POST 排序字段为：listorder
      */
@@ -154,29 +142,44 @@ class AdminbaseController extends AppframeController {
         return true;
     }
 
-    protected function page($Total_Size = 1, $Page_Size = 0, $Current_Page = 1, $listRows = 6, $PageParam = '', $PageLink = '', $Static = FALSE) {
-        import('Page');
-        if ($Page_Size == 0) {
-            $Page_Size = C("PAGE_LISTROWS");
+    /**
+     * 后台分页
+     * 
+     */
+    protected function page($total_size = 1, $page_size = 0, $current_page = 1, $listRows = 6, $pageParam = '', $pageLink = '', $static = FALSE) {
+        if ($page_size == 0) {
+            $page_size = C("PAGE_LISTROWS");
         }
-        if (empty($PageParam)) {
-            $PageParam = C("VAR_PAGE");
+        
+        if (empty($pageParam)) {
+            $pageParam = C("VAR_PAGE");
         }
-        $Page = new \Page($Total_Size, $Page_Size, $Current_Page, $listRows, $PageParam, $PageLink, $Static);
+        
+        $Page = new \Page($total_size, $page_size, $current_page, $listRows, $pageParam, $pageLink, $static);
         $Page->SetPager('Admin', '{first}{prev}&nbsp;{liststart}{list}{listend}&nbsp;{next}{last}', array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
         return $Page;
     }
 
     private function check_access($uid){
-    	
     	//如果用户角色是1，则无需判断
     	if($uid == 1){
     		return true;
     	}
+    	
     	if(MODULE_NAME.CONTROLLER_NAME.ACTION_NAME!="AdminIndexindex"){
     		return sp_auth_check($uid);
     	}else{
     		return true;
+    	}
+    }
+    
+    private function load_app_admin_menu_lang(){
+    	if (C('LANG_SWITCH_ON',null,false)){
+    		$admin_menu_lang_file=SPAPP.MODULE_NAME."/Lang/".LANG_SET."/admin_menu.php";
+    		if(is_file($admin_menu_lang_file)){
+    			$lang=include $admin_menu_lang_file;
+    			L($lang);
+    		}
     	}
     }
 }

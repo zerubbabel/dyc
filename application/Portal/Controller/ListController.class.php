@@ -7,11 +7,11 @@
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
-use Common\Controller\HomeBaseController;
+use Common\Controller\HomebaseController;
 /**
  * 文章列表
 */
-class ListController extends HomeBaseController {
+class ListController extends HomebaseController {
 
 	//文章内页
 	public function index() {

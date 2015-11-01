@@ -15,7 +15,7 @@ class AdminTermController extends AdminbaseController {
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->terms_model = D("Common/Terms");
+		$this->terms_model = D("Portal/Terms");
 		$this->assign("taxonomys",$this->taxonomys);
 	}
 	function index(){
@@ -25,7 +25,7 @@ class AdminTermController extends AdminbaseController {
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 		foreach ($result as $r) {
-			$r['str_manage'] = '<a href="' . U("AdminTerm/add", array("parent" => $r['term_id'])) . '">添加子类</a> | <a href="' . U("AdminTerm/edit", array("id" => $r['term_id'])) . '">修改</a> | <a class="J_ajax_del" href="' . U("AdminTerm/delete", array("id" => $r['term_id'])) . '">删除</a> ';
+			$r['str_manage'] = '<a href="' . U("AdminTerm/add", array("parent" => $r['term_id'])) . '">'.L('ADD_SUB_CATEGORY').'</a> | <a href="' . U("AdminTerm/edit", array("id" => $r['term_id'])) . '">'.L('EDIT').'</a> | <a class="js-ajax-delete" href="' . U("AdminTerm/delete", array("id" => $r['term_id'])) . '">'.L('DELETE').'</a> ';
 			$url=U('portal/list/index',array('id'=>$r['term_id']));
 			$r['url'] = $url;
 			$r['taxonomys'] = $this->taxonomys[$r['taxonomy']];
@@ -40,7 +40,6 @@ class AdminTermController extends AdminbaseController {
 					<td>\$id</td>
 					<td>\$spacer <a href='\$url' target='_blank'>\$name</a></td>
 	    			<td>\$taxonomys</td>
-					<td align='center'><a href='\$url' target='_blank'>访问</a></td>
 					<td>\$str_manage</td>
 				</tr>";
 		$taxonomys = $tree->get_tree(0, $str);

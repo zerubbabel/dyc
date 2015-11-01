@@ -18,7 +18,7 @@ class SettingController extends AdminbaseController{
 		$tpls=array_diff($tpls, $noneed);
 		$this->assign("templates",$tpls);
 		
-		$adminstyles=sp_scan_dir(SPSTATIC."simpleboot/themes/*",GLOB_ONLYDIR);
+		$adminstyles=sp_scan_dir("public/simpleboot/themes/*",GLOB_ONLYDIR);
 		$adminstyles=array_diff($adminstyles, $noneed);
 		$this->assign("adminstyles",$adminstyles);
 		if($option){

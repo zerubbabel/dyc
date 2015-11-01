@@ -30,7 +30,10 @@ $configs= array(
 		
 		'DEFAULT_FILTER'        =>  'htmlspecialchars', // 默认参数过滤方法 用于I函数...htmlspecialchars
 		
-		'LANG_SWITCH_ON'        => true,   // 开启语言包功能
+		'LANG_SWITCH_ON'        =>  true,   // 开启语言包功能
+		'DEFAULT_LANG'          =>  'zh-cn', // 默认语言
+		'LANG_LIST'				=>  'zh-cn,en-us,zh-tw',
+		'LANG_AUTO_DETECT'		=>  false,
 		
 		'VAR_MODULE'            =>  'g',     // 默认模块获取变量
 		'VAR_CONTROLLER'        =>  'm',    // 默认控制器获取变量
@@ -39,16 +42,16 @@ $configs= array(
 		'APP_USE_NAMESPACE'     =>   true, // 关闭应用的命名空间定义
 		'APP_AUTOLOAD_LAYER'    =>  'Controller,Model', // 模块自动加载的类库后缀
 		
-		'SP_TMPL_PATH'     		=> 'tpl/',       // 前台模板文件根目录
+		'SP_TMPL_PATH'     		=> 'themes/',       // 前台模板文件根目录
 		'SP_DEFAULT_THEME'		=> 'simplebootx',       // 前台模板文件
 		'SP_TMPL_ACTION_ERROR' 	=> 'error', // 默认错误跳转对应的模板文件,注：相对于前台模板路径
 		'SP_TMPL_ACTION_SUCCESS' 	=> 'success', // 默认成功跳转对应的模板文件,注：相对于前台模板路径
 		'SP_ADMIN_STYLE'		=> 'flat',
-		'SP_ADMIN_TMPL_PATH'    => 'tpl_admin/',       // 各个项目后台模板文件根目录
-		'SP_ADMIN_DEFAULT_THEME'=> 'simpleboot',       // 各个项目后台模板文件
+		'SP_ADMIN_TMPL_PATH'    => 'admin/themes/',       // 各个项目后台模板文件根目录
+		'SP_ADMIN_DEFAULT_THEME'=> 'simplebootx',       // 各个项目后台模板文件
 		'SP_ADMIN_TMPL_ACTION_ERROR' 	=> 'Admin/error.html', // 默认错误跳转对应的模板文件,注：相对于后台模板路径
 		'SP_ADMIN_TMPL_ACTION_SUCCESS' 	=> 'Admin/success.html', // 默认成功跳转对应的模板文件,注：相对于后台模板路径
-		'TMPL_EXCEPTION_FILE'   => SPSTATIC.'exception.html',
+		'TMPL_EXCEPTION_FILE'   => SITE_PATH.'public/exception.html',
 		
 		'AUTOLOAD_NAMESPACE' => array('plugins' => './plugins/'), //扩展模块列表
 		
@@ -72,7 +75,6 @@ $configs= array(
 		'URL_ROUTER_ON'			=> true,
 		
 		/*性能优化*/
-		
 		'OUTPUT_ENCODE'			=>true,// 页面压缩输出
 		
 		'HTML_CACHE_ON'     =>    false, // 开启静态缓存
@@ -85,9 +87,5 @@ $configs= array(
 			'__STATICS__' => __ROOT__.'/statics/',
 		)
 );
-
-/* if(!APP_DEBUG){
-	$configs['APP_STATUS']="release";
-} */
 
 return  array_merge($configs,$db,$runtime_config);

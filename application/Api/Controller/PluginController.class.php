@@ -10,13 +10,13 @@
 // +---------------------------------------------------------------------
 
 namespace Api\Controller;
-use Think\Controller;
+use Common\Controller\AppframeController;
 
 /**
  * 插件控制器
  * 用于调度各个插件的URL访问需求
  */
-class PluginController extends Controller{
+class PluginController extends AppframeController{
     
     //5iymt 增加插件跳转页设置 2015-6-12 目录为插件视图目录下的success.html,error.html文件
 	public function __construct(){

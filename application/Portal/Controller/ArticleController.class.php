@@ -10,8 +10,8 @@
  * 文章内页
  */
 namespace Portal\Controller;
-use Common\Controller\HomeBaseController;
-class ArticleController extends HomeBaseController {
+use Common\Controller\HomebaseController;
+class ArticleController extends HomebaseController {
     //文章内页
     public function index() {
     	$id=intval($_GET['id']);
@@ -31,11 +31,8 @@ class ArticleController extends HomeBaseController {
     	
     	$article_id=$article['object_id'];
     	
-    	$should_change_post_hits=sp_check_user_action("posts$article_id",1,true);
-    	if($should_change_post_hits){
-    		$posts_model=M("Posts");
-    		$posts_model->save(array("id"=>$article_id,"post_hits"=>array("exp","post_hits+1")));
-    	}
+    	$posts_model=M("Posts");
+    	$posts_model->save(array("id"=>$article_id,"post_hits"=>array("exp","post_hits+1")));
     	
     	$article_date=$article['post_modified'];
     	
