@@ -11,8 +11,8 @@
  * 修改日期：2013-12-11
  */
 namespace Api\Controller;
-use Common\Controller\HomeBaseController;
-class OauthController extends HomeBaseController {
+use Common\Controller\HomebaseController;
+class OauthController extends HomebaseController {
 	
 	function _initialize() {}
 	
