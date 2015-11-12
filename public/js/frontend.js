@@ -142,15 +142,12 @@
                     dataType: 'json',
                     beforeSubmit: function (arr, $form, options) {
                     	btn.data("loading",true);
-                    	
                         var text = btn.text();
-
                         //按钮文案、状态修改
                         btn.text(text + '中...').prop('disabled', true).addClass('disabled');
                     },
                     success: function (data, statusText, xhr, $form) {
                         var text = btn.text();
-
                         //按钮文案、状态修改
                         btn.removeClass('disabled').text(text.replace('中...', '')).parent().find('span').remove();
                         if (data.state === 'success') {
@@ -158,8 +155,6 @@
                         		type:'success',
                         		layout:'center'
                         	});
-                            /*$('<span class="tips_success">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('slow').delay(1000).fadeOut(function () {
-                            });*/
                         } else if (data.state === 'fail') {
                         	var $verify_img=form.find(".verify_img");
                         	if($verify_img.length){
@@ -173,7 +168,6 @@
                         		type:'error',
                         		layout:'center'
                         	});
-                            /*$('<span class="tips_error">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('fast');*/
                             btn.removeProp('disabled').removeClass('disabled');
                         }
                         
@@ -204,11 +198,24 @@
                             }
                         } else {
                         	if (data.state === 'success') {
+                        		var wait=btn.data("wait");
                         		if(window.parent.art){
-                                    reloadPage(window.parent);
+                                    if(wait){
+                                		setTimeout(function(){
+                                			reloadPage(window.parent);
+                                		},wait);
+                            		}else{
+                            			reloadPage(window.parent);
+                            		}
                                 }else{
                                     //刷新当前页
-                                    reloadPage(window);
+                                	if(wait){
+                                		setTimeout(function(){
+                                			reloadPage(window);
+                                		},wait);
+                            		}else{
+                            			reloadPage(window);
+                            		}
                                 }
                         	}
                         }
@@ -266,7 +273,15 @@
 	                                }
 	                            } else if (data.state === 'fail') {
 	                                //art.dialog.alert(data.info);
-	                            	alert(data.info);//暂时处理方案
+	                            	//alert(data.info);//暂时处理方案
+									art.dialog({   
+										content: data.info,
+										icon: 'warning',
+										ok: function () {   
+											this.title(data.info);   
+											return true;   
+										}
+									}); 
 	                            }
 	                        });
    				   		}
