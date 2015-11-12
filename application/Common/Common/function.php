@@ -1695,3 +1695,50 @@ function sp_check_lang(){
     return strtolower($langSet);
     
 }
+
+/**
+* 删除图片物理路径
+* @param array $imglist 图片路径
+* @return bool 是否删除图片
+* @author 高钦 <395936482@qq.com>
+*/
+function sp_delete_physics_img($imglist){
+    $file_path = C("UPLOADPATH");
+    
+    if ($imglist) {
+        if ($imglist['thumb']) {
+            $file_path = $file_path . $imglist['thumb'];
+            if (file_exists($file_path)) {
+                $result = @unlink($file_path);
+                if ($result == false) {
+                    $res = TRUE;
+                } else {
+                    $res = FALSE;
+                }
+            } else {
+                $res = FALSE;
+            }
+        }
+        
+        if ($imglist['photo']) {
+            foreach ($imglist['photo'] as $key => $value) {
+                $file_path = C("UPLOADPATH");
+                $file_path_url = $file_path . $value['url'];
+                if (file_exists($file_path_url)) {
+                    $result = @unlink($file_path_url);
+                    if ($result == false) {
+                        $res = TRUE;
+                    } else {
+                        $res = FALSE;
+                    }
+                } else {
+                    $res = FALSE;
+                }
+            }
+        }
+    } else {
+        $res = FALSE;
+    }
+    
+    return $res;
+}
