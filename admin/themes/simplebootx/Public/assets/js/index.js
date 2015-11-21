@@ -154,6 +154,7 @@ function closeapp($this){
 	if(!$this.is(".noclose")){
 		$this.prev().click();
     	$this.remove();
+    	$("#appiframe-"+$this.attr("app-id")).remove();
     	calcTaskitemsWidth();
     	$("#task-next").click();
 	}
