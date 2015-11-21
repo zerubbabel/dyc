@@ -59,9 +59,9 @@ class ProfileController extends MemberbaseController {
     		$admin=$this->users_model->where("id=$uid")->find();
     		$old_password=$_POST['old_password'];
     		$password=$_POST['password'];
-    		if(sp_password($old_password)==$admin['user_pass']){
+    		if(sp_compare_password($old_password, $admin['user_pass'])){
     			if($_POST['password']==$_POST['repassword']){
-    				if($admin['user_pass']==sp_password($password)){
+    				if(sp_compare_password($password, $admin['user_pass'])){
     					$this->error("新密码不能和原始密码相同！");
     				}else{
     					$data['user_pass']=sp_password($password);

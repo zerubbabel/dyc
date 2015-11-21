@@ -15,7 +15,7 @@ return array (
 	"BACK" => 'Back',
 	'LOGIN' => 'Login',
 	'PASSWORD' => "Password",
-	'USERNAME_OR_EMAIL' => 'Username or Password',
+	'USERNAME_OR_EMAIL' => 'Username or Email',
 	'LOGIN_SUCCESS' => "Login success!",
 	'PASSWORD_NOT_RIGHT' => "Password Error!",
 	'PASSWORD_REQUIRED' => "Password cannot be empty!",

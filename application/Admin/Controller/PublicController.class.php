@@ -59,7 +59,7 @@ class PublicController extends AdminbaseController {
     		
     		$result = $user->where($where)->find();
     		if(!empty($result) && $result['user_type']==1){
-    			if($result['user_pass'] == sp_password($pass)){
+    			if(sp_compare_password($pass,$result['user_pass'])){
     				
     				$role_user_model=M("RoleUser");
     				

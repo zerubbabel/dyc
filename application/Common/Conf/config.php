@@ -18,7 +18,6 @@ $configs= array(
 		'THIRD_UDER_ACCESS'		=> false, //第三方用户是否有全部权限，没有则需绑定本地账号
 		/* 标签库 */
 		'TAGLIB_BUILD_IN' => THINKCMF_CORE_TAGLIBS,
-		//'APP_GROUP_LIST'        => 'Admin,Portal,Asset,Api,Member,Wx,Toptic,Strap',      // 项目分组设定,多个组之间用逗号分隔,例如'Home,Admin'
 		'MODULE_ALLOW_LIST'  => array('Admin','Portal','Asset','Api','User','Wx','Comment','Qiushi','Tpl','Topic','Install','Bug','Better','Pay'),
  		'TMPL_DETECT_THEME'     => false,       // 自动侦测模板主题
  		'TMPL_TEMPLATE_SUFFIX'  => '.html',     // 默认模板文件后缀

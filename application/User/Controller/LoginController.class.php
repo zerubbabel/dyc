@@ -166,7 +166,7 @@ hello;
         $result = $users_model->where($where)->find();
         
         if(!empty($result)){
-            if($result['user_pass'] == sp_password($password)){
+            if(sp_compare_password($password, $result['user_pass'])){
                 $_SESSION["user"]=$result;
                 //写入此次登录信息
                 $data = array(
@@ -230,7 +230,7 @@ hello;
                 switch ($uc_uid){
                     case "-1"://用户不存在，或者被删除
                         if($result){//本应用已经有这个用户
-                            if($result['user_pass'] == sp_password($password)){//本应用已经有这个用户,且密码正确，同步用户
+                            if(sp_compare_password($password, $result['user_pass'])){//本应用已经有这个用户,且密码正确，同步用户
                                 $uc_uid2=uc_user_register($username, $password, $result['user_email']);
                                 if($uc_uid2<0){
                                     $uc_register_errors=array(
@@ -254,7 +254,7 @@ hello;
                         break;
                     case -2://密码错
                         if($result){//本应用已经有这个用户
-                            if($result['user_pass'] == sp_password($password)){//本应用已经有这个用户,且密码正确，同步用户
+                            if(sp_compare_password($password, $result['user_pass'])){//本应用已经有这个用户,且密码正确，同步用户
                                 $uc_user_edit_status=uc_user_edit($username,"",$password,"",1);
                                 if($uc_user_edit_status<=0){
                                     $this->error("登陆错误3！");
@@ -278,7 +278,7 @@ hello;
         }
         //exit();
         if(!empty($result)){
-            if($result['user_pass'] == sp_password($password)|| $ucenter_login_ok){
+            if(sp_compare_password($password, $result['user_pass'])|| $ucenter_login_ok){
                 $_SESSION["user"]=$result;
                 //写入此次登录信息
                 $data = array(

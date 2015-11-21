@@ -121,10 +121,37 @@ function sp_get_user_avatar_url($avatar){
  * @param string $pw 要加密的字符串
  * @return string
  */
-function sp_password($pw){
-	$decor=md5(C('DB_PREFIX'));
-	$mi=md5($pw);
-	return substr($decor,0,12).$mi.substr($decor,-4,4);
+function sp_password($pw,$authcode=''){
+    if(empty($authcode)){
+        $authcode=C("AUTHCODE");
+    }
+	$result="###".md5(md5($authcode.$pw));
+	return $result;
+}
+
+/**
+ * CMF密码加密方法 (X2.0.0以前的方法)
+ * @param string $pw 要加密的字符串
+ * @return string
+ */
+function sp_password_old($pw){
+    $decor=md5(C('DB_PREFIX'));
+    $mi=md5($pw);
+    return substr($decor,0,12).$mi.substr($decor,-4,4);
+}
+
+/**
+ * CMF密码比较方法,所有涉及密码比较的地方都用这个方法
+ * @param string $password 要比较的密码
+ * @param string $password_in_db 数据库保存的已经加密过的密码
+ * @return boolean 密码相同，返回true
+ */
+function sp_compare_password($password,$password_in_db){
+    if(strpos($password_in_db, "###")===0){
+        return sp_password($password)==$password_in_db;
+    }else{
+        return sp_password_old($password)==$password_in_db;
+    }
 }
 
 

@@ -225,7 +225,15 @@
                                 }
                             } else if (data.state === 'fail') {
                                 //art.dialog.alert(data.info);
-                            	alert(data.info);//暂时处理方案
+                            	//alert(data.info);//暂时处理方案
+				art.dialog({   
+					content: data.info,
+					icon: 'warning',  
+					ok: function () {   
+						this.title(data.info);   
+						return true;   
+					}
+				}); 
                             }
                         });
                     },
@@ -268,7 +276,15 @@
                                     reloadPage(window);
                                 }
                             } else if (data.state === 'fail') {
-                                art.dialog.alert(data.info);
+                                //art.dialog.alert(data.info);
+				art.dialog({   
+					content: data.info,
+					icon: 'warning',
+					ok: function () {   
+						this.title(data.info);   
+						return true;   
+					}
+				}); 
                             }
                         });
                     },
