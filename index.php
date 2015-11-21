@@ -41,9 +41,11 @@ define("THINKCMF_CORE_TAGLIBS", 'cx,Common\Lib\Taglib\TagLibSpadmin,Common\Lib\T
 if(function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])){
 	
 }else{
-	if(file_exists("install") && !file_exists("install/install.lock")){
-		header("Location:./install");
-		exit();
+	if(!file_exists("data/install.lock")){
+		if(strtolower($_GET['g'])!="install"){
+		    header("Location:./index.php?g=install");
+		    exit();
+		}
 	}
 }
 //uc client root
