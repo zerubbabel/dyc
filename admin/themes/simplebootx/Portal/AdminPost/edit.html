@@ -190,7 +190,6 @@
 					editorcontent.sync();
 				} catch (err) {
 				}
-				;
 				//增加编辑器验证规则
 				jQuery.validator.addMethod('editorcontent', function() {
 					try {
@@ -293,9 +292,7 @@
 											}, {
 												name : '返回列表页',
 												callback : function() {
-													location = '{:U('
-													AdminPost / index
-													')}';
+													location = "{:U('AdminPost/index')}";
 													return true;
 												}
 											} ]
