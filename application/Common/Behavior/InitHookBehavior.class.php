@@ -17,7 +17,7 @@ class InitHookBehavior extends Behavior {
 
     // 行为扩展的执行入口必须是run
     public function run(&$content){
-        if(isset($_GET['m']) && $_GET['m'] === 'Install') return;
+        if(isset($_GET['g']) && strtolower($_GET['g']) === 'install') return;
         
         $data = S('hooks');
         if(!$data){

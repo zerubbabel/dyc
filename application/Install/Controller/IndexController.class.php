@@ -135,7 +135,7 @@ class IndexController extends Controller {
             
             //生成网站配置文件
             sp_create_config($dbconfig, $authcode);
-            @touch('./data/install.lock');
+            session("_install_step",4);
             sleep(1);
             $this->redirect("step5");
         }else{
@@ -144,7 +144,14 @@ class IndexController extends Controller {
     }
     
     public function step5(){
-    	$this->display(":step5");
+        if(session("_install_step")==4){
+            @touch('./data/install.lock');
+            $this->display(":step5");
+        }else{
+            $this->error("非法安装！");
+        }
+            
+    	
     }
     
     public function testdbpwd(){
