@@ -292,6 +292,7 @@ function sp_set_dynamic_config($data){
 		$result = file_put_contents($config_file, "<?php\treturn " . var_export($configs, true) . ";");
 	}
 	sp_clear_cache();
+	S("sp_dynamic_config",$configs);
 	return $result;
 }
 

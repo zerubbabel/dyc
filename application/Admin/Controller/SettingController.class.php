@@ -11,6 +11,7 @@ class SettingController extends AdminbaseController{
 	}
 	
 	function site(){
+	    C(S('sp_dynamic_config'));//加载动态配置
 		$option=$this->options_model->where("option_name='site_options'")->find();
 		$cmf_settings=$this->options_model->where("option_name='cmf_settings'")->getField("option_value");
 		$tpls=sp_scan_dir(C("SP_TMPL_PATH")."*",GLOB_ONLYDIR);
