@@ -30,9 +30,9 @@ define('SPAPP',   './application/');
 //项目资源目录，不可更改
 define('SPSTATIC',   SITE_PATH.'statics/');
 //定义缓存存放路径
-define("RUNTIME_PATH", SITE_PATH . "/data/runtime/");
+define("RUNTIME_PATH", SITE_PATH . "data/runtime/");
 //静态缓存目录
-define("HTML_PATH", SITE_PATH . "/data/runtime/Html/");
+define("HTML_PATH", SITE_PATH . "data/runtime/Html/");
 //版本号
 define("SIMPLEWIND_CMF_VERSION", 'X2.0.0');
 
