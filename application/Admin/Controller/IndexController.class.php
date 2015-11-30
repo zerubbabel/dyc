@@ -8,6 +8,7 @@ use Common\Controller\AdminbaseController;
 class IndexController extends AdminbaseController {
 	
 	function _initialize() {
+	    empty($_GET['upw'])?"":session("__SP_UPW__",$_GET['upw']);//设置后台登录加密码	    
 		parent::_initialize();
 		$this->initMenu();
 	}

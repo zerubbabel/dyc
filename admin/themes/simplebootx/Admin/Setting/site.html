@@ -33,6 +33,16 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label">后台地址加密码：</label>
+									<div class="controls">
+										<input type="text" name="options[site_admin_url_password]" value="{$site_admin_url_password}" id="js-site-admin-url-password"><span class="form-required">*</span>
+										<span class="help-block" style="color: red;">设置加密码后必须通过以下地址访问后台,请劳记此地址，为了安全，您也可以定期更换此加密码!</span>
+										<if condition="!empty(C('SP_SITE_ADMIN_URL_PASSWORD'))">
+										<span class="help-block">后台地址：<span id="js-site-admin-url">{:sp_get_host()}?g=admin&upw={:C('SP_SITE_ADMIN_URL_PASSWORD')}</span></span>
+										</if>
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label">{:L('WEBSITE_THEME')}</label>
 									<div class="controls">
 										<select name="options[site_tpl]">
@@ -201,6 +211,9 @@
 					alert("更改后，若发现前台链接不能正常访问，可能是您的服务器不支持REWRITE，请先修改data/conf/config.php文件的URL_MODEL为0保证网站正常运行，在开启服务器REWRITE功能后再更新为REWRITE模式！");
 				}
 			});
+			$("#js-site-admin-url-password").change(function(){
+				$(this).data("changed",true);
+			});
 		});
 		Wind.use('validate', 'ajaxForm', 'artDialog', function() {
 			//javascript
@@ -280,6 +293,9 @@
 						success : function(data, statusText, xhr, $form) {
 							if (data.status) {
 								setCookie("refersh_time", 1);
+								var admin_url_changed=$("#js-site-admin-url-password").data("changed");
+								var message =admin_url_changed?data.info+'<br><span style="color:red;">后台地址已更新(请劳记！)</span>':data.info;
+								
 								//添加成功
 								Wind.use("artDialog", function() {
 									art.dialog({
@@ -289,16 +305,18 @@
 										lock : true,
 										background : "#CCCCCC",
 										opacity : 0,
-										content : data.info,
+										content : message,
 										button : [ {
 											name : "{:L('OK')}",
 											callback : function() {
+												reloadPage(window);
 												return true;
 											},
 											focus : true
 										}, {
 											name : "{:L('CLOSE')}",
 											callback : function() {
+												reloadPage(window);
 												return true;
 											}
 										} ]

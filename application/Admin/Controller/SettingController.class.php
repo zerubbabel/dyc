@@ -38,6 +38,7 @@ class SettingController extends AdminbaseController{
 				$data['option_id']=intval($_POST['option_id']);
 			}
 			
+			$configs["SP_SITE_ADMIN_URL_PASSWORD"]=empty($_POST['options']['site_admin_url_password'])?"":md5(md5(C("AUTHCODE").$_POST['options']['site_admin_url_password']));
 			$configs["SP_DEFAULT_THEME"]=$_POST['options']['site_tpl'];
 			$configs["DEFAULT_THEME"]=$_POST['options']['site_tpl'];
 			$configs["SP_ADMIN_STYLE"]=$_POST['options']['site_adminstyle'];

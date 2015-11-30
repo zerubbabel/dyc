@@ -19,18 +19,19 @@ class PublicController extends AdminbaseController {
     	if(isset($_SESSION['ADMIN_ID'])){//已经登录
     		$this->success(L('LOGIN_SUCCESS'),U("Index/index"));
     	}else{
-    		if(false){
+    	    $site_admin_url_password =C("SP_SITE_ADMIN_URL_PASSWORD");
+    	    $upw=session("__SP_UPW__");
+    		if(!empty($site_admin_url_password) && $upw!=$site_admin_url_password){
     			redirect(__ROOT__."/");
     		}else{
     			$this->display(":login");
     		}
-    		
     	}
     }
     
     public function logout(){
     	session('ADMIN_ID',null); 
-    	$this->redirect("public/login");
+    	redirect(__ROOT__."/");
     }
     
     public function dologin(){
