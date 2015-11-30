@@ -55,9 +55,9 @@
 						<a href="{:U('slide/edit',array('id'=>$vo['slide_id']))}">{:L('EDIT')}</a>
 						<a href="{:U('slide/delete',array('id'=>$vo['slide_id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
 						<if condition="empty($vo['slide_status']) eq 1">
-							<a href="{:U('slide/cancelban',array('id'=>$vo['slide_id']))}">{:L('DISPLAY')}</a>
+							<a href="{:U('slide/cancelban',array('id'=>$vo['slide_id']))}" class="js-ajax-dialog-btn" data-msg="确定显示此幻灯片吗？">{:L('DISPLAY')}</a>
 						<else /> 
-							<a href="{:U('slide/ban',array('id'=>$vo['slide_id']))}">{:L('HIDE')}</a>
+							<a href="{:U('slide/ban',array('id'=>$vo['slide_id']))}" class="js-ajax-dialog-btn" data-msg="确定隐藏此幻灯片吗？">{:L('HIDE')}</a>
 						</if>
 					</td>
 				</tr>
