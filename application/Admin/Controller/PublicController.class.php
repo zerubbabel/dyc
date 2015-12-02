@@ -12,7 +12,9 @@ namespace Admin\Controller;
 use Common\Controller\AdminbaseController;
 class PublicController extends AdminbaseController {
 
-    function _initialize() {}
+    function _initialize() {
+        C(S('sp_dynamic_config'));//加载动态配置
+    }
     
     //后台登陆界面
     public function login() {

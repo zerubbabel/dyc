@@ -38,7 +38,7 @@
 										<input type="text" name="options[site_admin_url_password]" value="{$site_admin_url_password}" id="js-site-admin-url-password"><span class="form-required">*</span>
 										<span class="help-block" style="color: red;">设置加密码后必须通过以下地址访问后台,请劳记此地址，为了安全，您也可以定期更换此加密码!</span>
 										<if condition="!empty(C('SP_SITE_ADMIN_URL_PASSWORD'))">
-										<span class="help-block">后台地址：<span id="js-site-admin-url">{:sp_get_host()}?g=admin&upw={:C('SP_SITE_ADMIN_URL_PASSWORD')}</span></span>
+										<span class="help-block">后台地址：<span id="js-site-admin-url">{:sp_get_host()}__ROOT__?g=admin&upw={:C('SP_SITE_ADMIN_URL_PASSWORD')}</span></span>
 										</if>
 									</div>
 								</div>
