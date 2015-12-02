@@ -11,8 +11,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `cmf_ad` (
   `ad_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '广告id',
-  `ad_name` varchar(255) NOT NULL,
-  `ad_content` text,
+  `ad_name` varchar(255) NOT NULL COMMENT '广告名称',
+  `ad_content` text COMMENT '广告内容',
   `status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1显示，0不显示',
   PRIMARY KEY (`ad_id`),
   KEY `ad_name` (`ad_name`)
@@ -33,17 +33,17 @@ CREATE TABLE `cmf_ad` (
 CREATE TABLE `cmf_asset` (
   `aid` bigint(20) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL DEFAULT '0' COMMENT '用户 id',
-  `key` varchar(50) NOT NULL,
-  `filename` varchar(50) DEFAULT NULL,
-  `filesize` int(11) DEFAULT NULL,
-  `filepath` varchar(200) NOT NULL,
-  `uploadtime` int(11) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '1',
-  `meta` text,
-  `suffix` varchar(50) DEFAULT NULL,
-  `download_times` int(6) NOT NULL DEFAULT '0' COMMENT '下载次数',
+  `key` varchar(50) NOT NULL COMMENT '资源 key',
+  `filename` varchar(50) DEFAULT NULL COMMENT '文件名',
+  `filesize` int(11) DEFAULT NULL COMMENT '文件大小,单位Byte',
+  `filepath` varchar(200) NOT NULL COMMENT '文件路径，相对于 upload 目录，可以为 url',
+  `uploadtime` int(11) NOT NULL COMMENT '上传时间',
+  `status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1：可用，0：删除，不可用',
+  `meta` text COMMENT '其它详细信息，JSON格式',
+  `suffix` varchar(50) DEFAULT NULL COMMENT '文件后缀名，不包括点',
+  `download_times` int(11) NOT NULL DEFAULT '0' COMMENT '下载次数',
   PRIMARY KEY (`aid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='资源表' AUTO_INCREMENT=1 ;
 
 
 -- ----------------------------
@@ -55,7 +55,7 @@ CREATE TABLE `cmf_auth_access` (
   `type` varchar(30) DEFAULT NULL COMMENT '权限规则分类，请加应用前缀,如admin_',
   KEY `role_id` (`role_id`),
   KEY `rule_name` (`rule_name`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='权限授权表';
 
 -- ----------------------------
 -- Table structure for sp_auth_rule
@@ -84,13 +84,13 @@ CREATE TABLE `cmf_auth_rule` (
 CREATE TABLE `cmf_comments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_table` varchar(100) NOT NULL COMMENT '评论内容所在表，不带表前缀',
-  `post_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `post_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论内容 id',
   `url` varchar(255) DEFAULT NULL COMMENT '原文地址',
   `uid` int(11) NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
   `to_uid` int(11) NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
   `full_name` varchar(50) DEFAULT NULL COMMENT '评论者昵称',
   `email` varchar(255) DEFAULT NULL COMMENT '评论者邮箱',
-  `createtime` datetime NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `createtime` datetime NOT NULL DEFAULT '2000-01-01 00:00:00' COMMENT '评论时间',
   `content` text NOT NULL COMMENT '评论内容',
   `type` smallint(1) NOT NULL DEFAULT '1' COMMENT '评论类型；1实名评论',
   `parentid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
@@ -102,7 +102,7 @@ CREATE TABLE `cmf_comments` (
   KEY `comment_parent` (`parentid`),
   KEY `table_id_status` (`post_table`,`post_id`,`status`),
   KEY `createtime` (`createtime`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论表' AUTO_INCREMENT=1 ;
 
 
 
@@ -121,7 +121,7 @@ CREATE TABLE `cmf_common_action_log` (
   PRIMARY KEY (`id`),
   KEY `user_object_action` (`user`,`object`,`action`),
   KEY `user_object_action_ip` (`user`,`object`,`action`,`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='访问记录表' AUTO_INCREMENT=1 ;
 
 
 -- 
@@ -134,10 +134,10 @@ CREATE TABLE `cmf_guestbook` (
   `email` varchar(100) NOT NULL COMMENT '留言者邮箱',
   `title` varchar(255) DEFAULT NULL COMMENT '留言标题',
   `msg` text NOT NULL COMMENT '留言内容',
-  `createtime` datetime NOT NULL,
-  `status` smallint(2) NOT NULL DEFAULT '1',
+  `createtime` datetime NOT NULL COMMENT '留言时间',
+  `status` smallint(2) NOT NULL DEFAULT '1' COMMENT '留言状态，1：正常，0：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表' AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -153,13 +153,13 @@ CREATE TABLE `cmf_links` (
   `link_image` varchar(255) DEFAULT NULL COMMENT '友情链接图标',
   `link_target` varchar(25) NOT NULL DEFAULT '_blank' COMMENT '友情链接打开方式',
   `link_description` text NOT NULL COMMENT '友情链接描述',
-  `link_status` int(2) NOT NULL DEFAULT '1',
+  `link_status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1显示，0不显示',
   `link_rating` int(11) NOT NULL DEFAULT '0' COMMENT '友情链接评级',
-  `link_rel` varchar(255) DEFAULT '',
+  `link_rel` varchar(255) DEFAULT NULL COMMENT '链接与网站的关系',
   `listorder` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`link_id`),
   KEY `link_visible` (`link_status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='友情链接表' AUTO_INCREMENT=2 ;
 
 
 
@@ -187,7 +187,7 @@ CREATE TABLE `cmf_menu` (
   KEY `status` (`status`),
   KEY `parentid` (`parentid`),
   KEY `model` (`model`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=156 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='后台菜单表' AUTO_INCREMENT=156 ;
 
 
 
@@ -197,17 +197,17 @@ CREATE TABLE `cmf_menu` (
 
 CREATE TABLE `cmf_nav` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cid` int(11) NOT NULL,
-  `parentid` int(11) NOT NULL,
-  `label` varchar(255) NOT NULL,
-  `target` varchar(50) DEFAULT NULL,
-  `href` varchar(255) NOT NULL,
-  `icon` varchar(255) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '1',
-  `listorder` int(6) DEFAULT '0',
-  `path` varchar(255) NOT NULL DEFAULT '0',
+  `cid` int(11) NOT NULL COMMENT '导航分类 id',
+  `parentid` int(11) NOT NULL COMMENT '导航父 id',
+  `label` varchar(255) NOT NULL COMMENT '导航标题',
+  `target` varchar(50) DEFAULT NULL COMMENT '打开方式',
+  `href` varchar(255) NOT NULL COMMENT '导航链接',
+  `icon` varchar(255) NOT NULL COMMENT '导航图标',
+  `status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1显示，0不显示',
+  `listorder` int(6) DEFAULT '0' COMMENT '排序',
+  `path` varchar(255) NOT NULL DEFAULT '0' COMMENT '层级关系',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='前台导航表' AUTO_INCREMENT=4 ;
 
 
 -- --------------------------------------------------------
@@ -218,11 +218,11 @@ CREATE TABLE `cmf_nav` (
 
 CREATE TABLE `cmf_nav_cat` (
   `navcid` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `active` int(1) NOT NULL DEFAULT '1',
-  `remark` text,
+  `name` varchar(255) NOT NULL COMMENT '导航分类名',
+  `active` int(1) NOT NULL DEFAULT '1' COMMENT '是否显示，1显示，0不显示',
+  `remark` text COMMENT '备注',
   PRIMARY KEY (`navcid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='前台导航分类表' AUTO_INCREMENT=2 ;
 
 
 
@@ -244,11 +244,11 @@ CREATE TABLE `cmf_oauth_user` (
   `last_login_ip` varchar(16) NOT NULL COMMENT '最后登录ip',
   `login_times` int(6) NOT NULL COMMENT '登录次数',
   `status` tinyint(2) NOT NULL,
-  `access_token` varchar(60) NOT NULL,
-  `expires_date` int(12) NOT NULL COMMENT 'access_token过期时间',
+  `access_token` varchar(512) NOT NULL,
+  `expires_date` int(11) NOT NULL COMMENT 'access_token过期时间',
   `openid` varchar(40) NOT NULL COMMENT '第三方用户id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='第三方用户表' AUTO_INCREMENT=1 ;
 
 -- 
 -- 表的结构 `cmf_options`
@@ -256,12 +256,12 @@ CREATE TABLE `cmf_oauth_user` (
 
 CREATE TABLE `cmf_options` (
   `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `option_name` varchar(64) NOT NULL DEFAULT '',
-  `option_value` longtext NOT NULL,
-  `autoload` int(2) NOT NULL DEFAULT '1',
+  `option_name` varchar(64) NOT NULL COMMENT '配置名',
+  `option_value` longtext NOT NULL COMMENT '配置值',
+  `autoload` int(2) NOT NULL DEFAULT '1' COMMENT '是否自动加载',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='全站配置表' AUTO_INCREMENT=2 ;
 
 -- 
 -- 导出表中的数据 `cmf_options`
@@ -284,7 +284,7 @@ CREATE TABLE `cmf_plugins` (
   `author` varchar(50) DEFAULT '' COMMENT '插件作者',
   `version` varchar(20) DEFAULT '' COMMENT '插件版本号',
   `createtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
-  `listorder` smallint(6) NOT NULL DEFAULT '0',
+  `listorder` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
@@ -319,7 +319,7 @@ CREATE TABLE `cmf_posts` (
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`),
   KEY `post_date` (`post_date`) USING BTREE
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Portal文章表' AUTO_INCREMENT=1 ;
 
 
 -- 
@@ -327,8 +327,8 @@ CREATE TABLE `cmf_posts` (
 -- 
 
 CREATE TABLE `cmf_role` (
-  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL DEFAULT '角色名称',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL COMMENT '角色名称',
   `pid` smallint(6) DEFAULT NULL COMMENT '父角色ID',
   `status` tinyint(1) unsigned DEFAULT NULL COMMENT '状态',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
@@ -338,7 +338,7 @@ CREATE TABLE `cmf_role` (
   PRIMARY KEY (`id`),
   KEY `parentId` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=2 ;
 
 -- 
 -- 导出表中的数据 `cmf_role`
@@ -353,11 +353,11 @@ INSERT INTO `cmf_role` VALUES (1, '超级管理员', 0, 1, '拥有网站最高�
 -- 
 
 CREATE TABLE `cmf_role_user` (
-  `role_id` mediumint(9) unsigned DEFAULT NULL,
-  `user_id` char(32) DEFAULT NULL,
+  `role_id` int(11) unsigned DEFAULT '0' COMMENT '角色 id',
+  `user_id` int(11) DEFAULT '0' COMMENT '用户id',
   KEY `group_id` (`role_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
 -- 
 -- 导出表中的数据 `cmf_role_user`
@@ -375,7 +375,7 @@ CREATE TABLE `cmf_route` (
   `listorder` int(5) DEFAULT '0' COMMENT '排序，优先级，越小优先级越高',
   `status` tinyint(1) DEFAULT '1' COMMENT '状态，1：启用 ;0：不启用',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='url路由表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -385,17 +385,17 @@ CREATE TABLE `cmf_route` (
 
 CREATE TABLE `cmf_slide` (
   `slide_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `slide_cid` bigint(20) NOT NULL,
-  `slide_name` varchar(255) NOT NULL,
-  `slide_pic` varchar(255) DEFAULT NULL,
-  `slide_url` varchar(255) DEFAULT NULL,
-  `slide_des` varchar(255) DEFAULT NULL,
-  `slide_content` text,
-  `slide_status` int(2) NOT NULL DEFAULT '1',
-  `listorder` int(10) DEFAULT '0',
+  `slide_cid` int(11) NOT NULL COMMENT '幻灯片分类 id',
+  `slide_name` varchar(255) NOT NULL COMMENT '幻灯片名称',
+  `slide_pic` varchar(255) DEFAULT NULL COMMENT '幻灯片图片',
+  `slide_url` varchar(255) DEFAULT NULL COMMENT '幻灯片链接',
+  `slide_des` varchar(255) DEFAULT NULL COMMENT '幻灯片描述',
+  `slide_content` text COMMENT '幻灯片内容',
+  `slide_status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1显示，0不显示',
+  `listorder` int(10) DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`slide_id`),
   KEY `slide_cid` (`slide_cid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='幻灯片表' AUTO_INCREMENT=1 ;
 
 -- 
 -- 导出表中的数据 `cmf_slide`
@@ -409,14 +409,14 @@ CREATE TABLE `cmf_slide` (
 -- 
 
 CREATE TABLE `cmf_slide_cat` (
-  `cid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cat_name` varchar(255) NOT NULL,
-  `cat_idname` varchar(255) NOT NULL,
-  `cat_remark` text,
-  `cat_status` int(2) NOT NULL DEFAULT '1',
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(255) NOT NULL COMMENT '幻灯片分类',
+  `cat_idname` varchar(255) NOT NULL COMMENT '幻灯片分类标识',
+  `cat_remark` text COMMENT '分类备注',
+  `cat_status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1显示，0不显示',
   PRIMARY KEY (`cid`),
   KEY `cat_idname` (`cat_idname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='幻灯片分类表' AUTO_INCREMENT=1 ;
 
 -- 
 -- 导出表中的数据 `cmf_slide_cat`
@@ -446,7 +446,7 @@ CREATE TABLE `cmf_terms` (
   `listorder` int(5) NOT NULL DEFAULT '0' COMMENT '排序',
   `status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1发布，0不发布',
   PRIMARY KEY (`term_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Portal 文章分类表' AUTO_INCREMENT=3 ;
 
 -- 
 -- 导出表中的数据 `cmf_terms`
@@ -469,7 +469,7 @@ CREATE TABLE `cmf_term_relationships` (
   `status` int(2) NOT NULL DEFAULT '1' COMMENT '状态，1发布，0不发布',
   PRIMARY KEY (`tid`),
   KEY `term_taxonomy_id` (`term_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Portal 文章分类对应表' AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -501,7 +501,7 @@ CREATE TABLE `cmf_users` (
   PRIMARY KEY (`id`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=1 ;
 
 
 -- 
@@ -510,16 +510,16 @@ CREATE TABLE `cmf_users` (
 
 CREATE TABLE `cmf_user_favorites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) DEFAULT NULL COMMENT '用户 id',
   `title` varchar(255) DEFAULT NULL COMMENT '收藏内容的标题',
   `url` varchar(255) DEFAULT NULL COMMENT '收藏内容的原文地址，不带域名',
   `description` varchar(500) DEFAULT NULL COMMENT '收藏内容的描述',
   `table` varchar(50) DEFAULT NULL COMMENT '收藏实体以前所在表，不带前缀',
   `object_id` int(11) DEFAULT NULL COMMENT '收藏内容原来的主键id',
-  `createtime` int(11) DEFAULT NULL,
+  `createtime` int(11) DEFAULT NULL COMMENT '收藏时间',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户收藏表' AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
