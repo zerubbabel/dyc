@@ -5,7 +5,8 @@ class MainController extends AdminbaseController {
 	
     public function index(){
     	
-    	$mysql= mysql_get_server_info();
+    	$mysql= M()->query("select VERSION() as version");
+    	$mysql=$mysql[0]['version'];
     	$mysql=empty($mysql)?L('UNKNOWN'):$mysql;
     	
     	//server infomaions
