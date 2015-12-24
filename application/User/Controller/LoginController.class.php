@@ -247,7 +247,7 @@ hello;
                                 }
                                 $uc_uid=$uc_uid2;
                             }else{
-                                $this->error("密码错误1！");
+                                $this->error("密码错误！");
                             }
                         }
         
@@ -257,16 +257,16 @@ hello;
                             if(sp_compare_password($password, $result['user_pass'])){//本应用已经有这个用户,且密码正确，同步用户
                                 $uc_user_edit_status=uc_user_edit($username,"",$password,"",1);
                                 if($uc_user_edit_status<=0){
-                                    $this->error("登陆错误3！");
+                                    $this->error("登陆错误！");
                                 }
                                 list($uc_uid2)=uc_get_user($username);
                                 $uc_uid=$uc_uid2;
                                 $ucenter_old_user_login=true;
                             }else{
-                                $this->error("密码错误4！");
+                                $this->error("密码错误！");
                             }
                         }else{
-                            $this->error("密码错误1！");
+                            $this->error("密码错误！");
                         }
                          
                         break;
@@ -296,7 +296,7 @@ hello;
         
                 $this->success("登录验证成功！", $redirect);
             }else{
-                $this->error("密码错误7！");
+                $this->error("密码错误！");
             }
         }else{
             $this->error("用户名不存在！");
