@@ -1199,7 +1199,7 @@ function sp_get_routes($refresh=false){
 		return $routes;
 	}
 	$routes=M("Route")->where("status=1")->order("listorder asc")->select();
-	$module_routes=array();
+	$all_routes=array();
 	$cache_routes=array();
 	foreach ($routes as $er){
 		$full_url=$er['full_url'];
@@ -1233,23 +1233,18 @@ function sp_get_routes($refresh=false){
 			
 		$cache_routes[$path][]=array("query"=>$vars,"url"=>$url);
 			
-		$module_routes[$module][$url]=$full_url;
+		$all_routes[$url]=$full_url;
 			
 	}
 	F("routes",$cache_routes);
-	$route_dir=SITE_PATH."/data/conf/route/";
-	foreach ($module_routes as $module => $routes){
-		
-		if(!file_exists($route_dir)){
-			mkdir($route_dir);
-		}
-			
-		$route_file=$route_dir."$module.php";
-			
-		$route_ruels=array();
-			
-		file_put_contents($route_file, "<?php\treturn " . stripslashes(var_export($routes, true)) . ";");
+	$route_dir=SITE_PATH."/data/conf/";
+	if(!file_exists($route_dir)){
+		mkdir($route_dir);
 	}
+		
+	$route_file=$route_dir."route.php";
+		
+	file_put_contents($route_file, "<?php\treturn " . stripslashes(var_export($all_routes, true)) . ";");
 	
 	return $cache_routes;
 	

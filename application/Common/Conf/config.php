@@ -9,6 +9,13 @@ if(file_exists("data/conf/config.php")){
 }else{
     $runtime_config=array();
 }
+
+if (file_exists("data/conf/route.php")) {
+    $routes = include 'data/conf/route.php';
+} else {
+    $routes = array();
+}
+
 $configs= array(
 		"LOAD_EXT_FILE"=>"extend",
 		'UPLOADPATH' => 'data/upload/',
@@ -72,13 +79,14 @@ $configs= array(
 		'VAR_PAGE'				=>"p",
 		
 		'URL_ROUTER_ON'			=> true,
+        	'URL_ROUTE_RULES'       => $routes,
 		
 		/*性能优化*/
 		'OUTPUT_ENCODE'			=>true,// 页面压缩输出
 		
-		'HTML_CACHE_ON'     =>    false, // 开启静态缓存
-		'HTML_CACHE_TIME'   =>    60,   // 全局静态缓存有效期（秒）
-		'HTML_FILE_SUFFIX'  =>    '.html', // 设置静态缓存文件后缀
+		'HTML_CACHE_ON'         =>    false, // 开启静态缓存
+		'HTML_CACHE_TIME'       =>    60,   // 全局静态缓存有效期（秒）
+		'HTML_FILE_SUFFIX'      =>    '.html', // 设置静态缓存文件后缀
 		
 		'TMPL_PARSE_STRING'=>array(
 			'/Public/upload'=>'/data/upload',
