@@ -231,7 +231,7 @@
     }
 
     //dialog弹窗内的关闭方法
-    $('#js-dialog_close').on('click', function (e) {
+    $('#js-dialog-close').on('click', function (e) {
         e.preventDefault();
         try{
             art.dialog.close();
