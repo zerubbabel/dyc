@@ -21,7 +21,7 @@
 						<th>{:L('CONTENT')}</th>
 						<th width="120">{:L('TIME')}</th>
 						<th width="50">{:L('STATUS')}</th>
-						<th width="50">{:L('ACTIONS')}</th>
+						<th width="80">{:L('ACTIONS')}</th>
 					</tr>
 				</thead>
 				<php>$status=array("1"=>L('AUDITED'),"0"=>L('NOT_AUDITED'));</php>
@@ -34,7 +34,10 @@
 					<td>{$vo.content}</td>
 					<td>{$vo.createtime}</td>
 					<td>{$status[$vo['status']]}</td>
-					<td><a href="{:U('Commentadmin/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a></td>
+					<td>
+						<a target="_blank" href="__ROOT__/{$vo.url}">查看原文</a> 
+						<a href="{:U('Commentadmin/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+					</td>
 				</tr>
 				</foreach>
 				<tfoot>
