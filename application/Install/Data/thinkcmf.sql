@@ -219,7 +219,7 @@ CREATE TABLE `cmf_nav` (
 CREATE TABLE `cmf_nav_cat` (
   `navcid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '导航分类名',
-  `active` int(1) NOT NULL DEFAULT '1' COMMENT '是否显示，1显示，0不显示',
+  `active` int(1) NOT NULL DEFAULT '1' COMMENT '是否为主菜单，1是，0不是',
   `remark` text COMMENT '备注',
   PRIMARY KEY (`navcid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='前台导航分类表' AUTO_INCREMENT=2 ;
