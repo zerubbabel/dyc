@@ -227,17 +227,13 @@ class HomebaseController extends AppframeController {
 		}
 		//by ayumi手机提示模板
 		$tpl_path = '';
-		if(C('MOBILE_TPL_ENABLED')){//开启手机模板支持
-			if(sp_is_mobile()){
-				if(file_exists(C("SP_TMPL_PATH")."/".$theme."_mobile")){
-					$theme  =   $theme."_mobile";
-					$tpl_path=C("SP_TMPL_PATH").$theme."/";
-				}
-			}
-		}
-		else{
+		if(C('MOBILE_TPL_ENABLED') && sp_is_mobile() && file_exists(C("SP_TMPL_PATH")."/".$theme."_mobile")){//开启手机模板支持
+			$theme  =   $theme."_mobile";
+			$tpl_path=C("SP_TMPL_PATH").$theme."/";
+		}else{
 			$tpl_path=C("SP_TMPL_PATH").$theme."/";
 		}
+		
 		//by ayumi手机提示模板
 		$defaultjump=THINK_PATH.'Tpl/dispatch_jump.tpl';
 		$action_success = sp_add_template_file_suffix($tpl_path.C("SP_TMPL_ACTION_SUCCESS"));
@@ -247,7 +243,7 @@ class HomebaseController extends AppframeController {
 		}else{
 			C("TMPL_ACTION_SUCCESS",$defaultjump);
 		}
-		
+
 		if(file_exists_case($action_error)){
 			C("TMPL_ACTION_ERROR",$action_error);
 		}else{
