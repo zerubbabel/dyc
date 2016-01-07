@@ -632,12 +632,14 @@ function comment_submit(obj){
 		var comment_url=$comment_form.attr("action");
 		
 		var post_table=$comment_form.find("[name='post_table']").val();
+		var post_title=$comment_form.find("[name='post_title']").val();
 		var post_id=$comment_form.find("[name='post_id']").val();
 		
 		var uid=$comment.data("uid");
 		
 		$.post(comment_url,
 		{
+			post_title:post_title,
 			post_table:post_table,
 			post_id:post_id,
 			to_uid:uid,

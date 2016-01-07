@@ -28,6 +28,7 @@ class WidgetController extends Controller{
 		$data['post_id']=$post_id;
 		$this->assign($data);
 		$this->assign("comments",$new_comments);
+		$this->assign("params",$params);
 		$this->assign("parent_comments",$parent_comments);
 		$tpl= (isset($params['tpl'])&& !empty($params['tpl']) )?$params['tpl']:"comment";
 		return $this->fetch(":$tpl");

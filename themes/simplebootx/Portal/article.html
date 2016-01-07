@@ -60,7 +60,7 @@
 					<div class="clearfix"></div>
 				</div>
 		    	
-		    	{:Comments("posts",$object_id)}
+		    	{:Comments("posts",$object_id,array('post_title'=>$post_title))}
 		    </div>
 		    
 		    <php>$ad=sp_getad("portal_article_bottom");</php>
