@@ -26,6 +26,7 @@ class PublicController extends AdminbaseController {
     		if(!empty($site_admin_url_password) && $upw!=$site_admin_url_password){
     			redirect(__ROOT__."/");
     		}else{
+    		    session("__SP_ADMIN_LOGIN_PAGE_SHOWED_SUCCESS__",true);
     			$this->display(":login");
     		}
     	}
@@ -37,6 +38,10 @@ class PublicController extends AdminbaseController {
     }
     
     public function dologin(){
+        $login_page_showed_success=session("__SP_ADMIN_LOGIN_PAGE_SHOWED_SUCCESS__");
+        if(!$login_page_showed_success){
+            $this->error('login error!');
+        }
     	$name = I("post.username");
     	if(empty($name)){
     		$this->error(L('USERNAME_OR_EMAIL_EMPTY'));
