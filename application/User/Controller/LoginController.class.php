@@ -94,7 +94,14 @@ hello;
 	
 	
 	function password_reset(){
-		$this->display(":password_reset");
+	    $users_model=M("Users");
+	    $hash=I("get.hash");
+	    $find_user=$users_model->where(array("user_activation_key"=>$hash))->find();
+	    if (empty($find_user)){
+	        $this->error('重置码无效！',__ROOT__."/");
+	    }else{
+	        $this->display(":password_reset");
+	    }
 	}
 	
 	function dopassword_reset(){
