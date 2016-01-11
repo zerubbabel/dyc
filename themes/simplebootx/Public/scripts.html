@@ -1,8 +1,8 @@
 <script type="text/javascript">
 //全局变量
 var GV = {
-    DIMAUB: "",
-    JS_ROOT: "__PUBLIC__/js/",
+    DIMAUB: "__ROOT__/",
+    JS_ROOT: "public/js/",
     TOKEN: ""
 };
 </script>
@@ -30,11 +30,11 @@ var GV = {
 				}
 				
 				$("#main-menu-user .user-nicename").text(data.user.user_nicename!=""?data.user.user_nicename:data.user.user_login);
-				$("#main-menu-user li.user.login").show();
+				$("#main-menu-user li.login").show();
 				
 			}
 			if(data.status==0){
-				$("#main-menu-user li.user.offline").show();
+				$("#main-menu-user li.offline").show();
 			}
 			
 		});	
