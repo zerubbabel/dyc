@@ -22,7 +22,11 @@
 		    	{$post_content}
 		    	</div>
 		    	
-		    	{:Comments("posts",$id)}
+		    	{:hook('comment',array(
+		    		'post_id'=>$id,
+		    		'post_table'=>'posts',
+		    		'post_title'=>$post_title
+		    	))}
 		    </div>
 		    
 		</div>
