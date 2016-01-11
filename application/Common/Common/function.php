@@ -482,6 +482,7 @@ function sp_get_menu($id="main",$effected_id="mainmenu",$filetpl="<span class='f
 
 function _sp_get_menu_datas($id){
 	$nav_obj= M("Nav");
+	$oldid=$id;
 	$id= intval($id);
 	$id = empty($id)?"main":$id;
 	if($id=="main"){
@@ -494,7 +495,7 @@ function _sp_get_menu_datas($id){
 		return array();
 	}
 	
-	$navs= $nav_obj->where("cid=$id and status=1")->order(array("listorder" => "ASC"))->select();
+	$navs= $nav_obj->where(array('cid'=>$id,'status'=>1))->order(array("listorder" => "ASC"))->select();
 	foreach ($navs as $key=>$nav){
 		$href=htmlspecialchars_decode($nav['href']);
 		$hrefold=$href;
@@ -516,7 +517,7 @@ function _sp_get_menu_datas($id){
 		$nav['href']=$href;
 		$navs[$key]=$nav;
 	}
-	F("site_nav",$navs);
+	F("site_nav_".$oldid,$navs);
 	return $navs;
 }
 
