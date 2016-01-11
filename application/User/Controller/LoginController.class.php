@@ -21,8 +21,15 @@ class LoginController extends HomebaseController {
 	
 	function doactive(){
 		$this->check_login();
-		$this->_send_to_active();
-		$this->success('激活邮件发送成功，激活请重新登录！',U("user/index/logout"));
+		$current_user=session('user');
+		if($current_user['user_status']==2){
+		    $this->_send_to_active();
+		    $this->success('激活邮件发送成功，激活请重新登录！',U("user/index/logout"));
+		}else if($current_user['user_status']==1){
+		    $this->error('您的账号已经激活，无需再次激活！');
+		}else{
+		    $this->error('您的账号无法发送激活邮件！');
+		}
 	}
 	
 	function forgot_password(){
