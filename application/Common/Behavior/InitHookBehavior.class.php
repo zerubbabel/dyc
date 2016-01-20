@@ -21,7 +21,7 @@ class InitHookBehavior extends Behavior {
         
         $data = S('hooks');
         if(!$data){
-           $plugins = M('Plugins')->where("status=1")->getField("name,hooks");
+           is_array($plugins = M('Plugins')->where("status=1")->getField("name,hooks"))?null:$plugins = array();
            foreach ($plugins as $plugin => $hooks) {
                 if($hooks){
                 	$hooks=explode(",", $hooks);
