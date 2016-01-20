@@ -133,6 +133,7 @@ class MenuModel extends CommonModel {
         $data = $this->admin_menu($myid);
         $Level++;
         if (is_array($data)) {
+            $ret = NULL;
             foreach ($data as $a) {
                 $id = $a['id'];
                 $name = ucwords($a['app']);
@@ -232,4 +233,3 @@ class MenuModel extends CommonModel {
     }
 
 }
-
