@@ -4,6 +4,22 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 文档:http://www.thinkcmf.com/document
 
 ## UPDATE
+X2.1.0
+* 修复前台导航缓存问题
+* 修复个人中心mysql5.7下保存失败
+* 文章评论插件化
+* 增加系统评论插件
+* 修复simplebootx模板config文件变量不对应
+* 优化用户激活流程，防止已激活用户和被禁用用户两次发送激活邮件
+* 更正数据库前台导航分类active注释
+* 修复手机模板开启时跳转页面模板路径判断错误
+* 修复重置密码后，重置密码链接仍可打开问题
+* 增加后台评论管理查看原文功能
+* 增强后台登录接口安全性
+* 修复前台分页当前页选中问题
+* 增加全局路由,强化URL美化功能
+* 修复导航分类管理
+
 X2.0.0
 * 更改HomeBaseController.class.php文件名为HomebaseController.class.php
 * 移动Common里的Portal model到Portal下；
