@@ -106,7 +106,6 @@ class ProfileController extends MemberbaseController {
     
     function avatar_upload(){
     	$config=array(
-    			'FILE_UPLOAD_TYPE' => sp_is_sae()?"Sae":'Local',//TODO 其它存储类型暂不考虑
     			'rootPath' => './'.C("UPLOADPATH"),
     			'savePath' => './avatar/',
     			'maxSize' => 512000,//500K
@@ -114,7 +113,8 @@ class ProfileController extends MemberbaseController {
     			'exts'       =>    array('jpg', 'png', 'jpeg'),
     			'autoSub'    =>    false,
     	);
-    	$upload = new \Think\Upload($config);//
+    	$driver_type = sp_is_sae()?"Sae":'Local';//TODO 其它存储类型暂不考虑
+    	$upload = new \Think\Upload($config,$driver_type);//
     	$info=$upload->upload();
     	//开始上传
     	if ($info) {
