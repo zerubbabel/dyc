@@ -17,6 +17,7 @@ class UsersModel extends CommonModel
 	
 	protected $_auto = array(
 	    array('create_time','mGetDate',CommonModel:: MODEL_INSERT,'callback'),
+	    array('birthday','',CommonModel::MODEL_UPDATE,'ignore')
 	);
 	
 	//用于获取时间，格式为2012-02-03 12:12:12,注意,方法不能为private
