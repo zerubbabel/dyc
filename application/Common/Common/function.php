@@ -1097,50 +1097,56 @@ function leuu($url='',$vars='',$suffix=true,$domain=false){
 			$module_controller_action=strtolower(implode($depr,array_reverse($var)));
 			
 			$has_route=false;
+			$original_url=$module_controller_action.(empty($vars)?"":"?").http_build_query($vars);
 			
-			if(isset($routes[$module_controller_action])){
-				$urlrules=$routes[$module_controller_action];
-				
-				$empty_query_urlrule=array();
-				
-				foreach ($urlrules as $ur){
-					$intersect=array_intersect($ur['query'], $vars);
-					if($intersect){
-						$vars=array_diff_key($vars,$ur['query']);
-						$url= $ur['url'];
-						$has_route=true;
-						break;
-					}
-					if(empty($empty_query_urlrule) && empty($ur['query'])){
-						$empty_query_urlrule=$ur;
-					}
-				}
-				
-				if(!empty($empty_query_urlrule)){
-					$url=$empty_query_urlrule['url'];
-					foreach ($vars as $key =>$value){
-						if(strpos($url, ":$key")!==false){
-							$url=str_replace(":$key", $value, $url);
-							unset($vars[$key]);
-						}
-					}
-					$url=str_replace(array("\d","$"), "", $url);
-					$has_route=true;
-				}
-				
-				if($has_route){
-					if(!empty($vars)) { // 添加参数
-						foreach ($vars as $var => $val){
-							if('' !== trim($val))   $url .= $depr . $var . $depr . urlencode($val);
-						}
-					}
-					
-					$url =__APP__."/".$url ;
-					
-				}
-				
-			
+			if(isset($routes['static'][$original_url])){
+			    $has_route=true;
+			    $url=__APP__."/".$routes['static'][$original_url];
+			}else{
+			    if(isset($routes['dynamic'][$module_controller_action])){
+			        $urlrules=$routes['dynamic'][$module_controller_action];
+			    
+			        $empty_query_urlrule=array();
+			    
+			        foreach ($urlrules as $ur){
+			            $intersect=array_intersect_assoc($ur['query'], $vars);
+			            if($intersect){
+			                $vars=array_diff_key($vars,$ur['query']);
+			                $url= $ur['url'];
+			                $has_route=true;
+			                break;
+			            }
+			            if(empty($empty_query_urlrule) && empty($ur['query'])){
+			                $empty_query_urlrule=$ur;
+			            }
+			        }
+			    
+			        if(!empty($empty_query_urlrule)){
+			            $has_route=true;
+			            $url=$empty_query_urlrule['url'];
+			        }
+			        
+			        $new_vars=array_reverse($vars);
+			        foreach ($new_vars as $key =>$value){
+			            if(strpos($url, ":$key")!==false){
+			                $url=str_replace(":$key", $value, $url);
+			                unset($vars[$key]);
+			            }
+			        }
+			        $url=str_replace(array("\d","$"), "", $url);
+			    
+			        if($has_route){
+			            if(!empty($vars)) { // 添加参数
+			                foreach ($vars as $var => $val){
+			                    if('' !== trim($val))   $url .= $depr . $var . $depr . urlencode($val);
+			                }
+			            }
+			            $url =__APP__."/".$url ;
+			        }
+			    }
 			}
+			
+			$url=str_replace(array("^","$"), "", $url);
 			
 			if(!$has_route){
 				$module =   defined('BIND_MODULE') ? '' : $module;
@@ -1203,7 +1209,7 @@ function sp_get_routes($refresh=false){
 	$all_routes=array();
 	$cache_routes=array();
 	foreach ($routes as $er){
-		$full_url=$er['full_url'];
+		$full_url=htmlspecialchars_decode($er['full_url']);
 			
 		// 解析URL
 		$info   =  parse_url($full_url);
@@ -1231,8 +1237,12 @@ function sp_get_routes($refresh=false){
 		$full_url=$path.(empty($vars)?"":"?").http_build_query($vars);
 			
 		$url=$er['url'];
-			
-		$cache_routes[$path][]=array("query"=>$vars,"url"=>$url);
+		
+		if(strpos($url,':')===false){
+		    $cache_routes['static'][$full_url]=$url;
+		}else{
+		    $cache_routes['dynamic'][$path][]=array("query"=>$vars,"url"=>$url);
+		}
 			
 		$all_routes[$url]=$full_url;
 			
