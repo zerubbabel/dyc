@@ -14,7 +14,7 @@
 						<select name="cid" id="navcid_select">
 						<foreach name="navcats" item="vo">
 							<php>$navcid_selected=$navcid==$vo['navcid']?"selected":"";</php>
-							<option value="{$vo.navcid}">{$vo.name}</option>
+							<option value="{$vo.navcid}" {$navcid_selected}>{$vo.name}</option>
 						</foreach>
 						</select>
 					</div>

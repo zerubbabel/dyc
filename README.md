@@ -18,7 +18,7 @@ X2.1.0
 * 增强后台登录接口安全性
 * 修复前台分页当前页选中问题
 * 增加全局路由,强化URL美化功能
-* 修复导航分类管理
+* 修复导航添加时导航分类选择问题
 
 X2.0.0
 * 更改HomeBaseController.class.php文件名为HomebaseController.class.php
