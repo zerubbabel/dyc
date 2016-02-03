@@ -20,6 +20,8 @@ X2.1.0
 * 增加全局路由,强化URL美化功能
 * 修复导航添加时导航分类选择问题
 
+祝新年愉快，合家欢乐！
+
 X2.0.0
 * 更改HomeBaseController.class.php文件名为HomebaseController.class.php
 * 移动Common里的Portal model到Portal下；
