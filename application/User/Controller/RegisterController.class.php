@@ -41,6 +41,7 @@ class RegisterController extends HomebaseController {
             //array(验证字段,验证规则,错误提示,验证条件,附加规则,验证时间)
             array('mobile', 'require', '手机号不能为空！', 1 ),
             array('password','require','密码不能为空！',1),
+	    array('password','number','密码长度最小5位,最大20位！',1,'5,20'),
         );
         	
 	    $users_model=M("Users");
@@ -51,10 +52,6 @@ class RegisterController extends HomebaseController {
 	     
 	    $password=$_POST['password'];
 	    $mobile=$_POST['mobile'];
-	     
-	    if(strlen($password) < 5 || strlen($password) > 20){
-	        $this->error("密码长度至少5位，最多20位！");
-	    }
 	     
 	    
 	    $where['mobile']=$mobile;
@@ -79,7 +76,7 @@ class RegisterController extends HomebaseController {
 	        );
 	        $rst = $users_model->add($data);
 	        if($rst){
-	            //登入成功页面跳转
+	            //注册成功后页面跳转
 	            $data['id']=$rst;
 	            $_SESSION['user']=$data;
 	            $this->success("注册成功！",__ROOT__."/");
@@ -101,6 +98,7 @@ class RegisterController extends HomebaseController {
             //array(验证字段,验证规则,错误提示,验证条件,附加规则,验证时间)
             array('email', 'require', '邮箱不能为空！', 1 ),
             array('password','require','密码不能为空！',1),
+			array('password','number','密码长度最小5位,最大20位！',1,'5,20'),
             array('repassword', 'require', '重复密码不能为空！', 1 ),
             array('repassword','password','确认密码不正确',0,'confirm'),
             array('email','email','邮箱格式不正确！',1), // 验证email字段格式是否正确
@@ -128,10 +126,6 @@ class RegisterController extends HomebaseController {
 // 	    if(in_array($username, $banned_usernames)){
 // 	        $this->error("此用户名禁止使用！");
 // 	    }
-	     
-	    if(strlen($password) < 5 || strlen($password) > 20){
-	        $this->error("密码长度至少5位，最多20位！");
-	    }
 	    
 	    $where['user_login']=$username;
 	    $where['user_email']=$email;
@@ -175,7 +169,7 @@ class RegisterController extends HomebaseController {
 	            );
 	            $rst = $users_model->add($data);
 	            if($rst){
-	                //登入成功页面跳转
+	                //注册成功页面跳转
 	                $data['id']=$rst;
 	                $_SESSION['user']=$data;
 	                	

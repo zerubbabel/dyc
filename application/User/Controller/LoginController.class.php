@@ -120,6 +120,7 @@ hello;
 				$rules = array(
 						//array(验证字段,验证规则,错误提示,验证条件,附加规则,验证时间)
 						array('password', 'require', '密码不能为空！', 1 ),
+						array('password','number','密码长度最小5位,最大20位！',1,'5,20'),
 						array('repassword', 'require', '重复密码不能为空！', 1 ),
 						array('repassword','password','确认密码不正确',0,'confirm'),
 						array('hash', 'require', '重复密码激活码不能空！', 1 ),

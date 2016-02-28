@@ -4,9 +4,8 @@ use Common\Controller\MemberbaseController;
 class FavoriteController extends MemberbaseController{
 	
 	function index(){
-		$uid=sp_get_current_userid();
 		$user_favorites_model=M("UserFavorites");
-		$favorites=$user_favorites_model->where("uid=$uid")->select();
+		$favorites=$user_favorites_model->where(array('uid'=>$this->userid))->select();
 		$this->assign("favorites",$favorites);
 		$this->display(":favorite");
 	}
@@ -25,10 +24,9 @@ class FavoriteController extends MemberbaseController{
 				$post['table']=$table;
 				$post['object_id']=$object_id;
 				
-				$uid=sp_get_current_userid();
-				$post['uid']=$uid;
+				$post['uid']=$this->userid;
 				$user_favorites_model=M("UserFavorites");
-				$find_favorite=$user_favorites_model->where(array('table'=>$table,'object_id'=>$object_id,'uid'=>$uid))->find();
+				$find_favorite=$user_favorites_model->where(array('table'=>$table,'object_id'=>$object_id,'uid'=>$this->userid))->find();
 				if($find_favorite){
 					$this->error("亲，您已收藏过啦！");
 				}else {
@@ -51,10 +49,9 @@ class FavoriteController extends MemberbaseController{
 	
 	function delete_favorite(){
 		$id=I("get.id",0,"intval");
-		$uid=sp_get_current_userid();
-		$post['uid']=$uid;
+		$post['uid']=$this->userid;
 		$user_favorites_model=M("UserFavorites");
-		$result=$user_favorites_model->where(array('id'=>$id,'uid'=>$uid))->delete();
+		$result=$user_favorites_model->where(array('id'=>$id,'uid'=>$this->userid))->delete();
 		if($result){
 			$this->success("取消收藏成功！");
 		}else {
