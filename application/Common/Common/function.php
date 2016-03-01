@@ -1,5 +1,5 @@
 <?php
-
+use Think\Storage;
 /**
  * 获取当前登录的管事员id
  * @return int
@@ -1775,4 +1775,19 @@ function sp_delete_physics_img($imglist){
     }
     
     return $res;
+}
+/**
+ * 安全删除位于头像文件夹中的头像
+ *
+ * @param string $file 头像文件名,不含路径
+ * @author rainfer <81818832@qq.com>
+ */
+function sp_delete_avatar($file)
+{
+    if($file){
+		$file='data/upload/avatar/'.$file;
+		if (Storage::has($file)) {
+			Storage::unlink($file);
+		}
+	}
 }
