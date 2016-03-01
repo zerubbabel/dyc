@@ -167,7 +167,23 @@ class ProfileController extends MemberbaseController {
     		
     	}
     }
-    
-    
+    public function do_avatar() {
+		$imgurl=I('post.imgurl');
+		//去'/'
+		$imgurl=str_replace('/','',$imgurl);
+		$old_img=$this->user['avatar'];
+		$this->user['avatar']=$imgurl;
+		$res=$this->users_model->where(array("id"=>$this->userid))->save($this->user);		
+		if($res){
+			//更新session
+			session('user',$this->user);
+			//删除旧头像
+			sp_delete_avatar($old_img);
+		}else{
+			$this->user['avatar']=$old_img;
+			//删除新头像
+			sp_delete_avatar($imgurl);
+		}
+		$this->ajaxReturn($res);
+	}       
 }
-    
