@@ -81,7 +81,7 @@ function change_images(uploadid, returnid) {
     $.each(contents, function(i, n) {
         var ids = parseInt(Math.random() * 10000 + 10 * i);
         var filename = filenames[i].substr(0, filenames[i].indexOf('.'));
-        str += "<li id='image" + ids + "'><input title='双击查看' type='text' name='" + returnid + "_url[]' value='" + n + "' style='width:310px;' ondblclick='image_priview(this.value);' class='input image-url-input'> <input type='text' name='" + returnid + "_alt[]' value='" + filename + "' style='width:160px;' class='input image-alt-input' onfocus=\"if(this.value == this.defaultValue) this.value = ''\" onblur=\"if(this.value.replace(' ','') == '') this.value = this.defaultValue;\"> <a href=\"javascript:flashupload('replace_albums_images', '图片替换','image"+ids+"',replace_image,'10,gif|jpg|jpeg|png|bmp,0','','','')\">替换</a>  <a href=\"javascript:remove_div('image" + ids + "')\">移除</a> </li>";
+        str += "<li id='image" + ids + "'><input title='双击查看' type='text' name='" + returnid + "_url[]' value='" + n + "' style='width: 310px;height:48px;' ondblclick='image_priview(this.value);' class='input image-url-input'> <input type='text' name='" + returnid + "_alt[]' value='" + filename + "' style='width:160px;height:48px;' class='input image-alt-input' onfocus=\"if(this.value == this.defaultValue) this.value = ''\" onblur=\"if(this.value.replace(' ','') == '') this.value = this.defaultValue;\"><a  class='img_a' href=\"javascript:onClick=image_priview('"+n+"')\"><img class='img_prew' src='"+n+"' style='height:50px;'></img></a> <a href=\"javascript:flashupload('replace_albums_images', '图片替换','image"+ids+"',replace_image,'10,gif|jpg|jpeg|png|bmp,0','','','')\">替换</a>  <a href=\"javascript:remove_div('image" + ids + "')\">移除</a> </li>";
     });
 
     $('#' + returnid).html(str);
@@ -98,6 +98,8 @@ function replace_image(uploadid, returnid) {
     if (contents == '') return true;
     
     $("#"+returnid).find(".image-url-input").val(contents[0]);
+	$("#"+returnid).find(".img_prew").attr('src', contents[0]);
+ 	$("#"+returnid).find(".img_a").attr('href', "javascript:onClick=image_priview('"+contents[0]+"')");
     var filename = filenames[0].substr(0, filenames[0].indexOf('.'));
     $("#"+returnid).find(".image-alt-input").val(filename);
 }
@@ -115,7 +117,7 @@ function upload_zip(uploadid, returnid) {
     $.each(contents, function(i, n) {
         var ids = parseInt(Math.random() * 10000 + 10 * i);
         var filename = filenames[i].substr(0, filenames[i].indexOf('.'));
-        str += "<li id='image" + ids + "'><input title='双击查看' type='text' name='" + returnid + "_url' value='" + n + "' style='width:310px;' ondblclick='image_priview(this.value);' class='input'> <input type='text' name='" + returnid + "_alt[]' value='" + filename + "' style='width:160px;' class='input' onfocus=\"if(this.value == this.defaultValue) this.value = ''\" onblur=\"if(this.value.replace(' ','') == '') this.value = this.defaultValue;\"> <a href=\"javascript:remove_div('image" + ids + "')\">移除</a> </li>";
+        str += "<li id='image" + ids + "'><input title='双击查看' type='text' name='" + returnid + "_url' value='" + n + "' style='width:310px;height:48px;' ondblclick='image_priview(this.value);' class='input'> <input type='text' name='" + returnid + "_alt[]' value='" + filename + "' style='width:160px;height:48px;' class='input' onfocus=\"if(this.value == this.defaultValue) this.value = ''\" onblur=\"if(this.value.replace(' ','') == '') this.value = this.defaultValue;\"><a  class='img_a' href=\"javascript:onClick=image_priview('"+n+"')\"><img class='img_prew' src='"+n+"' style='height:50px;'></img></a> <a href=\"javascript:remove_div('image" + ids + "')\">移除</a> </li>";
     });
 
     $('#' + returnid).html(str);
