@@ -622,9 +622,8 @@ function comment_submit(obj){
 		var $comment=$(".comments [data-id='"+replyid+"']");
 		
 		var username=$comment.data("username");
-		
-		var comment_content="回复 "+username+":"+reply_content;
-		$comment_tpl.find(".comment-content .content").html(comment_content);
+		$comment_tpl.find(".comment-content .toname").html("回复 "+username+" ");
+		$comment_tpl.find(".comment-content .content").html(reply_content);
 		$comment_reply_submit.before($comment_tpl);
 		
 		var $comment_form=$this.parents(".comment-area").find(".comment-form");
