@@ -68,13 +68,13 @@ function sp_post($type=null,$v=null,$tag,$where=array(),$ispage,$pagesize=20,$pa
     //根据参数生成查询条件
     $where['status'] = array('eq',1);
     $where['post_status'] = array('eq',1);
-    if (isset($tag['cid'])) {
+    if (!empty($tag['cid'])) {
         $where['term_id'] = array('in',$tag['cid']);
     }
-    if (isset($tag['ids'])) {
+    if (!empty($tag['ids'])) {
         $where['object_id'] = array('in',$tag['ids']);
     }
-    if (isset($tag['where'])) {
+    if (!empty($tag['where'])) {
         $where['_string'] = $tag['where'];
     }
     $join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
