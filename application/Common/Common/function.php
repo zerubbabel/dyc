@@ -658,6 +658,10 @@ function sp_send_email($address,$subject,$message){
 	$mail->Subject=$subject;
 	// 设置SMTP服务器。
 	$mail->Host=C('SP_MAIL_SMTP');
+	//by Rainfer
+	// 设置SMTPSecure。
+	$Secure=C('SP_MAIL_SECURE');
+	$mail->SMTPSecure=empty($Secure)?'':$Secure;
 	// 设置SMTP服务器端口。
 	$port=C('SP_MAIL_SMTP_PORT');
 	$mail->Port=empty($port)?"25":$port;
