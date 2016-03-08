@@ -7,28 +7,23 @@ namespace User\Controller;
 use Common\Controller\MemberbaseController;
 class ProfileController extends MemberbaseController {
 	
-	protected $users_model;
 	function _initialize(){
 		parent::_initialize();
-		$this->users_model=D("Common/Users");
 	}
 	
     //编辑用户资料
 	public function edit() {
-		$userid=sp_get_current_userid();
-		$user=$this->users_model->where(array("id"=>$userid))->find();
-		$this->assign($user);
+		$this->assign($this->user);
     	$this->display();
     }
     
     public function edit_post() {
     	if(IS_POST){
-    		$userid=sp_get_current_userid();
-    		$_POST['id']=$userid;
+    		$_POST['id']=$this->userid;
     		if ($this->users_model->field('id,user_nicename,sex,birthday,user_url,signature')->create()) {
 				if ($this->users_model->save()!==false) {
-					$user=$this->users_model->find($userid);
-					sp_update_current_user($user);
+					$this->user=$this->users_model->find($this->userid);
+					sp_update_current_user($this->user);
 					$this->success("保存成功！",U("user/profile/edit"));
 				} else {
 					$this->error("保存失败！");
@@ -41,9 +36,7 @@ class ProfileController extends MemberbaseController {
     }
     
     public function password() {
-    	$userid=sp_get_current_userid();
-    	$user=$this->users_model->where(array("id"=>$userid))->find();
-    	$this->assign($user);
+		$this->assign($this->user);
     	$this->display();
     }
     
@@ -55,8 +48,7 @@ class ProfileController extends MemberbaseController {
     		if(empty($_POST['password'])){
     			$this->error("新密码不能为空！");
     		}
-    		$uid=sp_get_current_userid();
-    		$admin=$this->users_model->where("id=$uid")->find();
+    		$admin=$this->users_model->where(array('id'=>$this->userid))->find();
     		$old_password=$_POST['old_password'];
     		$password=$_POST['password'];
     		if(sp_compare_password($old_password, $admin['user_pass'])){
@@ -65,7 +57,7 @@ class ProfileController extends MemberbaseController {
     					$this->error("新密码不能和原始密码相同！");
     				}else{
     					$data['user_pass']=sp_password($password);
-    					$data['id']=$uid;
+    					$data['id']=$this->userid;
     					$r=$this->users_model->save($data);
     					if ($r!==false) {
     						$this->success("修改成功！");
@@ -87,8 +79,7 @@ class ProfileController extends MemberbaseController {
     
     function bang(){
     	$oauth_user_model=M("OauthUser");
-    	$uid=sp_get_current_userid();
-    	$oauths=$oauth_user_model->where(array("uid"=>$uid))->select();
+    	$oauths=$oauth_user_model->where(array("uid"=>$this->userid))->select();
     	$new_oauths=array();
     	foreach ($oauths as $oa){
     		$new_oauths[strtolower($oa['from'])]=$oa;
@@ -98,9 +89,7 @@ class ProfileController extends MemberbaseController {
     }
     
     function avatar(){
-    	$userid=sp_get_current_userid();
-		$user=$this->users_model->where(array("id"=>$userid))->find();
-		$this->assign($user);
+		$this->assign($this->user);
     	$this->display();
     }
     
@@ -168,8 +157,7 @@ class ProfileController extends MemberbaseController {
     			$image->save($src);
     		}
     		
-    		$userid=sp_get_current_userid();
-    		$result=$this->users_model->where(array("id"=>$userid))->save(array("avatar"=>$avatar));
+    		$result=$this->users_model->where(array("id"=>$this->userid))->save(array("avatar"=>$avatar));
     		$_SESSION['user']['avatar']=$avatar;
     		if($result){
     			$this->success("头像更新成功！");
@@ -179,7 +167,23 @@ class ProfileController extends MemberbaseController {
     		
     	}
     }
-    
-    
+    public function do_avatar() {
+		$imgurl=I('post.imgurl');
+		//去'/'
+		$imgurl=str_replace('/','',$imgurl);
+		$old_img=$this->user['avatar'];
+		$this->user['avatar']=$imgurl;
+		$res=$this->users_model->where(array("id"=>$this->userid))->save($this->user);		
+		if($res){
+			//更新session
+			session('user',$this->user);
+			//删除旧头像
+			sp_delete_avatar($old_img);
+		}else{
+			$this->user['avatar']=$old_img;
+			//删除新头像
+			sp_delete_avatar($imgurl);
+		}
+		$this->ajaxReturn($res);
+	}       
 }
-    

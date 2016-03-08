@@ -1,5 +1,5 @@
 <?php
-
+use Think\Storage;
 /**
  * 获取当前登录的管事员id
  * @return int
@@ -658,6 +658,10 @@ function sp_send_email($address,$subject,$message){
 	$mail->Subject=$subject;
 	// 设置SMTP服务器。
 	$mail->Host=C('SP_MAIL_SMTP');
+	//by Rainfer
+	// 设置SMTPSecure。
+	$Secure=C('SP_MAIL_SECURE');
+	$mail->SMTPSecure=empty($Secure)?'':$Secure;
 	// 设置SMTP服务器端口。
 	$port=C('SP_MAIL_SMTP_PORT');
 	$mail->Port=empty($port)?"25":$port;
@@ -1775,4 +1779,19 @@ function sp_delete_physics_img($imglist){
     }
     
     return $res;
+}
+/**
+ * 安全删除位于头像文件夹中的头像
+ *
+ * @param string $file 头像文件名,不含路径
+ * @author rainfer <81818832@qq.com>
+ */
+function sp_delete_avatar($file)
+{
+    if($file){
+		$file='data/upload/avatar/'.$file;
+		if (Storage::has($file)) {
+			Storage::unlink($file);
+		}
+	}
 }
