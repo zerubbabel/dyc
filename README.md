@@ -1,3 +1,20 @@
+## 修改说明
+本修改版本对ThinkCMFX核心文件有改动，如果你已经在使用ThinkCMFX，请核对好之后再进行覆盖。
+2016.4.22
+* 添加阿里云OSS存储方式
+
+> 添加的文件
+> simplewind/Core/Library/Think/Upload/Driver目录下添加了Aliyun.class.php及Aliyun目录，主要为阿里云OSS的THINKPHP驱动文件。
+
+> 修改的文件
+> 1. admin/themes/simplebootx/Admin/Storage/index.html
+> 2. application/Admin/Controller/StorageController.class.php
+> 3. application/Admin/Lang/zh-cn/storage.php
+> 4. application/Admin/Lang/en-us/storage.php
+
+
+以下为THINKCMF官方信息
+
 ## README
 ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提出灵活的应用机制，框架自身提供基础的管理功能，而开发者可以根据自身的需求以应用的形式进行扩展。每个应用都能独立的完成自己的任务，也可通过系统调用其他应用进行协同工作。在这种运行机制下，开发商场应用的用户无需关心开发SNS应用时如何工作的，但他们之间又可通过系统本身进行协调，大大的降低了开发成本和沟通成本。
 官网:http://www.thinkcmf.com
