@@ -1,16 +1,20 @@
 ## 修改说明
 本修改版本对ThinkCMFX核心文件有改动，如果你已经在使用ThinkCMFX，请核对好之后再进行覆盖。
-2016.4.22
+
+### 2016.4.22
+
 * 添加阿里云OSS存储方式
 
-> 添加的文件
-> simplewind/Core/Library/Think/Upload/Driver目录下添加了Aliyun.class.php及Aliyun目录，主要为阿里云OSS的THINKPHP驱动文件。
+### 添加的文件
 
-> 修改的文件
-> 1. admin/themes/simplebootx/Admin/Storage/index.html
-> 2. application/Admin/Controller/StorageController.class.php
-> 3. application/Admin/Lang/zh-cn/storage.php
-> 4. application/Admin/Lang/en-us/storage.php
+simplewind/Core/Library/Think/Upload/Driver目录下添加了Aliyun.class.php及Aliyun目录，主要为阿里云OSS的THINKPHP驱动文件。
+
+### 修改的文件
+
+1. admin/themes/simplebootx/Admin/Storage/index.html
+2. application/Admin/Controller/StorageController.class.php
+3. application/Admin/Lang/zh-cn/storage.php
+4. application/Admin/Lang/en-us/storage.php
 
 
 以下为THINKCMF官方信息
