@@ -2,7 +2,7 @@
 namespace Admin\Controller;
 use Common\Controller\AdminbaseController;
 class StorageController extends AdminbaseController{
-	
+
 	function _initialize() {
 		parent::_initialize();
 	}
@@ -10,11 +10,11 @@ class StorageController extends AdminbaseController{
 		$this->assign(sp_get_cmf_settings('storage'));
 		$this->display();
 	}
-	
+
 	function setting_post(){
 		if(IS_POST){
-			
-			$support_storages=array("Local","Qiniu");
+
+			$support_storages=array("Local","Qiniu","Aliyun");
 			$type=$_POST['type'];
 			if(in_array($type, $support_storages)){
 				$result=sp_set_cmf_setting(array('storage'=>$_POST));
@@ -27,14 +27,14 @@ class StorageController extends AdminbaseController{
 			}else{
 				$this->error("文件存储类型不存在！");
 			}
-		
+
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 }
