@@ -231,8 +231,8 @@ class AdminPostController extends AdminbaseController {
 		$this->assign("taxonomys", $taxonomys);
 	}
 	
-	private function _getTermTree($term=array()){
-		$result = $this->terms_model->order(array("listorder"=>"asc"))->select();
+	private function _getTermTree($term=array(), $where=array()){
+		$result = $this->terms_model->where($where)->order(array("listorder"=>"asc"))->select();
 		
 		$tree = new \Tree();
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
