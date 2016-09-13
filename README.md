@@ -4,7 +4,7 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 文档:http://www.thinkcmf.com/document
 
 ## UPDATE
-### X2.2.0
+### X2.2.0 Beta2
 [Core]
 * 增加wind.js可以自定义重写js，css的版本
 * 增加$_GET统一urldecode
@@ -22,6 +22,7 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 * 升级ueditor
 * 修复编辑器不能插入动态地图问题
 * 默认取消后台多语言功能
+
 [Admin]
 * 增加后台管理员搜索功能
 * 增加友情链接图标上传
@@ -33,6 +34,7 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 * 修复后台导航添加时卡死问题
 * 修复插件更新配置时，配置文件状态不更新问题
 * 修复后台留言列表留言时间错误
+
 [Asset]
 * 增加七牛cdn整体解决方案
 * 增加统一上传限制,根据上传文件类型设置大小限制
@@ -43,9 +45,11 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 * 修复编辑器的附件不能上传歌曲,歌词等文件类型
 * 修复文章内容里图片上传时返回域名问题
 * 修复七牛华北分区不能上传
+
 [User]
 * 增加后台用户搜索功能
 * 增加前台未登录redirect
+
 [Portal]
 * 增加后台文章批量复制功能
 * 增加面包屑功能
