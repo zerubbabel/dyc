@@ -2,7 +2,6 @@
 return array(
     "DEFAULT" => '系统默认',
     "QINIU" => "七牛云存储",
-    "ALIYUN" => "阿里云OSS",
     "DOMAIN" => '空间域名',
     "BUCKET" => '空间名称',
     "GET_ACCESS_KEY" => '获取AccessKey',

@@ -1,13 +1,13 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
--- 
+--
 -- 数据库: `thinkcmfx`
--- 
+--
 
 -- --------------------------------------------------------
--- 
+--
 -- 表的结构 `cmf_ad`
--- 
+--
 
 CREATE TABLE `cmf_ad` (
   `ad_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '广告id',
@@ -26,9 +26,9 @@ CREATE TABLE `cmf_ad` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_asset`
--- 
+--
 
 CREATE TABLE `cmf_asset` (
   `aid` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -77,9 +77,9 @@ CREATE TABLE `cmf_auth_rule` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_comments`
--- 
+--
 
 CREATE TABLE `cmf_comments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -106,9 +106,9 @@ CREATE TABLE `cmf_comments` (
 
 
 
--- 
+--
 -- 表的结构 `cmf_common_action_log`
--- 
+--
 
 CREATE TABLE `cmf_common_action_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -124,9 +124,9 @@ CREATE TABLE `cmf_common_action_log` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='访问记录表' AUTO_INCREMENT=1 ;
 
 
--- 
+--
 -- 表的结构 `cmf_guestbook`
--- 
+--
 
 CREATE TABLE `cmf_guestbook` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -142,9 +142,9 @@ CREATE TABLE `cmf_guestbook` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_links`
--- 
+--
 
 CREATE TABLE `cmf_links` (
   `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -166,9 +166,9 @@ CREATE TABLE `cmf_links` (
 -- --------------------------------------------------------
 
 
--- 
+--
 -- 表的结构 `cmf_menu`
--- 
+--
 
 CREATE TABLE `cmf_menu` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
@@ -191,9 +191,9 @@ CREATE TABLE `cmf_menu` (
 
 
 
--- 
+--
 -- 表的结构 `cmf_nav`
--- 
+--
 
 CREATE TABLE `cmf_nav` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -212,9 +212,9 @@ CREATE TABLE `cmf_nav` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_nav_cat`
--- 
+--
 
 CREATE TABLE `cmf_nav_cat` (
   `navcid` int(11) NOT NULL AUTO_INCREMENT,
@@ -229,9 +229,9 @@ CREATE TABLE `cmf_nav_cat` (
 -- --------------------------------------------------------
 
 
--- 
+--
 -- 表的结构 `cmf_oauth_user`
--- 
+--
 
 CREATE TABLE `cmf_oauth_user` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
@@ -250,9 +250,9 @@ CREATE TABLE `cmf_oauth_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='第三方用户表' AUTO_INCREMENT=1 ;
 
--- 
+--
 -- 表的结构 `cmf_options`
--- 
+--
 
 CREATE TABLE `cmf_options` (
   `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -263,9 +263,9 @@ CREATE TABLE `cmf_options` (
   UNIQUE KEY `option_name` (`option_name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='全站配置表' AUTO_INCREMENT=2 ;
 
--- 
+--
 -- 导出表中的数据 `cmf_options`
--- 
+--
 
 INSERT INTO `cmf_options` VALUES (1, 'member_email_active', '{"title":"ThinkCMF\\u90ae\\u4ef6\\u6fc0\\u6d3b\\u901a\\u77e5.","template":"<p>\\u672c\\u90ae\\u4ef6\\u6765\\u81ea<a href=\\"http:\\/\\/www.thinkcmf.com\\">ThinkCMF<\\/a><br\\/><br\\/>&nbsp; &nbsp;<strong>---------------<\\/strong><br\\/>&nbsp; &nbsp;<strong>\\u5e10\\u53f7\\u6fc0\\u6d3b\\u8bf4\\u660e<\\/strong><br\\/>&nbsp; &nbsp;<strong>---------------<\\/strong><br\\/><br\\/>&nbsp; &nbsp; \\u5c0a\\u656c\\u7684<span style=\\"FONT-SIZE: 16px; FONT-FAMILY: Arial; COLOR: rgb(51,51,51); LINE-HEIGHT: 18px; BACKGROUND-COLOR: rgb(255,255,255)\\">#username#\\uff0c\\u60a8\\u597d\\u3002<\\/span>\\u5982\\u679c\\u60a8\\u662fThinkCMF\\u7684\\u65b0\\u7528\\u6237\\uff0c\\u6216\\u5728\\u4fee\\u6539\\u60a8\\u7684\\u6ce8\\u518cEmail\\u65f6\\u4f7f\\u7528\\u4e86\\u672c\\u5730\\u5740\\uff0c\\u6211\\u4eec\\u9700\\u8981\\u5bf9\\u60a8\\u7684\\u5730\\u5740\\u6709\\u6548\\u6027\\u8fdb\\u884c\\u9a8c\\u8bc1\\u4ee5\\u907f\\u514d\\u5783\\u573e\\u90ae\\u4ef6\\u6216\\u5730\\u5740\\u88ab\\u6ee5\\u7528\\u3002<br\\/>&nbsp; &nbsp; \\u60a8\\u53ea\\u9700\\u70b9\\u51fb\\u4e0b\\u9762\\u7684\\u94fe\\u63a5\\u5373\\u53ef\\u6fc0\\u6d3b\\u60a8\\u7684\\u5e10\\u53f7\\uff1a<br\\/>&nbsp; &nbsp; <a title=\\"\\" href=\\"http:\\/\\/#link#\\" target=\\"_self\\">http:\\/\\/#link#<\\/a><br\\/>&nbsp; &nbsp; (\\u5982\\u679c\\u4e0a\\u9762\\u4e0d\\u662f\\u94fe\\u63a5\\u5f62\\u5f0f\\uff0c\\u8bf7\\u5c06\\u8be5\\u5730\\u5740\\u624b\\u5de5\\u7c98\\u8d34\\u5230\\u6d4f\\u89c8\\u5668\\u5730\\u5740\\u680f\\u518d\\u8bbf\\u95ee)<br\\/>&nbsp; &nbsp; \\u611f\\u8c22\\u60a8\\u7684\\u8bbf\\u95ee\\uff0c\\u795d\\u60a8\\u4f7f\\u7528\\u6109\\u5feb\\uff01<br\\/><br\\/>&nbsp; &nbsp; \\u6b64\\u81f4<br\\/>&nbsp; &nbsp; ThinkCMF \\u7ba1\\u7406\\u56e2\\u961f.<\\/p>"}', 1);
 
@@ -288,9 +288,9 @@ CREATE TABLE `cmf_plugins` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
--- 
+--
 -- 表的结构 `cmf_posts`
--- 
+--
 
 CREATE TABLE `cmf_posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -301,12 +301,12 @@ CREATE TABLE `cmf_posts` (
   `post_content` longtext COMMENT 'post内容',
   `post_title` text COMMENT 'post标题',
   `post_excerpt` text COMMENT 'post摘要',
-  `post_status` int(2) DEFAULT '1' COMMENT 'post状态，1已审核，0未审核',
+  `post_status` int(2) DEFAULT '1' COMMENT 'post状态，1已审核，0未审核,3删除',
   `comment_status` int(2) DEFAULT '1' COMMENT '评论状态，1允许，0不允许',
   `post_modified` datetime DEFAULT '2000-01-01 00:00:00' COMMENT 'post更新时间，可在前台修改，显示给用户',
   `post_content_filtered` longtext,
   `post_parent` bigint(20) unsigned DEFAULT '0' COMMENT 'post的父级post id,表示post层级关系',
-  `post_type` int(2) DEFAULT NULL,
+  `post_type` int(2) DEFAULT 1 COMMENT 'post类型，1文章,2页面',
   `post_mime_type` varchar(100) DEFAULT '',
   `comment_count` bigint(20) DEFAULT '0',
   `smeta` text COMMENT 'post的扩展字段，保存相关扩展属性，如缩略图；格式为json',
@@ -322,9 +322,9 @@ CREATE TABLE `cmf_posts` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Portal文章表' AUTO_INCREMENT=1 ;
 
 
--- 
+--
 -- 表的结构 `cmf_role`
--- 
+--
 
 CREATE TABLE `cmf_role` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -340,17 +340,18 @@ CREATE TABLE `cmf_role` (
   KEY `status` (`status`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=2 ;
 
--- 
+--
 -- 导出表中的数据 `cmf_role`
--- 
+--
 
 INSERT INTO `cmf_role` VALUES (1, '超级管理员', 0, 1, '拥有网站最高管理员权限！', 1329633709, 1329633709, 0);
+INSERT INTO `cmf_role` VALUES (2, '普通管理员', 0, 1, '权限由最高管理员分配！', 1329633709, 1329633709, 0);
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_role_user`
--- 
+--
 
 CREATE TABLE `cmf_role_user` (
   `role_id` int(11) unsigned DEFAULT '0' COMMENT '角色 id',
@@ -359,9 +360,9 @@ CREATE TABLE `cmf_role_user` (
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
--- 
+--
 -- 导出表中的数据 `cmf_role_user`
--- 
+--
 
 
 --
@@ -379,9 +380,9 @@ CREATE TABLE `cmf_route` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_slide`
--- 
+--
 
 CREATE TABLE `cmf_slide` (
   `slide_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -397,16 +398,16 @@ CREATE TABLE `cmf_slide` (
   KEY `slide_cid` (`slide_cid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='幻灯片表' AUTO_INCREMENT=1 ;
 
--- 
+--
 -- 导出表中的数据 `cmf_slide`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_slide_cat`
--- 
+--
 
 CREATE TABLE `cmf_slide_cat` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
@@ -418,16 +419,16 @@ CREATE TABLE `cmf_slide_cat` (
   KEY `cat_idname` (`cat_idname`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='幻灯片分类表' AUTO_INCREMENT=1 ;
 
--- 
+--
 -- 导出表中的数据 `cmf_slide_cat`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_terms`
--- 
+--
 
 CREATE TABLE `cmf_terms` (
   `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
@@ -448,18 +449,18 @@ CREATE TABLE `cmf_terms` (
   PRIMARY KEY (`term_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Portal 文章分类表' AUTO_INCREMENT=3 ;
 
--- 
+--
 -- 导出表中的数据 `cmf_terms`
--- 
+--
 
 INSERT INTO `cmf_terms` VALUES (1, '列表演示', '', 'article', '', 0, 0, '0-1', '', '', '', 'list', 'article', 0, 1);
 INSERT INTO `cmf_terms` VALUES (2, '瀑布流', '', 'article', '', 0, 0, '0-2', '', '', '', 'list_masonry', 'article', 0, 1);
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_term_relationships`
--- 
+--
 
 CREATE TABLE `cmf_term_relationships` (
   `tid` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -474,9 +475,9 @@ CREATE TABLE `cmf_term_relationships` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- 表的结构 `cmf_users`
--- 
+--
 
 CREATE TABLE `cmf_users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -504,9 +505,9 @@ CREATE TABLE `cmf_users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=1 ;
 
 
--- 
+--
 -- 表的结构 `cmf_user_favorites`
--- 
+--
 
 CREATE TABLE `cmf_user_favorites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -686,16 +687,16 @@ INSERT INTO `cmf_auth_rule` VALUES(159, 'Admin', 'admin_url', 'admin/slide/cance
 INSERT INTO `cmf_auth_rule` VALUES(160, 'Admin', 'admin_url', 'admin/user/ban', NULL, '禁用管理员', 1, '');
 INSERT INTO `cmf_auth_rule` VALUES(161, 'Admin', 'admin_url', 'admin/user/cancelban', NULL, '启用管理员', 1, '');
 
--- 
+--
 -- 导出表中的数据 `cmf_links`
--- 
+--
 
 INSERT INTO `cmf_links` VALUES (1, 'http://www.thinkcmf.com', 'ThinkCMF', '', '_blank', '', 1, 0, '', 0);
 
 
--- 
+--
 -- 导出表中的数据 `cmf_menu`
--- 
+--
 
 INSERT INTO `cmf_menu` VALUES(1, 0, 'Admin', 'Content', 'default', '', 0, 1, '内容管理', 'th', '', 30);
 INSERT INTO `cmf_menu` VALUES(2, 1, 'Api', 'Guestbookadmin', 'index', '', 1, 1, '所有留言', '', '', 0);
@@ -860,17 +861,17 @@ INSERT INTO `cmf_menu` VALUES(160, 149, 'Admin', 'User', 'ban', '', 1, 0, '禁�
 INSERT INTO `cmf_menu` VALUES(161, 149, 'Admin', 'User', 'cancelban', '', 1, 0, '启用管理员', '', '', 0);
 -- --------------------------------------------------------
 
--- 
+--
 -- 导出表中的数据 `cmf_nav`
--- 
+--
 
 INSERT INTO `cmf_nav` VALUES (1, 1, 0, '首页', '', 'home', '', 1, 0, '0-1');
 INSERT INTO `cmf_nav` VALUES (2, 1, 0, '列表演示', '', 'a:2:{s:6:"action";s:17:"Portal/List/index";s:5:"param";a:1:{s:2:"id";s:1:"1";}}', '', 1, 0, '0-2');
 INSERT INTO `cmf_nav` VALUES (3, 1, 0, '瀑布流', '', 'a:2:{s:6:"action";s:17:"Portal/List/index";s:5:"param";a:1:{s:2:"id";s:1:"2";}}', '', 1, 0, '0-3');
 
 
--- 
+--
 -- 导出表中的数据 `cmf_nav_cat`
--- 
+--
 
 INSERT INTO `cmf_nav_cat` VALUES (1, '主导航', 1, '主导航');

@@ -2,7 +2,6 @@
 return array(
     "DEFAULT" => 'Default',
     "QINIU" => "Qiniu",
-    "ALIYUN" => "AliyunOSS",
     "DOMAIN" => 'Domain',
     "BUCKET" => 'Bucket',
     "GET_ACCESS_KEY" => 'Get AccessKey',
