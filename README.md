@@ -11,7 +11,7 @@ ThinkCMF是一款基于PHP+MYSQL开发的中文内容管理框架。ThinkCMF提�
 * 增加cdn支持
 * 增加微信浏览器判断
 * 增加验证码生成安全性
-* 增加__WEB_ROOT__模板常量
+* 增加\_\_WEB_ROOT\_\_模板常量
 * 增加跨主题调用模板功能
 * 增加include,extend,block,layout的支持
 * 统一修复session用法问题
