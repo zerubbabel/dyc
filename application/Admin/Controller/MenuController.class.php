@@ -120,6 +120,7 @@ class MenuController extends AdminbaseController {
     				}
     				$session_admin_menu_index=session('admin_menu_index');
     				$to=empty($session_admin_menu_index)?"Menu/index":$session_admin_menu_index;
+    				$this->_export_app_menu_default_lang($app);
     				$this->success("添加成功！", U($to));
     			} else {
     				$this->error("添加失败！");
@@ -186,7 +187,7 @@ class MenuController extends AdminbaseController {
     				}else{
     					$this->auth_rule_model->where($mwhere)->save(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
     				}
-    				
+    				$this->_export_app_menu_default_lang($app);
     				$this->success("更新成功！");
     			} else {
     				$this->error("更新失败！");
@@ -228,6 +229,30 @@ class MenuController extends AdminbaseController {
     		
     	}
     	$this->success('菜单备份成功！');
+    }
+    
+    private function _export_app_menu_default_lang($app){
+        $menus = $this->menu_model->where(array("app"=>$app))->order(array("listorder"=>"ASC","app" => "ASC","model" => "ASC","action" => "ASC"))->select();
+        $lang_dir=C('DEFAULT_LANG');
+        $admin_menu_lang_file_default=SITE_PATH."data/lang/$app/Lang/".$lang_dir."/admin_menu.php";
+        	
+        if(!empty($admin_menu_lang_file_default) && !file_exists_case(dirname($admin_menu_lang_file_default))){
+            mkdir(dirname($admin_menu_lang_file_default),0777,true);
+        }
+        
+        $lang=array();
+        
+        foreach ($menus as $menu){
+            $lang_key=strtoupper($menu['app'].'_'.$menu['model'].'_'.$menu['action']);
+            $lang[$lang_key]=$menu['name'];
+        }
+        
+        $lang_str= var_export($lang,true);
+        $lang_str=preg_replace("/\s+\d+\s=>\s(\n|\r)/", "\n", $lang_str);
+        
+        if(!empty($admin_menu_lang_file_default)){
+            file_put_contents($admin_menu_lang_file_default, "<?php\nreturn $lang_str;");
+        }
     }
     
     public function export_menu_lang(){
@@ -279,13 +304,11 @@ class MenuController extends AdminbaseController {
     				if(!empty($admin_menu_lang_file_default)){
     				    file_put_contents($admin_menu_lang_file_default, "<?php\nreturn $lang_str;");
     				}
-    				break;
     			}
     			
     		}
     		
     	}
-    	
     	$this->success('生成菜单语言包已经完成！');
     }
     
