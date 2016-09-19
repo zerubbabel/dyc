@@ -34,7 +34,7 @@ define("RUNTIME_PATH", SITE_PATH . "data/runtime/");
 //静态缓存目录
 define("HTML_PATH", SITE_PATH . "data/runtime/Html/");
 //版本号
-define("THINKCMF_VERSION", 'X2.2 Beta2');
+define("THINKCMF_VERSION", 'X2.2 Beta3');
 
 define("THINKCMF_CORE_TAGLIBS", 'cx,Common\Lib\Taglib\TagLibSpadmin,Common\Lib\Taglib\TagLibHome');
 
