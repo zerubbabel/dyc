@@ -51,16 +51,14 @@ class UeditorController extends Controller {
 	}
 	
 	function upload(){
-		date_default_timezone_set("Asia/chongqing");
 		error_reporting(E_ERROR);
 		header("Content-Type: text/html; charset=utf-8");
 		
-		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./public/js/ueditor/config.json")), true);
 		$action = $_GET['action'];
 		
 		switch ($action) {
 			case 'config':
-				$result =  json_encode($CONFIG);
+				$result = $this->_ueditor_config();
 				break;
 				/* 上传图片 */
 			case 'uploadimage':
@@ -246,6 +244,32 @@ class UeditorController extends Controller {
 				'state'=> count($list) ? 'SUCCESS':'ERROR',
 				'list'=> $list
 		));
+	}
+	
+	private function _ueditor_config(){
+	    $config_text=preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./public/js/ueditor/config.json"));
+	    $config = json_decode($config_text, true);
+	    $upload_setting=sp_get_upload_setting();
+	    
+	    $config['imageMaxSize']=$upload_setting['image']['upload_max_filesize']*1024;
+	    $config['imageAllowFiles']=array_map(array($this,'_ueditor_extension'), explode(",", $upload_setting['image']['extensions']));
+	    $config['scrawlMaxSize']=$upload_setting['image']['upload_max_filesize']*1024;
+	    
+	    $config['catcherMaxSize']=$upload_setting['image']['upload_max_filesize']*1024;
+	    $config['catcherAllowFiles']=array_map(array($this,'_ueditor_extension'), explode(",", $upload_setting['image']['extensions']));
+	    
+	    $config['videoMaxSize']=$upload_setting['video']['upload_max_filesize']*1024;
+	    $config['videoAllowFiles']=array_map(array($this,'_ueditor_extension'), explode(",", $upload_setting['video']['extensions']));
+	    
+	    $config['fileMaxSize']=$upload_setting['file']['upload_max_filesize']*1024;
+	    $config['fileAllowFiles']=array_map(array($this,'_ueditor_extension'), explode(",", $upload_setting['file']['extensions']));
+	    
+	    return json_encode($config);
+	}
+	
+	public function _ueditor_extension($str){
+	    
+	   return ".".trim($str,'.');
 	}
 	
 	private function _ueditor_upload($filetype='image'){
