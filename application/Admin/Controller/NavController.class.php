@@ -120,6 +120,8 @@ class NavController extends AdminbaseController {
 					}
 					$data['id']=$result;
 					$this->nav_model->save($data);
+					F("site_nav_".intval($data['cid']),null);
+					F("site_nav_main",null);
 					$this->success("添加成功！", U("nav/index"));
 				} else {
 					$this->error("添加失败！");
@@ -202,6 +204,8 @@ class NavController extends AdminbaseController {
 			}
 			if ($this->nav_model->create($data)!==false) {
 				if ($this->nav_model->save() !== false) {
+				    F("site_nav_".intval($data['cid']),null);
+				    F("site_nav_main",null);
 					$this->success("保存成功！", U("nav/index"));
 				} else {
 					$this->error("保存失败！");
