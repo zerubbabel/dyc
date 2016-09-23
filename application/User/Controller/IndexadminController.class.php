@@ -8,7 +8,7 @@ use Common\Controller\AdminbaseController;
 class IndexadminController extends AdminbaseController {
     function index(){
         
-        $where=array('user_type'=>2);
+        $where=array();
         $request=I('request.');
         
         if(!empty($request['uid'])){
@@ -24,8 +24,6 @@ class IndexadminController extends AdminbaseController {
             $keyword_complex['_logic'] = 'or';
             $where['_complex'] = $keyword_complex;
         }
-        
-        $_GET=array_merge($_GET,$_POST);//保证分页时带post上来的参数
         
     	$users_model=M("Users");
     	
