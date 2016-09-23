@@ -75,7 +75,7 @@ class ArticleController extends HomebaseController {
     	$this->assign("article_id",$article_id);
     	
     	$tplname=$term["one_tpl"];
-    	$tplname=isset($smeta['template'])?$smeta['template']:$tplname;
+    	$tplname=empty($smeta['template'])?$tplname:$smeta['template'];
     	$tplname=sp_get_apphome_tpl($tplname, "article");
     	
     	$this->display(":$tplname");

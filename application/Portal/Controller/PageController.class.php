@@ -27,7 +27,7 @@ class PageController extends HomebaseController{
 		
 		$this->assign($content);
 		$smeta=json_decode($content['smeta'],true);
-		$tplname=isset($smeta['template'])?$smeta['template']:"";
+		$tplname=empty($smeta['template'])?"":$smeta['template'];
 		
 		$tplname=sp_get_apphome_tpl($tplname, "page");
 		
