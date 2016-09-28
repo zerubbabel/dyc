@@ -4,6 +4,8 @@
 .settings
 /data/
 !/data/index.html
+!/data/runtime
+!/data/runtime/index.html
 .idea
 
 
