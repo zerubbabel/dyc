@@ -19,8 +19,8 @@ class AppframeController extends Controller {
      */
     protected function ajaxReturn($data, $type = '',$json_option=0) {
         
-        $data['referer']=$data['url'] ? $data['url'] : "";
-        $data['state']=$data['status'] ? "success" : "fail";
+        $data['referer'] = $data['url'] ? $data['url'] : "";
+        $data['state']   = !empty($data['status']) ? "success" : "fail";
         
         if(empty($type)) $type  =   C('DEFAULT_AJAX_RETURN');
         switch (strtoupper($type)){
