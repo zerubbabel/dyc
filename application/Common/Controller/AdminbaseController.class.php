@@ -206,21 +206,19 @@ class AdminbaseController extends AppframeController {
 	}
 
     private function load_app_admin_menu_lang(){
-    	if (C('LANG_SWITCH_ON',null,false)){
-    	    $default_lang=C('DEFAULT_LANG');
-    	    $langSet=C('ADMIN_LANG_SWITCH_ON',null,false)?LANG_SET:$default_lang;
-    		if($default_lang!=$langSet){
-    		    $admin_menu_lang_file=SPAPP.MODULE_NAME."/Lang/".$langSet."/admin_menu.php";
-    		}else{
-    		    $admin_menu_lang_file=SITE_PATH."data/lang/".MODULE_NAME."/Lang/$langSet/admin_menu.php";
-    		    if(!file_exists_case($admin_menu_lang_file)){
-    		        $admin_menu_lang_file=SPAPP.MODULE_NAME."/Lang/".$langSet."/admin_menu.php";
-    		    }
-    		}
-    		if(is_file($admin_menu_lang_file)){
-    			$lang=include $admin_menu_lang_file;
-    			L($lang);
-    		}
+	    $default_lang=C('DEFAULT_LANG');
+	    $langSet=C('ADMIN_LANG_SWITCH_ON',null,false)?LANG_SET:$default_lang;
+		if($default_lang!=$langSet){
+		    $admin_menu_lang_file=SPAPP.MODULE_NAME."/Lang/".$langSet."/admin_menu.php";
+		}else{
+		    $admin_menu_lang_file=SITE_PATH."data/lang/".MODULE_NAME."/Lang/$langSet/admin_menu.php";
+		    if(!file_exists_case($admin_menu_lang_file)){
+		        $admin_menu_lang_file=SPAPP.MODULE_NAME."/Lang/".$langSet."/admin_menu.php";
+		    }
+		}
+		if(is_file($admin_menu_lang_file)){
+			$lang=include $admin_menu_lang_file;
+			L($lang);
     	}
     }
 }
