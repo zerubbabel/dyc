@@ -38,7 +38,7 @@ class ArticleController extends HomebaseController {
     	$terms_model= M("Terms");
     	$term=$terms_model->where(array('term_id'=>$term_id))->find();
     	
-    	$posts_model->save(array("id"=>$article_id,"post_hits"=>array("exp","post_hits+1")));
+    	$posts_model->where(array('id'=>$article_id))->setInc('post_hits');
     	
     	$article_date=$article['post_date'];
     	
