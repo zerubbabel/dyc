@@ -115,7 +115,7 @@ class MenuController extends AdminbaseController {
     				$mwhere=array("name"=>$name);
     				
     				$find_rule_count=$this->auth_rule_model->where($mwhere)->count();
-    				if($find_rule_count===0){
+    				if(empty($find_rule_count)){
     					$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
     				}
     				$session_admin_menu_index=session('admin_menu_index');
@@ -172,6 +172,8 @@ class MenuController extends AdminbaseController {
      */
     public function edit_post() {
     	if (IS_POST) {
+    	    $id = I('post.id',0,'intval');
+    	    $old_menu=$this->menu_model->where(array('id'=>$id))->find();
     		if ($this->menu_model->create()!==false) {
     			if ($this->menu_model->save() !== false) {
     				$app=I("post.app");
@@ -182,8 +184,17 @@ class MenuController extends AdminbaseController {
     				$mwhere=array("name"=>$name);
     				
     				$find_rule_count=$this->auth_rule_model->where($mwhere)->count();
-    				if($find_rule_count===0){
-    					$this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				if(empty($find_rule_count)){
+    				    $old_app=$old_menu['app'];
+    				    $old_model=$old_menu['model'];
+    				    $old_action=$old_menu['action'];
+    				    $old_name=strtolower("$old_app/$old_model/$old_action");
+    				    $find_old_rule_id=$this->auth_rule_model->where(array("name"=>$old_name))->getField('id');
+    				    if(empty($find_old_rule_id)){
+    				        $this->auth_rule_model->add(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				    }else{
+    				        $this->auth_rule_model->where(array('id'=>$find_old_rule_id))->save(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
+    				    }
     				}else{
     					$this->auth_rule_model->where($mwhere)->save(array("name"=>$name,"module"=>$app,"type"=>"admin_url","title"=>$menu_name));//type 1-admin rule;2-user rule
     				}
