@@ -684,7 +684,18 @@ function sp_get_submenu($tag,$field,$order){
 	}
 	$terms=$Nav->field($field)->where($where)->order($order)->select();
 	foreach($terms as $key =>$value){
-		$terms[$key]['href'] =  unserialize($value['href']);
+	    
+	    $hrefold=$terms[$key]['href'];
+	    if(strpos($hrefold,"{")){//序列 化的数据
+	        $terms[$key]['href'] =  unserialize($value['href']);
+	    }else{
+	        if($hrefold=="home"){
+	            $terms[$key]['href']=__ROOT__."/";
+	        }else{
+	            $terms[$key]['href']=$hrefold;
+	        }
+	    }
+		
 		if(empty($value['parentid'])){
 			$terms[$key]['parentid'] = $tag;
 		}
