@@ -241,19 +241,19 @@
                     $this = $($_this),
                     href = $this.data('href'),
                     msg = $this.data('msg');
-                href = href?href:$this.attr('href');
+                href = href ? href : $this.attr('href');
                 art.dialog({
                     title: false,
                     icon: 'question',
-                    content:msg?msg: '确定要删除吗？',
+                    content: msg ? msg : '确定要删除吗？',
                     follow: $_this,
                     close: function () {
                         $_this.focus();; //关闭时让触发弹窗的元素获取焦点
                         return true;
                     },
-                    okVal:"确定",
+                    okVal: "确定",
                     ok: function () {
-                    	
+
                         $.getJSON(href).done(function (data) {
                             if (data.state === 'success') {
                                 if (data.referer) {
@@ -263,15 +263,15 @@
                                 }
                             } else if (data.state === 'fail') {
                                 //art.dialog.alert(data.info);
-                            	//alert(data.info);//暂时处理方案
-				art.dialog({   
-					content: data.info,
-					icon: 'warning',  
-					ok: function () {   
-						this.title(data.info);   
-						return true;   
-					}
-				}); 
+                                //alert(data.info);//暂时处理方案
+                                art.dialog({
+                                    content: data.info,
+                                    icon: 'warning',
+                                    ok: function () {
+                                        this.title(data.info);
+                                        return true;
+                                    }
+                                });
                             }
                         });
                     },
@@ -302,36 +302,36 @@
                     content: msg,
                     follow: $_this,
                     close: function () {
-                        $_this.focus();; //关闭时让触发弹窗的元素获取焦点
+                        $_this.focus(); //关闭时让触发弹窗的元素获取焦点
                         return true;
                     },
                     ok: function () {
-                    	
+
                         $.getJSON(href).done(function (data) {
                             if (data.state === 'success') {
                                 if (data.referer) {
                                     location.href = data.referer;
                                 } else {
-                                	art.dialog({   
-    									content: data.info,
-    									icon: 'succeed',
-    									ok: function () {   
-    										reloadPage(window);
-    										return true;
-    									},
-    									
-    								}); 
+                                    art.dialog({
+                                        content: data.info,
+                                        icon: 'succeed',
+                                        ok: function () {
+                                            reloadPage(window);
+                                            return true;
+                                        },
+
+                                    });
                                 }
                             } else if (data.state === 'fail') {
                                 //art.dialog.alert(data.info);
-								art.dialog({   
-									content: data.info,
-									icon: 'warning',
-									ok: function () {   
-										this.title(data.info);   
-										return true;   
-									}
-								}); 
+                                art.dialog({
+                                    content: data.info,
+                                    icon: 'warning',
+                                    ok: function () {
+                                        this.title(data.info);
+                                        return true;
+                                    }
+                                });
                             }
                         });
                     },
@@ -368,24 +368,24 @@
             check_all.change(function (e) {
                 var check_wrap = check_all.parents('.js-check-wrap'); //当前操作区域所有复选框的父标签（重用考虑）
 
-                if ($(this).attr('checked')) {
+                if ($(this).prop('checked')) {
                     //全选状态
-                    check_items.attr('checked', true);
+                    check_items.prop('checked', true);
 
                     //所有项都被选中
                     if (check_wrap.find('input.js-check').length === check_wrap.find('input.js-check:checked').length) {
-                        check_wrap.find(total_check_all).attr('checked', true);
+                        check_wrap.find(total_check_all).prop('checked', true);
                     }
 
                 } else {
                     //非全选状态
-                    check_items.removeAttr('checked');
+                    check_items.removeProp('checked');
                     
-                    check_wrap.find(total_check_all).removeAttr('checked');
+                    check_wrap.find(total_check_all).removeProp('checked');
 
                     //另一方向的全选框取消全选状态
                     var direction_invert = check_all_direction === 'x' ? 'y' : 'x';
-                    check_wrap.find($('input.js-check-all[data-direction="' + direction_invert + '"]')).removeAttr('checked');
+                    check_wrap.find($('input.js-check-all[data-direction="' + direction_invert + '"]')).removeProp('checked');
                 }
 
             });
@@ -393,15 +393,15 @@
             //点击非全选时判断是否全部勾选
             check_items.change(function () {
 
-                if ($(this).attr('checked')) {
+                if ($(this).prop('checked')) {
 
                     if (check_items.filter(':checked').length === check_items.length) {
                         //已选择和未选择的复选框数相等
-                        check_all.attr('checked', true);
+                        check_all.prop('checked', true);
                     }
 
                 } else {
-                    check_all.removeAttr('checked');
+                    check_all.removeProp('checked');
                 }
 
             });
@@ -471,20 +471,20 @@ function redirect(url) {
  * @returns
  */
 function getCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1, c.length);
-		}
-		if (c.indexOf(nameEQ) == 0) {
-			return c.substring(nameEQ.length, c.length);
-		}
-	}
-	
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
 
-	return null;
+
+    return null;
 }
 
 // 设置cookie
@@ -493,9 +493,9 @@ function setCookie(name, value, days) {
     var argv = setCookie.arguments;
     var secure = (argc > 5) ? argv[5] : false;
     var expire = new Date();
-    if(days==null || days==0) days=1;
-    expire.setTime(expire.getTime() + 3600000*24*days);
-    document.cookie = name + "=" + escape(value) + ("; path=/") + ((secure == true) ? "; secure" : "") + ";expires="+expire.toGMTString();
+    if (days == null || days == 0) days = 1;
+    expire.setTime(expire.getTime() + 3600000 * 24 * days);
+    document.cookie = name + "=" + escape(value) + ("; path=/") + ((secure == true) ? "; secure" : "") + ";expires=" + expire.toGMTString();
 }
 
 /**
@@ -505,22 +505,22 @@ function setCookie(name, value, days) {
  * @param options
  */
 function open_iframe_dialog(url, title, options) {
-	var params = {
-		title : title,
-		lock : true,
-		opacity : 0,
-		width : "95%",
-		height:'90%'
-	};
-	params = options ? $.extend(params, options) : params;
-	Wind.use('artDialog', 'iframeTools', function() {
-		art.dialog.open(url, params);
-	});
+    var params = {
+        title: title,
+        lock: true,
+        opacity: 0,
+        width: "95%",
+        height: '90%'
+    };
+    params = options ? $.extend(params, options) : params;
+    Wind.use('artDialog', 'iframeTools', function () {
+        art.dialog.open(url, params);
+    });
 }
 
 /**
  * 打开地图对话框
- * 
+ *
  * @param url
  * @param title
  * @param options
@@ -528,30 +528,30 @@ function open_iframe_dialog(url, title, options) {
  */
 function open_map_dialog(url, title, options, callback) {
 
-	var params = {
-		title : title,
-		lock : true,
-		opacity : 0,
-		width : "95%",
-		height : 400,
-		ok : function() {
-			if (callback) {
-				var d = this.iframe.contentWindow;
-				var lng = $("#lng_input", d.document).val();
-				var lat = $("#lat_input", d.document).val();
-				var address = {};
-				address.address = $("#address_input", d.document).val();
-				address.province = $("#province_input", d.document).val();
-				address.city = $("#city_input", d.document).val();
-				address.district = $("#district_input", d.document).val();
-				callback.apply(this, [ lng, lat, address ]);
-			}
-		}
-	};
-	params = options ? $.extend(params, options) : params;
-	Wind.use('artDialog', 'iframeTools', function() {
-		art.dialog.open(url, params);
-	});
+    var params = {
+        title: title,
+        lock: true,
+        opacity: 0,
+        width: "95%",
+        height: 400,
+        ok: function () {
+            if (callback) {
+                var d = this.iframe.contentWindow;
+                var lng = $("#lng_input", d.document).val();
+                var lat = $("#lat_input", d.document).val();
+                var address = {};
+                address.address = $("#address_input", d.document).val();
+                address.province = $("#province_input", d.document).val();
+                address.city = $("#city_input", d.document).val();
+                address.district = $("#district_input", d.document).val();
+                callback.apply(this, [lng, lat, address]);
+            }
+        }
+    };
+    params = options ? $.extend(params, options) : params;
+    Wind.use('artDialog', 'iframeTools', function () {
+        art.dialog.open(url, params);
+    });
 }
 
 /**
@@ -595,18 +595,18 @@ function open_upload_dialog(dialog_title,callback,extra_params,multi,filetype,ap
     });
 }
 
-function upload_one(dialog_title,input_selector,filetype,extra_params,app){
-	open_upload_dialog(dialog_title,function(dialog,files){
-		$(input_selector).val(files[0].filepath);
-	},extra_params,0,filetype,app);
+function upload_one(dialog_title, input_selector, filetype, extra_params, app) {
+    open_upload_dialog(dialog_title, function (dialog, files) {
+        $(input_selector).val(files[0].filepath);
+    }, extra_params, 0, filetype, app);
 }
 
-function upload_one_image(dialog_title,input_selector,extra_params,app){
-	open_upload_dialog(dialog_title,function(dialog,files){
-		$(input_selector).val(files[0].filepath);
-		$(input_selector+'-preview').attr('src',files[0].preview_url);
-		$(input_selector+'-name').val(files[0].name);
-	},extra_params,0,'image',app);
+function upload_one_image(dialog_title, input_selector, extra_params, app) {
+    open_upload_dialog(dialog_title, function (dialog, files) {
+        $(input_selector).val(files[0].filepath);
+        $(input_selector + '-preview').attr('src', files[0].preview_url);
+        $(input_selector + '-name').val(files[0].name);
+    }, extra_params, 0, 'image', app);
 }
 
 /**
@@ -615,22 +615,22 @@ function upload_one_image(dialog_title,input_selector,extra_params,app){
  * @param container_selector 图片容器
  * @param item_tpl_wrapper_id 单个图片html模板容器id
  */
-function upload_multi_image(dialog_title,container_selector,item_tpl_wrapper_id,extra_params,app){
-	open_upload_dialog(dialog_title,function(dialog,files){
-		var tpl=$('#'+item_tpl_wrapper_id).html();
-		var html='';
-		$.each(files,function(i,item){
-			var itemtpl= tpl;
-			itemtpl=itemtpl.replace(/\{id\}/g,item.id);
-			itemtpl=itemtpl.replace(/\{url\}/g,item.url);
-			itemtpl=itemtpl.replace(/\{preview_url\}/g,item.preview_url);
-			itemtpl=itemtpl.replace(/\{filepath\}/g,item.filepath);
-			itemtpl=itemtpl.replace(/\{name\}/g,item.name);
-			html+=itemtpl;
-		});
-		$(container_selector).append(html);
-		
-	},extra_params,1,'image',app);
+function upload_multi_image(dialog_title, container_selector, item_tpl_wrapper_id, extra_params, app) {
+    open_upload_dialog(dialog_title, function (dialog, files) {
+        var tpl = $('#' + item_tpl_wrapper_id).html();
+        var html = '';
+        $.each(files, function (i, item) {
+            var itemtpl = tpl;
+            itemtpl = itemtpl.replace(/\{id\}/g, item.id);
+            itemtpl = itemtpl.replace(/\{url\}/g, item.url);
+            itemtpl = itemtpl.replace(/\{preview_url\}/g, item.preview_url);
+            itemtpl = itemtpl.replace(/\{filepath\}/g, item.filepath);
+            itemtpl = itemtpl.replace(/\{name\}/g, item.name);
+            html += itemtpl;
+        });
+        $(container_selector).append(html);
+
+    }, extra_params, 1, 'image', app);
 }
 
 /**
@@ -638,40 +638,40 @@ function upload_multi_image(dialog_title,container_selector,item_tpl_wrapper_id,
  * @param img 图片地址
  */
 function image_preview_dialog(img) {
-    Wind.use("artDialog",function(){
+    Wind.use("artDialog", function () {
         art.dialog({
             title: '图片查看',
             fixed: true,
-            width:"420px",
+            width: "420px",
             height: '420px',
-            id:"image_preview_"+img,
+            id: "image_preview_" + img,
             lock: true,
-            background:"#CCCCCC",
-            opacity:0,
+            background: "#CCCCCC",
+            opacity: 0,
             content: '<img src="' + img + '" />'
         });
     });
 }
 
-function artdialog_alert(msg){
-	Wind.use("artDialog", function() {
-		art.dialog({
-			id : new Date().getTime(),
-			icon : "error",
-			fixed : true,
-			lock : true,
-			background : "#CCCCCC",
-			opacity : 0,
-			content : msg,
-			ok : function() {
-				return true;
-			}
-		});
-	});
-	
+function artdialog_alert(msg) {
+    Wind.use("artDialog", function () {
+        art.dialog({
+            id: new Date().getTime(),
+            icon: "error",
+            fixed: true,
+            lock: true,
+            background: "#CCCCCC",
+            opacity: 0,
+            content: msg,
+            ok: function () {
+                return true;
+            }
+        });
+    });
+
 }
 
-function open_iframe_layer(url,title,options){
+function open_iframe_layer(url, title, options) {
 
     var params = {
         type: 2,
@@ -680,13 +680,13 @@ function open_iframe_layer(url,title,options){
         skin: 'layui-layer-nobg',
         shade: [0.5, '#000000'],
         area: ['90%', '90%'],
-        content:url
+        content: url
     };
     params = options ? $.extend(params, options) : params;
 
     Wind.css('layer');
 
-    Wind.use("layer", function() {
+    Wind.use("layer", function () {
         layer.open(params);
     });
 
