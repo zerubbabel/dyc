@@ -1,9 +1,12 @@
 <?php
 namespace User\Controller;
+
 use Common\Controller\MemberbaseController;
+
 class FavoriteController extends MemberbaseController{
 	
-	function index(){
+    // 前台个人中心我的收藏列表
+	public function index(){
 		$uid=sp_get_current_userid();
 		$user_favorites_model=M("UserFavorites");
 		$favorites=$user_favorites_model->where("uid=$uid")->select();
@@ -11,7 +14,8 @@ class FavoriteController extends MemberbaseController{
 		$this->display(":favorite");
 	}
 	
-	function do_favorite(){
+	// 用户收藏
+	public function do_favorite(){
 		$key=sp_authcode(I('post.key'));
 		if($key){
 			$authkey=C("AUTHCODE");
@@ -49,7 +53,8 @@ class FavoriteController extends MemberbaseController{
 		
 	}
 	
-	function delete_favorite(){
+	// 用户取消收藏
+	public function delete_favorite(){
 		$id=I("get.id",0,"intval");
 		$uid=sp_get_current_userid();
 		$post['uid']=$uid;

@@ -1,12 +1,12 @@
 <?php
-/**
- * 会员注册
- */
 namespace User\Controller;
+
 use Common\Controller\HomebaseController;
+
 class RegisterController extends HomebaseController {
 	
-	function index(){
+    // 前台用户注册
+	public function index(){
 	    if(sp_is_user_login()){ //已经登录时直接跳到首页
 	        redirect(__ROOT__."/");
 	    }else{
@@ -14,7 +14,8 @@ class RegisterController extends HomebaseController {
 	    }
 	}
 	
-	function doregister(){
+	// 前台用户注册提交
+	public function doregister(){
     	
     	if(isset($_POST['email'])){
     	    
@@ -32,6 +33,7 @@ class RegisterController extends HomebaseController {
     	
 	}
 	
+	// 前台用户手机注册
 	private function _do_mobile_register(){
 	    
 	    if(!sp_check_verify_code()){
@@ -92,6 +94,7 @@ class RegisterController extends HomebaseController {
 	    }
 	}
 	
+	// 前台用户邮件注册
 	private function _do_email_register(){
 	   
         if(!sp_check_verify_code()){
@@ -197,7 +200,8 @@ class RegisterController extends HomebaseController {
 	    }
 	}
 	
-	function active(){
+	// 前台用户邮件注册激活
+	public function active(){
 		$hash=I("get.hash","");
 		if(empty($hash)){
 			$this->error("激活码不存在");

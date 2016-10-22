@@ -87,7 +87,11 @@ class ApiService {
     	    $page = new \Page($totalsize,$pagesize);
     	    $page->setLinkWraper("li");
     	    $page->__set("PageParam", $page_param);
-    	    $pagesetting=array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => "");
+            if(sp_is_mobile()){
+                $pagesetting= array("listlong" => "2", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => "");
+            }else{
+                $pagesetting=array("listlong" => "4", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => "");
+            }
     	    $page->SetPager('default', $pagetpl,$pagesetting);
     	    
     	    $posts=$term_relationships_model

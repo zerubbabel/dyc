@@ -7,14 +7,20 @@
 // | Author: Tuolaji <479923197@qq.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
+
 use Common\Controller\AdminbaseController;
+
 class AdminPageController extends AdminbaseController {
+    
 	protected $posts_model;
+	
 	function _initialize() {
 		parent::_initialize();
 		$this->posts_model =D("Common/Posts");
 	}
-	function index(){
+	
+	// 后台页面管理列表
+	public function index(){
 		
 		$where_ands=array("post_type=2 and post_status=1");
 		$fields=array(
@@ -71,7 +77,8 @@ class AdminPageController extends AdminbaseController {
 		$this->display();
 	}
 	
-	function recyclebin(){
+	// 后台页面回收站
+	public function recyclebin(){
 		$where_ands=array("post_type=2 and post_status=0");
 		$fields=array(
 				'start_time'=> array("field"=>"post_date","operator"=>">"),
@@ -127,11 +134,13 @@ class AdminPageController extends AdminbaseController {
 		$this->display();
 	}
 	
-	function add(){
+	// 页面添加
+	public function add(){
          $this->display();
 	}
 	
-	function add_post(){
+	// 页面添加提交
+	public function add_post(){
 		if (IS_POST) {
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
 			$_POST['post']['post_date']=date("Y-m-d H:i:s",time());
@@ -148,6 +157,7 @@ class AdminPageController extends AdminbaseController {
 		}
 	}
 	
+	// 页面编辑
 	public function edit(){
 		$terms_obj = M("Terms");
 		$term_id = intval(I("get.term")); 
@@ -162,6 +172,7 @@ class AdminPageController extends AdminbaseController {
 		$this->display();
 	}
 	
+	// 页面编辑提交
 	public function edit_post(){
 		$terms_obj = D("Portal/Terms");
 	
@@ -182,7 +193,8 @@ class AdminPageController extends AdminbaseController {
 		}
 	}
 	
-	function delete(){
+	// 删除页面
+	public function delete(){
 		if(isset($_POST['ids'])){
 			$ids = implode(",", $_POST['ids']);
 			$data=array("post_status"=>"0");
@@ -204,7 +216,8 @@ class AdminPageController extends AdminbaseController {
 		}
 	}
 	
-	function restore(){
+	// 还原页面
+	public function restore(){
 		if(isset($_GET['id'])){
 			$id = intval(I("get.id"));
 			$data=array("id"=>$id,"post_status"=>"1");
@@ -216,7 +229,8 @@ class AdminPageController extends AdminbaseController {
 		}
 	}
 	
-	function clean(){
+	// 清除已删除的页面
+	public function clean(){
 		
 		if(isset($_POST['ids'])){
 			$ids = implode(",", $_POST['ids']);

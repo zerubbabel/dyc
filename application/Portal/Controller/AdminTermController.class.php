@@ -7,7 +7,9 @@
 // | Author: Tuolaji <479923197@qq.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
+
 use Common\Controller\AdminbaseController;
+
 class AdminTermController extends AdminbaseController {
 	
 	protected $terms_model;
@@ -18,7 +20,9 @@ class AdminTermController extends AdminbaseController {
 		$this->terms_model = D("Portal/Terms");
 		$this->assign("taxonomys",$this->taxonomys);
 	}
-	function index(){
+	
+	// 后台文章分类列表
+    public function index(){
 		$result = $this->terms_model->order(array("listorder"=>"asc"))->select();
 		
 		$tree = new \Tree();
@@ -47,8 +51,8 @@ class AdminTermController extends AdminbaseController {
 		$this->display();
 	}
 	
-	
-	function add(){
+	// 文章分类添加
+	public function add(){
 	 	$parentid = intval(I("get.parent"));
 	 	$tree = new \Tree();
 	 	$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
@@ -71,7 +75,8 @@ class AdminTermController extends AdminbaseController {
 	 	$this->display();
 	}
 	
-	function add_post(){
+	// 文章分类添加提交
+	public function add_post(){
 		if (IS_POST) {
 			if ($this->terms_model->create()!==false) {
 				if ($this->terms_model->add()!==false) {
@@ -86,7 +91,8 @@ class AdminTermController extends AdminbaseController {
 		}
 	}
 	
-	function edit(){
+	// 文章分类编辑
+	public function edit(){
 		$id = intval(I("get.id"));
 		$data=$this->terms_model->where(array("term_id" => $id))->find();
 		$tree = new \Tree();
@@ -111,7 +117,8 @@ class AdminTermController extends AdminbaseController {
 		$this->display();
 	}
 	
-	function edit_post(){
+	// 文章分类编辑提交
+	public function edit_post(){
 		if (IS_POST) {
 			if ($this->terms_model->create()!==false) {
 				if ($this->terms_model->save()!==false) {
@@ -126,7 +133,7 @@ class AdminTermController extends AdminbaseController {
 		}
 	}
 	
-	//排序
+	// 文章分类排序
 	public function listorders() {
 		$status = parent::_listorders($this->terms_model);
 		if ($status) {
@@ -136,9 +143,7 @@ class AdminTermController extends AdminbaseController {
 		}
 	}
 	
-	/**
-	 *  删除
-	 */
+	// 删除文章分类
 	public function delete() {
 		$id = intval(I("get.id"));
 		$count = $this->terms_model->where(array("parent" => $id))->count();
