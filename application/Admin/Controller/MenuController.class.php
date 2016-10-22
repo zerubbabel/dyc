@@ -34,10 +34,12 @@ class MenuController extends AdminbaseController {
         }
         foreach ($result as $n=> $r) {
         	
-        	$result[$n]['level'] = $this->_get_level($r['id'], $newmenus);
+        	//$result[$n]['level'] = $this->_get_level($r['id'], $newmenus);
         	$result[$n]['parentid_node'] = ($r['parentid']) ? ' class="child-of-node-' . $r['parentid'] . '"' : '';
         	
-            $result[$n]['str_manage'] = '<a href="' . U("Menu/add", array("parentid" => $r['id'], "menuid" => I("get.menuid"))) . '">'.L('ADD_SUB_MENU').'</a> | <a target="_blank" href="' . U("Menu/edit", array("id" => $r['id'], "menuid" => I("get.menuid"))) . '">'.L('EDIT').'</a> | <a class="js-ajax-delete" href="' . U("Menu/delete", array("id" => $r['id'], "menuid" => I("get.menuid")) ). '">'.L('DELETE').'</a> ';
+        	$result[$n]['style'] = empty($r['parentid']) ? '' : 'display:none;';
+        	
+            $result[$n]['str_manage'] = '<a href="' . U("Menu/add", array("parentid" => $r['id'], "menuid" => I("get.menuid"))) . '">'.L('ADD_SUB_MENU').'</a> | <a href="' . U("Menu/edit", array("id" => $r['id'], "menuid" => I("get.menuid"))) . '">'.L('EDIT').'</a> | <a class="js-ajax-delete" href="' . U("Menu/delete", array("id" => $r['id'], "menuid" => I("get.menuid")) ). '">'.L('DELETE').'</a> ';
             $result[$n]['status'] = $r['status'] ? L('DISPLAY') : L('HIDDEN');
             if(APP_DEBUG){
             	$result[$n]['app']=$r['app']."/".$r['model']."/".$r['action'];
@@ -45,7 +47,7 @@ class MenuController extends AdminbaseController {
         }
 
         $tree->init($result);
-        $str = "<tr id='node-\$id' \$parentid_node>
+        $str = "<tr id='node-\$id' \$parentid_node style='\$style'>
 					<td style='padding-left:20px;'><input name='listorders[\$id]' type='text' size='3' value='\$listorder' class='input input-order'></td>
 					<td>\$id</td>
         			<td>\$app</td>
