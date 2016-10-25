@@ -1,7 +1,4 @@
 <?php
-/* * 
- * 系统权限配置，用户角色管理
- */
 namespace Admin\Controller;
 
 use Common\Controller\AdminbaseController;
@@ -15,25 +12,19 @@ class RbacController extends AdminbaseController {
         $this->role_model = D("Common/Role");
     }
 
-    /**
-     * 角色管理列表
-     */
+    // 角色管理列表
     public function index() {
         $data = $this->role_model->order(array("listorder" => "ASC", "id" => "DESC"))->select();
         $this->assign("roles", $data);
         $this->display();
     }
 
-    /**
-     * 添加角色
-     */
+    // 添加角色
     public function roleadd() {
         $this->display();
     }
     
-    /**
-     * 添加角色
-     */
+    // 添加角色提交
     public function roleadd_post() {
     	if (IS_POST) {
     		if ($this->role_model->create()!==false) {
@@ -48,9 +39,7 @@ class RbacController extends AdminbaseController {
     	}
     }
 
-    /**
-     * 删除角色
-     */
+    // 删除角色
     public function roledelete() {
         $id = I("get.id",0,'intval');
         if ($id == 1) {
@@ -71,9 +60,7 @@ class RbacController extends AdminbaseController {
         
     }
 
-    /**
-     * 编辑角色
-     */
+    // 编辑角色
     public function roleedit() {
         $id = I("get.id",0,'intval');
         if ($id == 1) {
@@ -87,9 +74,7 @@ class RbacController extends AdminbaseController {
         $this->display();
     }
     
-    /**
-     * 编辑角色
-     */
+    // 编辑角色提交
     public function roleedit_post() {
     	$id = I("request.id",0,'intval');
     	if ($id == 1) {
@@ -108,9 +93,7 @@ class RbacController extends AdminbaseController {
     	}
     }
 
-    /**
-     * 角色授权
-     */
+    // 角色授权
     public function authorize() {
         $this->auth_access_model = D("Common/AuthAccess");
        //角色ID
@@ -146,9 +129,7 @@ class RbacController extends AdminbaseController {
         $this->display();
     }
     
-    /**
-     * 角色授权
-     */
+    // 角色授权提交
     public function authorize_post() {
     	$this->auth_access_model = D("Common/AuthAccess");
     	if (IS_POST) {
@@ -221,6 +202,7 @@ class RbacController extends AdminbaseController {
         		
     }
     
+    //角色成员管理
     public function member(){
     	//TODO 添加角色成员管理
     	
