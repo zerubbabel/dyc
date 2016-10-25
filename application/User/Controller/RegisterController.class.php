@@ -43,6 +43,7 @@ class RegisterController extends HomebaseController {
         $rules = array(
             //array(验证字段,验证规则,错误提示,验证条件,附加规则,验证时间)
             array('mobile', 'require', '手机号不能为空！', 1 ),
+            array('mobile','','手机号已被注册！！',0,'unique',3),
             array('password','require','密码不能为空！',1),
             array('password','5,20',"密码长度至少5位，最多20位！",1,'length',3),
         );
@@ -60,37 +61,29 @@ class RegisterController extends HomebaseController {
 	    $password=I('post.password');
 	    $mobile=I('post.mobile');
 	    
-	    $where['mobile']=$mobile;
-	     
 	    $users_model=M("Users");
-	    $result = $users_model->where($where)->count();
+	    $data=array(
+	        'user_login' => '',
+	        'user_email' => '',
+	        'mobile' =>$mobile,
+	        'user_nicename' =>'',
+	        'user_pass' => sp_password($password),
+	        'last_login_ip' => get_client_ip(0,true),
+	        'create_time' => date("Y-m-d H:i:s"),
+	        'last_login_time' => date("Y-m-d H:i:s"),
+	        'user_status' => 1,
+	        "user_type"=>2,//会员
+	    );
+	    
+	    $result = $users_model->add($data);
 	    if($result){
-	        $this->error("手机号已被注册！");
-	    }else{
-
-	        $data=array(
-	            'user_login' => '',
-	            'user_email' => '',
-	            'mobile' =>$mobile,
-	            'user_nicename' =>'',
-	            'user_pass' => sp_password($password),
-	            'last_login_ip' => get_client_ip(0,true),
-	            'create_time' => date("Y-m-d H:i:s"),
-	            'last_login_time' => date("Y-m-d H:i:s"),
-	            'user_status' => 1,
-	            "user_type"=>2,//会员
-	        );
-	        $rst = $users_model->add($data);
-	        if($rst){
-	            //注册成功页面跳转
-	            $data['id']=$rst;
-	            session('user',$data);
-	            $this->success("注册成功！",__ROOT__."/");
-	        
-	        }else{
-	            $this->error("注册失败！",U("user/register/index"));
-	        }
+	        //注册成功页面跳转
+	        $data['id']=$result;
+	        session('user',$data);
+	        $this->success("注册成功！",__ROOT__."/");
 	         
+	    }else{
+	        $this->error("注册失败！",U("user/register/index"));
 	    }
 	}
 	
