@@ -168,7 +168,7 @@
     	                        var text = $btn.text();
     	                        //按钮文案、状态修改
     	                        $btn.removeClass('disabled').prop('disabled', false).text(text.replace('中...', '')).parent().find('span').remove();
-    	                        if (data.state === 'success') {
+    	                        if (data.status == 1) {
     	                        	if($btn.data('success')){
     		                        	var successCallback=$btn.data('success');
     		                        	window[successCallback](data, statusText, xhr, $form);
@@ -179,7 +179,7 @@
     	                        		layout:'center',
     	                        		modal:true
     	                        	});
-    	                        } else if (data.state === 'fail') {
+    	                        } else if (data.status == 0) {
     	                        	if($btn.data('error')){
     		                        	var errorCallback=$btn.data('error');
     		                        	window[errorCallback](data, statusText, xhr, $form);
@@ -227,7 +227,7 @@
     	                        		}
     	                            }
     	                        } else {
-    	                        	if (data.state === 'success') {
+    	                        	if (data.status == 1) {
     	                        		var wait=$btn.data("wait");
     	                        		if(window.parent.art){
     	                                    if(wait){
@@ -306,13 +306,13 @@
    				   		onClick: function($noty){
    				   			$noty.close();
 	   				   		$.getJSON(href).done(function (data) {
-	                            if (data.state === 'success') {
+	                            if (data.status == 1) {
 	                                if (data.referer) {
 	                                    location.href = data.referer;
 	                                } else {
 	                                    reloadPage(window);
 	                                }
-	                            } else if (data.state === 'fail') {
+	                            } else if (data.status == 0) {
 	                            	noty({text: data.info,
 	                            		type:'error',
 	                            		layout:'center',
@@ -366,13 +366,13 @@
    				   		onClick: function($noty){
    				   			$noty.close();
 	   				   		$.getJSON(href).done(function (data) {
-	                            if (data.state === 'success') {
+	                            if (data.status == 1) {
 	                                if (data.referer) {
 	                                    location.href = data.referer;
 	                                } else {
 	                                    reloadPage(window);
 	                                }
-	                            } else if (data.state === 'fail') {
+	                            } else if (data.status == 0) {
 	                                noty({text: data.info,
 	                            		type:'error',
 	                            		layout:'center',
@@ -417,7 +417,7 @@
                 
                 
                 $.getJSON(href).done(function (data) {
-                    if (data.state === 'success') {
+                    if (data.status == 1) {
                         noty({
                         	text:data.info,
                         	type:'success',
@@ -435,7 +435,7 @@
                         		}
                         	}
                         });
-                    } else if (data.state === 'fail') {
+                    } else if (data.status == 0) {
                         noty({text: data.info,
                     		type:'error',
                     		layout:'center',
@@ -469,13 +469,13 @@
             $.post(this.href, function (data) {
                 refresh_lock = false;
 
-                if (data.state === 'success') {
+                if (data.status == 1) {
                     if (data.referer) {
                         location.href = data.referer;
                     } else {
                         reloadPage(window);
                     }
-                } else if (data.state === 'fail') {
+                } else if (data.status == 0) {
                     Wind.art.dialog.alert(data.info);
                 }
             }, 'json');
@@ -582,7 +582,7 @@
                 
                 $.post(href,{},function(data){
                 	
-                	if (data.state === 'success') {
+                	if (data.status == 1) {
                 		
                 		var $count=$this.find(".count");
                 		var count=parseInt($count.text());
@@ -590,15 +590,29 @@
                 		if(data.info){
                 			noty({text: data.info,
                         		type:'success',
-                        		layout:'center'
+                        		layout:'center',
+                        		callback:{
+                        			onClose:function(){
+                        				if (data.referer) {
+    	                                    location.href = data.referer;
+    	                                }
+                        			}
+                        		}
                         	});
                 		}
                 		
                 		
-                    } else if (data.state === 'fail') {
+                    } else if (data.status == 0) {
                     	noty({text: data.info,
                     		type:'error',
-                    		layout:'center'
+                    		layout:'center',
+                    		callback:{
+                    			onClose:function(){
+                    				if (data.referer) {
+	                                    location.href = data.referer;
+	                                }
+                    			}
+                    		}
                     	});
                     }
                 	
@@ -684,20 +698,34 @@
                 
                 $.post(href,{},function(data){
                 	
-                	if (data.state === 'success') {
+                	if (data.status == '1') {
                 		
                 		if(data.info){
                 			noty({text: data.info,
                         		type:'success',
-                        		layout:'center'
+                        		layout:'center',
+                        		callback:{
+                        			onClose:function(){
+                        				if (data.referer) {
+    	                                    location.href = data.referer;
+    	                                }
+                        			}
+                        		}
                         	});
                 		}
                 		
                 		
-                    } else if (data.state === 'fail') {
+                    } else if (data.status == 0) {
                     	noty({text: data.info,
                     		type:'error',
-                    		layout:'center'
+                    		layout:'center',
+                    		callback:{
+                    			onClose:function(){
+                    				if (data.referer) {
+	                                    location.href = data.referer;
+	                                }
+                    			}
+                    		}
                     	});
                     }
                 },"json");
@@ -722,20 +750,34 @@
                 
                 $.post(href,{url:url,key:key,title:title,description:description},function(data){
                 	
-                	if (data.state === 'success') {
+                	if (data.status == 1) {
                 		
                 		if(data.info){
                 			noty({text: data.info,
                         		type:'success',
-                        		layout:'center'
+                        		layout:'center',
+                        		callback:{
+                        			onClose:function(){
+                        				if (data.referer) {
+    	                                    location.href = data.referer;
+    	                                }
+                        			}
+                        		}
                         	});
                 		}
                 		
                 		
-                    } else if (data.state === 'fail') {
+                    } else if (data.status == 0) {
                     	noty({text: data.info,
                     		type:'error',
-                    		layout:'center'
+                    		layout:'center',
+                    		callback:{
+                    			onClose:function(){
+                    				if (data.referer) {
+	                                    location.href = data.referer;
+	                                }
+                    			}
+                    		}
                     	});
                     }
                 	
@@ -775,15 +817,15 @@
                         //按钮文案、状态修改
                         btn.removeClass('disabled').text(text.replace('中...', '')).parent().find('span').remove();
                         btn.removeProp('disabled').removeClass('disabled');
-                        if (data.state === 'success') {
+                        if (data.status == 1) {
                             $('<span class="tips_success">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('slow').delay(1000).fadeOut(function () {
                             });
-                        } else if (data.state === 'fail') {
+                        } else if (data.status == 0) {
                             $('<span class="tips_error">' + data.info + '</span>').appendTo(btn.parent()).fadeIn('fast');
                             btn.removeProp('disabled').removeClass('disabled');
                         }
                         
-                        if (data.state === 'success') {
+                        if (data.status == 1) {
                     		var $comments=form.siblings(".comments");
                     		var comment_tpl=btn.parents(".comment-area").find(".comment-tpl").html();
                     		var $comment_tpl=$(comment_tpl);
