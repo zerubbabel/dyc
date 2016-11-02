@@ -28,12 +28,12 @@ class OauthadminController extends AdminbaseController {
 	
 	// 后台删除第三方用户绑定
 	public function delete(){
-		$id=intval($_GET['id']);
+		$id = I('get.id',0,'intval');
 		if(empty($id)){
 			$this->error('非法数据！');
 		}
-		$rst = M("OauthUser")->where(array("id"=>$id))->delete();
-		if ($rst!==false) {
+		$result = M("OauthUser")->where(array("id"=>$id))->delete();
+		if ($result!==false) {
 			$this->success("删除成功！", U("oauthadmin/index"));
 		} else {
 			$this->error('删除失败！');

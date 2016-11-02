@@ -102,12 +102,12 @@ class ProfileController extends MemberbaseController {
     // 用户头像上传
     public function avatar_upload(){
     	$config=array(
-    			'rootPath' => './'.C("UPLOADPATH"),
-    			'savePath' => './avatar/',
-    			'maxSize' => 512000,//500K
-    			'saveName'   =>    array('uniqid',''),
-    			'exts'       =>    array('jpg', 'png', 'jpeg'),
-    			'autoSub'    =>    false,
+			'rootPath' => './'.C("UPLOADPATH"),
+			'savePath' => './avatar/',
+			'maxSize' => 512000,//500K
+			'saveName'   =>    array('uniqid',''),
+			'exts'       =>    array('jpg', 'png', 'jpeg'),
+			'autoSub'    =>    false,
     	);
     	$upload = new \Think\Upload($config,'Local');//先在本地裁剪
     	$info=$upload->upload();
