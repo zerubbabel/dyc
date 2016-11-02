@@ -76,7 +76,7 @@ class AdminPostController extends AdminbaseController {
 	
 	// 文章编辑
 	public function edit(){
-		$id=  intval(I("get.id"));
+		$id=  I("get.id",0,'intval');
 		
 		$term_relationship = M('TermRelationships')->where(array("object_id"=>$id,"status"=>1))->getField("term_id",true);
 		$this->_getTermTree($term_relationship);
@@ -138,7 +138,10 @@ class AdminPostController extends AdminbaseController {
 		}
 	}
 	
-	// 文章列表处理方法,根据不同条件显示不同的列表
+	/**
+	 * 文章列表处理方法,根据不同条件显示不同的列表
+	 * @param array $where 查询条件
+	 */
 	private function _lists($where=array()){
 		$term_id=I('request.term',0,'intval');
 		

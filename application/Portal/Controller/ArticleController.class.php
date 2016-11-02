@@ -51,15 +51,15 @@ class ArticleController extends HomebaseController {
     	$next=$term_relationships_model
     	->alias("a")
     	->join($join)->join($join2)
-    	->where(array("post_date"=>array("egt",$article_date), "object_id"=>array('neq',$article_id), "a.status"=>1,'a.term_id'=>$term_id,'post_status'=>1))
-    	->order("post_date asc")
+    	->where(array('b.id'=>array('gt',$article_id),"post_date"=>array("egt",$article_date),"a.status"=>1,'a.term_id'=>$term_id,'post_status'=>1))
+    	->order("post_date asc,b.id asc")
     	->find();
     	
     	$prev=$term_relationships_model
     	->alias("a")
     	->join($join)->join($join2)
-    	->where(array("post_date"=>array("elt",$article_date), "object_id"=>array('neq',$article_id), "a.status"=>1,'a.term_id'=>$term_id,'post_status'=>1))
-    	->order("post_date desc")
+    	->where(array('b.id'=>array('lt',$article_id),"post_date"=>array("elt",$article_date),"a.status"=>1,'a.term_id'=>$term_id,'post_status'=>1))
+    	->order("post_date desc,b.id desc")
     	->find();
     	
     	$this->assign("next",$next);
@@ -86,7 +86,7 @@ class ArticleController extends HomebaseController {
     public function do_like(){
     	$this->check_login();
     	
-    	$id=intval($_GET['id']);//posts表中id
+    	$id = I('get.id',0,'intval');//posts表中id
     	
     	$posts_model=M("Posts");
     	

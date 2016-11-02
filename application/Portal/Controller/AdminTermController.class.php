@@ -53,7 +53,7 @@ class AdminTermController extends AdminbaseController {
 	
 	// 文章分类添加
 	public function add(){
-	 	$parentid = intval(I("get.parent"));
+	 	$parentid = I("get.parent",0,'intval');
 	 	$tree = new \Tree();
 	 	$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 	 	$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
@@ -93,7 +93,7 @@ class AdminTermController extends AdminbaseController {
 	
 	// 文章分类编辑
 	public function edit(){
-		$id = intval(I("get.id"));
+		$id = I("get.id",0,'intval');
 		$data=$this->terms_model->where(array("term_id" => $id))->find();
 		$tree = new \Tree();
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
@@ -145,7 +145,7 @@ class AdminTermController extends AdminbaseController {
 	
 	// 删除文章分类
 	public function delete() {
-		$id = intval(I("get.id"));
+		$id = I("get.id",0,'intval');
 		$count = $this->terms_model->where(array("parent" => $id))->count();
 		
 		if ($count > 0) {
