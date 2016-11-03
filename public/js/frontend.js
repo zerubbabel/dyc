@@ -137,21 +137,59 @@
             
             ajaxForm_list.each(function(){
             	$(this).validate({
-                	//是否在获取焦点时验证
-    				onfocusout : false,
+            		//是否在获取焦点时验证
+    				//onfocusout : false,
     				//是否在敲击键盘时验证
-    				onkeyup : false,
-    				//当鼠标掉级时验证
-    				onclick : false,
+    				//onkeyup : false,
+    				//当鼠标点击时验证
+    				//onclick : false,
     				//给未通过验证的元素加效果,闪烁等
-    				highlight : false,
-    				//是否在获取焦点时验证
-    				onfocusout : false,
+                    highlight: function( element, errorClass, validClass ) {
+                        if ( element.type === "radio" ) {
+                            this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
+                        } else {
+                        	var $element =$( element );
+                        	$element.addClass( errorClass ).removeClass( validClass );
+                        	$element.parent().addClass("has-error");//bootstrap3表单
+                        	$element.parents('.control-group').addClass("error");//bootstrap2表单
+                            
+                        }
+                    },
+                    unhighlight: function( element, errorClass, validClass ) {
+                        if ( element.type === "radio" ) {
+                            this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
+                        } else {
+                        	var $element =$( element );
+                        	$element.removeClass( errorClass ).addClass( validClass );
+                        	$element.parent().removeClass("has-error");//bootstrap3表单
+                        	$element.parents('.control-group').removeClass("error");//bootstrap2表单
+                        }
+                    },
                 	showErrors:function(errorMap, errorArr){
-                		try {
-    						$(errorArr[0].element).focus();
-    					} catch (err) {
-    					}
+                        var i, elements, error;
+                        for ( i = 0; this.errorList[ i ]; i++ ) {
+                            error = this.errorList[ i ];
+                            if ( this.settings.highlight ) {
+                                this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+                            }
+                            //this.showLabel( error.element, error.message );
+                        }
+                        if ( this.errorList.length ) {
+                            //this.toShow = this.toShow.add( this.containers );
+                        }
+                        if ( this.settings.success ) {
+                            for ( i = 0; this.successList[ i ]; i++ ) {
+                                //this.showLabel( this.successList[ i ] );
+                            }
+                        }
+                        if ( this.settings.unhighlight ) {
+                            for ( i = 0, elements = this.validElements(); elements[ i ]; i++ ) {
+                                this.settings.unhighlight.call( this, elements[ i ], this.settings.errorClass, this.settings.validClass );
+                            }
+                        }
+                        this.toHide = this.toHide.not( this.toShow );
+                        this.hideErrors();
+                        this.addWrapper( this.toShow ).show();
                 	},
                 	submitHandler:function(form){
                 		var $form=$(form);
