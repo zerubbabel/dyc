@@ -120,44 +120,56 @@
                 	//是否在获取焦点时验证
     				//onfocusout : false,
     				//是否在敲击键盘时验证
-    				onkeyup : function( element, event ) {
-    					return;
-
-    					// Avoid revalidate the field when pressing one of the following keys
-    					// Shift       => 16
-    					// Ctrl        => 17
-    					// Alt         => 18
-    					// Caps lock   => 20
-    					// End         => 35
-    					// Home        => 36
-    					// Left arrow  => 37
-    					// Up arrow    => 38
-    					// Right arrow => 39
-    					// Down arrow  => 40
-    					// Insert      => 45
-    					// Num lock    => 144
-    					// AltGr key   => 225
-    					var excludedKeys = [
-    						16, 17, 18, 20, 35, 36, 37,
-    						38, 39, 40, 45, 144, 225
-    					];
-
-    					if ( event.which === 9 && this.elementValue( element ) === "" || $.inArray( event.keyCode, excludedKeys ) !== -1 ) {
-    						return;
-    					} else if ( element.name in this.submitted || element.name in this.invalid ) {
-    						this.element( element );
-    					}
-    				},
-    				//当鼠标掉级时验证
-    				onclick : false,
+    				//onkeyup : false,
+    				//当鼠标点击时验证
+    				//onclick : false,
     				//给未通过验证的元素加效果,闪烁等
-    				//highlight : false,
+                    highlight: function( element, errorClass, validClass ) {
+                        if ( element.type === "radio" ) {
+                            this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
+                        } else {
+                        	var $element =$( element );
+                        	$element.addClass( errorClass ).removeClass( validClass );
+                        	$element.parent().addClass("has-error");//bootstrap3表单
+                        	$element.parents('.control-group').addClass("error");//bootstrap2表单
+                            
+                        }
+                    },
+                    unhighlight: function( element, errorClass, validClass ) {
+                        if ( element.type === "radio" ) {
+                            this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
+                        } else {
+                        	var $element =$( element );
+                        	$element.removeClass( errorClass ).addClass( validClass );
+                        	$element.parent().removeClass("has-error");//bootstrap3表单
+                        	$element.parents('.control-group').removeClass("error");//bootstrap2表单
+                        }
+                    },
                 	showErrors:function(errorMap, errorArr){
-                		try {
-    						$(errorArr[0].element).focus();
-    						//alert(errorArr[0].message);
-    					} catch (err) {
-    					}
+                        var i, elements, error;
+                        for ( i = 0; this.errorList[ i ]; i++ ) {
+                            error = this.errorList[ i ];
+                            if ( this.settings.highlight ) {
+                                this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+                            }
+                            //this.showLabel( error.element, error.message );
+                        }
+                        if ( this.errorList.length ) {
+                            //this.toShow = this.toShow.add( this.containers );
+                        }
+                        if ( this.settings.success ) {
+                            for ( i = 0; this.successList[ i ]; i++ ) {
+                                //this.showLabel( this.successList[ i ] );
+                            }
+                        }
+                        if ( this.settings.unhighlight ) {
+                            for ( i = 0, elements = this.validElements(); elements[ i ]; i++ ) {
+                                this.settings.unhighlight.call( this, elements[ i ], this.settings.errorClass, this.settings.validClass );
+                            }
+                        }
+                        this.toHide = this.toHide.not( this.toShow );
+                        this.hideErrors();
+                        this.addWrapper( this.toShow ).show();
                 	},
                 	submitHandler:function(form){
                 		var $form=$(form);
@@ -292,9 +304,9 @@
                     $this = $($_this),
                     href = $this.data('href'),
                     msg = $this.data('msg');
-                href = href?href:$this.attr('href');
-                if(!msg){
-                	msg="您确定要进行此操作吗？";
+                href = href ? href : $this.attr('href');
+                if (!msg) {
+                    msg = "您确定要进行此操作吗？";
                 }
                 art.dialog({
                     title: false,
@@ -362,7 +374,7 @@
 
             //分组各纵横项
             var check_all_direction = check_all.data('direction');
-            check_items = $('input.js-check[data-' + check_all_direction + 'id="' + check_all.data('checklist') + '"]');
+            check_items = $('input.js-check[data-' + check_all_direction + 'id="' + check_all.data('checklist') + '"]').not(":disabled");
             
             //点击全选框
             check_all.change(function (e) {
