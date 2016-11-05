@@ -217,9 +217,19 @@
                                 
                             },
                             error:function(xhr,e,statusText){
-                            	alert(statusText);
-                            	//刷新当前页
-                                reloadPage(window);
+                            	art.dialog({
+                                    id: 'warning',
+                                    icon: 'warning',
+                                    content: statusText,
+                                    cancelVal: '关闭',
+                                    cancel: function () {
+                                    	reloadPage(window);
+                                    },
+                                    ok: function () {
+                                    	reloadPage(window);
+                                    }
+                                });
+                                
                             },
                             complete: function(){
                             	$btn.data("loading",false);

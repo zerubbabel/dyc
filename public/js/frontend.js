@@ -290,13 +290,20 @@
     	                        
     	                    },
     	                    error:function(xhr,e,statusText){
-    	                    	alert(statusText);
-    	                    	if(window.parent.art){
-    	                            reloadPage(window.parent);
-    	                        }else{
-    	                            //刷新当前页
-    	                            reloadPage(window);
-    	                        }
+    	                    	noty({text: statusText,
+	                        		type:'error',
+	                        		layout:'center',
+	                        		callback:{
+                            			onClose:function(){
+                            				if(window.parent.art){
+                	                            reloadPage(window.parent);
+                	                        }else{
+                	                            //刷新当前页
+                	                            reloadPage(window);
+                	                        }
+                            			}
+                            		}
+	                        	});
     	                    },
     	                    complete: function(){
     	                    	$btn.data("loading",false);
