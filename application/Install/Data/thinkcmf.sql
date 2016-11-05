@@ -802,7 +802,7 @@ CREATE TABLE IF NOT EXISTS `cmf_users` (
   `user_url` varchar(100) NOT NULL DEFAULT '' COMMENT '用户个人网站',
   `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像，相对于upload/avatar目录',
   `sex` smallint(1) DEFAULT '0' COMMENT '性别；0：保密，1：男；2：女',
-  `birthday` date DEFAULT NULL COMMENT '生日',
+  `birthday` date DEFAULT '2000-01-01' COMMENT '生日',
   `signature` varchar(255) DEFAULT NULL COMMENT '个性签名',
   `last_login_ip` varchar(16) DEFAULT NULL COMMENT '最后登录ip',
   `last_login_time` datetime NOT NULL DEFAULT '2000-01-01 00:00:00' COMMENT '最后登录时间',
