@@ -9,7 +9,19 @@ class FavoriteController extends MemberbaseController{
 	public function index(){
 		$uid=sp_get_current_userid();
 		$user_favorites_model=M("UserFavorites");
-		$favorites=$user_favorites_model->where("uid=$uid")->select();
+		$where=array("uid"=>$uid);
+		
+		$count=$user_favorites_model->where($where)->count();
+		
+		$page=$this->page($count,10);
+		
+		$favorites=$user_favorites_model->where($where)
+		->order("createtime desc")
+		->limit($page->firstRow,$page->listRows)
+		->select();
+		
+		$this->assign("page",$page->show("default"));
+		
 		$this->assign("favorites",$favorites);
 		$this->display(":favorite");
 	}
