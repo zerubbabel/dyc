@@ -481,7 +481,7 @@ function reloadPage(win) {
 
 /**
  * 页面跳转
- * @param url
+ * @param url 要打开的页面地址
  */
 function redirect(url) {
     location.href = url;
@@ -509,7 +509,9 @@ function getCookie(name) {
     return null;
 }
 
-// 设置cookie
+/**
+ * 设置cookie
+ */
 function setCookie(name, value, days) {
     var argc = setCookie.arguments.length;
     var argv = setCookie.arguments;
@@ -583,7 +585,7 @@ function open_map_dialog(url, title, options, callback) {
  * @param extra_params 额外参数，object
  * @param multi 是否可以多选
  * @param filetype 文件类型，image,video,audio,file
- * @param app  应用名，对于 CMF 的应用名
+ * @param app  应用名，CMF的应用名
  */
 function open_upload_dialog(dialog_title,callback,extra_params,multi,filetype,app){
 	multi = multi?1:0;
@@ -617,12 +619,27 @@ function open_upload_dialog(dialog_title,callback,extra_params,multi,filetype,ap
     });
 }
 
+/**
+ * 单个文件上传
+  * @param dialog_title 上传对话框标题
+ * @param input_selector 图片容器
+ * @param filetype 文件类型，image,video,audio,file
+ * @param extra_params 额外参数，object
+ * @param app  应用名,CMF的应用名
+ */
 function upload_one(dialog_title, input_selector, filetype, extra_params, app) {
     open_upload_dialog(dialog_title, function (dialog, files) {
         $(input_selector).val(files[0].filepath);
     }, extra_params, 0, filetype, app);
 }
 
+/**
+ * 单个图片上传
+ * @param dialog_title 上传对话框标题
+ * @param input_selector 图片容器
+ * @param extra_params 额外参数，object
+ * @param app  应用名,CMF的应用名
+ */
 function upload_one_image(dialog_title, input_selector, extra_params, app) {
     open_upload_dialog(dialog_title, function (dialog, files) {
         $(input_selector).val(files[0].filepath);
@@ -636,6 +653,8 @@ function upload_one_image(dialog_title, input_selector, extra_params, app) {
  * @param dialog_title 上传对话框标题
  * @param container_selector 图片容器
  * @param item_tpl_wrapper_id 单个图片html模板容器id
+ * @param extra_params 额外参数，object
+ * @param app  应用名,CMF 的应用名
  */
 function upload_multi_image(dialog_title, container_selector, item_tpl_wrapper_id, extra_params, app) {
     open_upload_dialog(dialog_title, function (dialog, files) {
@@ -653,6 +672,34 @@ function upload_multi_image(dialog_title, container_selector, item_tpl_wrapper_i
         $(container_selector).append(html);
 
     }, extra_params, 1, 'image', app);
+}
+
+/**
+ * 多文件上传
+ * @param dialog_title 上传对话框标题
+ * @param container_selector 图片容器
+ * @param item_tpl_wrapper_id 单个图片html模板容器id
+ * @param filetype 文件类型，image,video,audio,file
+ * @param extra_params 额外参数，object
+ * @param app  应用名,CMF 的应用名
+ */
+function upload_multi_file(dialog_title, container_selector, item_tpl_wrapper_id,filetype, extra_params, app) {
+	filetype = filetype?filetype:'file';
+    open_upload_dialog(dialog_title, function (dialog, files) {
+        var tpl = $('#' + item_tpl_wrapper_id).html();
+        var html = '';
+        $.each(files, function (i, item) {
+            var itemtpl = tpl;
+            itemtpl = itemtpl.replace(/\{id\}/g, item.id);
+            itemtpl = itemtpl.replace(/\{url\}/g, item.url);
+            itemtpl = itemtpl.replace(/\{preview_url\}/g, item.preview_url);
+            itemtpl = itemtpl.replace(/\{filepath\}/g, item.filepath);
+            itemtpl = itemtpl.replace(/\{name\}/g, item.name);
+            html += itemtpl;
+        });
+        $(container_selector).append(html);
+
+    }, extra_params, 1, filetype, app);
 }
 
 /**
