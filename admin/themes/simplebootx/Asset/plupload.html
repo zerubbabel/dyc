@@ -45,6 +45,9 @@
 	height:100%;
 	line-height: 100px;
 	text-align: center;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .files-wrapper li .selected-icon-wrapper{
@@ -182,16 +185,22 @@
 							if(!multi) {
 								$('#select-files').css('visibility','hidden');
 							}
-							var $img=$('<img/>');
-							$img.attr('src',data.url);
-							$('#'+file.id).addClass('uploaded')
+							var $file=$('#'+file.id);
+							$file.addClass('uploaded')
 							.data('id',file.id)
 							.data('url',data.url)
 							.data('preview_url',data.preview_url)
 							.data('filepath',data.filepath)
-							.data('name',data.name)
-							.find('.upload-percent')
-							.html($img);
+							.data('name',data.name);
+							
+							if(data.url.match(/\.(jpeg|gif|jpg|png|bmp|pic)$/gi)){
+								var $img=$('<img/>');
+								$img.attr('src',data.url);
+								$file.find('.upload-percent')
+								.html($img);
+							}else{
+								$file.find('.upload-percent').attr('title',data.name).text(data.name);
+							}
 						}else{
 							alert(data.message);
 							$('#'+file.id).remove();
