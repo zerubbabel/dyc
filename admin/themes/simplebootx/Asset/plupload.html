@@ -138,6 +138,10 @@
 	</div>
 	<script>
 		var multi={$multi};
+		var mime_type = {$mime_type};
+		var extensions = mime_type.extensions.split(/,/);
+		var mimeTypeRegExp=new RegExp('\\.(' + extensions.join('|') + ')$', 'i');
+		
 		Wind.use('plupload',function(){
 			var uploader = new plupload.Uploader({
 				runtimes : 'html5,flash,silverlight,html4',
@@ -147,8 +151,8 @@
 				flash_swf_url : '../js/Moxie.swf',
 				silverlight_xap_url : '../js/Moxie.xap',
 				filters : {
-					max_file_size : '{$upload_max_filesize_mb}mb',
-					mime_types: [{$mime_type}]
+					max_file_size : '{$upload_max_filesize_mb}mb'/* ,
+					mime_types: [{$mime_type}] */
 				},
 				multi_selection:{$multi},
 				multipart_params:{
@@ -211,6 +215,21 @@
 					}
 				}
 			});
+			
+			plupload.addFileFilter('mime_types', function(filters, file, cb) {
+				if (!mimeTypeRegExp.test(file.name)) {
+					this.trigger('Error', {
+						code : plupload.FILE_EXTENSION_ERROR,
+						message : plupload.translate('File extension error.'),
+						file : file
+					});
+					alert("此文件类型不能上传!\n"+file.name);
+					cb(false);
+				} else {
+					cb(true);
+				}
+			});
+
 
 			uploader.init();
 			
