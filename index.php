@@ -43,8 +43,8 @@ if(function_exists('saeAutoLoader') || isset($_SERVER['HTTP_BAE_ENV_APPID'])){
 }else{
 	if(!file_exists("data/install.lock")){
 		if(strtolower($_GET['g'])!="install"){
-		    header("Location:./index.php?g=install");
-		    exit();
+		    //header("Location:./index.php?g=install");
+		    //exit();
 		}
 	}
 }
