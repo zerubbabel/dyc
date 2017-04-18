@@ -10,17 +10,17 @@ class ZhitongController extends AdminbaseController {
 
     protected $menu_model;
     protected $auth_rule_model;
-
+    protected $product_model;
     public function _initialize() {
         parent::_initialize();
         $this->menu_model = D("Common/Menu");
         $this->auth_rule_model = D("Common/AuthRule");
+        $this->product_model = D("Common/Product");
+        
     }
-
+    
     // UI for import excel
     public function default() {
-        //$data=import_excel('/Upload/2017-04-17/58f462cb1cabf.xls');  
-        //print_r($data);
         $this->display();
     }
 
@@ -29,8 +29,16 @@ class ZhitongController extends AdminbaseController {
         $upload_file=ajax_upload('/Upload/'); 
         $f='.'.trim($upload_file['name']);      
         $data=import_excel($f);        
-        //print_r($data);        
-        p($data);
+        array_shift($data);//去标题
+        $Product = M("Product"); // 实例化Product对象
+        foreach ($data as $k => $v) {
+            $map = array();
+            $map['product_id'] = $v[0];
+            $map['product_name'] = $v[1];
+            $map['visit_qty'] = (int)$v[2];                
+            $Product->add($map);
+        }
+                
     }
 
     public function webuploader(){
