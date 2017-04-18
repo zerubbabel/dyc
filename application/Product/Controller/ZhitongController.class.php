@@ -17,10 +17,31 @@ class ZhitongController extends AdminbaseController {
         $this->auth_rule_model = D("Common/AuthRule");
     }
 
-    // 后台菜单列表
+    // UI for import excel
     public function default() {
-    	echo "hello";
+        //$data=import_excel('/Upload/2017-04-17/58f462cb1cabf.xls');  
+        //print_r($data);
+        $this->display();
     }
+
+    public function ajax_upload(){ 
+        // 根据自己的业务调整上传路径、允许的格式、文件大小
+        $upload_file=ajax_upload('/Upload/'); 
+        $f='.'.trim($upload_file['name']);      
+        $data=import_excel($f);        
+        //print_r($data);        
+        p($data);
+    }
+
+    public function webuploader(){
+        // 如果是post提交则显示上传的文件 否则显示上传页面
+        if(IS_POST){
+            p($_POST);die;
+        }else{
+            $this->display();
+        }
+    }
+
     // 后台菜单列表
     public function index() {
     	session('admin_menu_index','Menu/index');
