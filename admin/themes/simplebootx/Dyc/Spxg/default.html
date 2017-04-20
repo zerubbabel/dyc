@@ -1,0 +1,21 @@
+<admintpl file="header" />
+<webuploadercss />
+</head>
+<body>
+ 
+<form action="{:U('Dyc/Spxg/webuploader')}" method="post">	
+    <div class="control-group">
+		<label class="control-label" for="input-birthday"><span class="form-required"></span>日期:</label>
+		<div class="controls">
+			<input class="js-date" type="text" id="input-birthday" placeholder="" name="birthday" value="" required>
+		</div>
+	</div>
+	<webuploader name="image" url="{:U('Dyc/Spxg/ajax_upload')}" word="或将excel文件拖到这里" />
+    
+</form>
+ 
+ 
+<webuploaderjs />
+<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

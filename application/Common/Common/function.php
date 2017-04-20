@@ -2243,8 +2243,14 @@ function import_excel($file){
     for($j=1;$j<=$highestRow;$j++){
         //从A列读取数据
         for($k='A';$k<=$highestColumn;$k++){
-            // 读取单元格
-            $data[$j][]=$objPHPExcel->getActiveSheet()->getCell("$k$j")->getValue();
+        	// 读取单元格
+        	$cell=$objPHPExcel->getActiveSheet()->getCell("$k$j")->getValue();
+        	if ($cell instanceof \PHPExcel_RichText){
+        		$data[$j][]=$cell->getPlainText();
+        	}else{
+        		
+            	$data[$j][]=$cell;	
+        	}           
         } 
     }  
     return $data;
