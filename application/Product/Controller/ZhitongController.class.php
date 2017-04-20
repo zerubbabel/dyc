@@ -24,6 +24,7 @@ class ZhitongController extends AdminbaseController {
         $this->display();
     }
 
+
     public function ajax_upload(){ 
         // 根据自己的业务调整上传路径、允许的格式、文件大小
         $upload_file=ajax_upload('/Upload/'); 
@@ -48,6 +49,13 @@ class ZhitongController extends AdminbaseController {
         }else{
             $this->display();
         }
+    }
+
+
+    public function report() {
+        $data = $this->product_model->order(array("id" => "DESC"))->select();
+        $this->assign("products", $data);
+        $this->display();
     }
 
     // 后台菜单列表

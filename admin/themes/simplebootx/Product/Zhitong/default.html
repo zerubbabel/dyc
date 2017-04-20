@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>thinkphp整合系列之webuploader异步预览上传</title>
-    <webuploadercss />
+<admintpl file="header" />
+<webuploadercss />
 </head>
 <body>
  
 <form action="{:U('Product/Zhitong/webuploader')}" method="post">
     <webuploader name="image" url="{:U('Product/Zhitong/ajax_upload')}" word="或将照片拖到这里，单次最多可选300张" />
-    自定义附加字段：<input type="text" name="extend" value="上传的文件描述">
+    数据日期：<input type="text" name="extend" value="上传的文件描述">
+    
     <input type="submit" value="提交">
+    <div class="control-group">
+		<label class="control-label" for="input-birthday"><span class="form-required">*</span>{:L('BIRTHDAY')}</label>
+		<div class="controls">
+			<input class="js-date" type="text" id="input-birthday" placeholder="" name="birthday" value="" required>
+		</div>
+	</div>
 </form>
  
  
 <webuploaderjs />
+<script src="__PUBLIC__/js/common.js"></script>
 </body>
 </html>
