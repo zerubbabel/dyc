@@ -1,0 +1,44 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('shop/index')}">店铺列表</a></li>
+			<li><a href="{:U('Shop/shopadd')}">添加店铺</a></li>
+		</ul>
+		<form action="{:U('shop/listorders')}" method="post">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="30">ID</th>
+						<th align="left">店铺名称</th>
+						<th width="40" align="left">{:L('STATUS')}</th>
+						<th width="120">{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="shops" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.shop_name}</td>
+						<td>
+							<if condition="$vo['status'] eq 1">
+								<font color="red">√</font>
+							<else /> 
+								<font color="red">╳</font>
+							</if>
+						</td>
+						<td>
+							<a href="{:U('Shop/shopedit',array('id'=>$vo['id']))}">{:L('EDIT')}</a>|
+								<a class="js-ajax-delete" href="{:U('Shop/shopdelete',array('id'=>$vo['id']))}">{:L('DELETE')}</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
