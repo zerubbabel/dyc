@@ -14,7 +14,28 @@ class ShopController extends AdminbaseController {
 
     // 店铺列表
     public function index() {
-        $data = $this->shop_model->order(array("id" => "DESC"))->select();
+        //$where = array("status"=>1);
+
+        $shop_name = I('request.name');
+        if($shop_name){
+            $where['shop_name'] = array('like',"%$shop_name%");
+        }
+        $count= $this->shop_model->where($where)->count();
+        $page = $this->page($count, 20);
+        $data = $this->shop_model
+            ->where($where)
+            ->order("id DESC")
+            ->limit($page->firstRow, $page->listRows)
+            ->select();
+        /*$roles_src=$this->role_model->select();
+        
+        $roles=array();
+        foreach ($roles_src as $r){
+            $roleid=$r['id'];
+            $roles["$roleid"]=$r;
+        }*/
+        /*
+        $data = $this->shop_model->order(array("id" => "DESC"))->select();*/
         $this->assign("shops", $data);
         $this->display();
     }
