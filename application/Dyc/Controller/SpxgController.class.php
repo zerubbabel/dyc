@@ -38,8 +38,11 @@ class SpxgController extends AdminbaseController {
 
         $cols=array_shift($data);//去标题并保存
         print_r($data);
+        
+
         $Spxg = M("Dyc_spxg"); // 实例化Spxg对象
-        $len=$cols.length;
+        $len=count($cols);
+        
         foreach ($data as $k => $v) {
             $map = array();
             for($i=0;$i<$len;$i++){
@@ -52,7 +55,7 @@ class SpxgController extends AdminbaseController {
             
             $map['数据日期'] = date('Y-m-d H:i:s');             
             $map['数据导入日期'] = date('Y-m-d H:i:s');                         
-
+            print_r($map);
             $Spxg->add($map);
         }
                 
@@ -600,3 +603,4 @@ class SpxgController extends AdminbaseController {
     }
 
 }
+
