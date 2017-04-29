@@ -11,22 +11,29 @@ class SpxgController extends AdminbaseController {
     protected $menu_model;
     protected $auth_rule_model;
     protected $spxg_model;
+    protected $shop_model;
+    protected $sop_id;
     public function _initialize() {
         parent::_initialize();
         $this->menu_model = D("Common/Menu");
         $this->auth_rule_model = D("Common/AuthRule");
         $this->spxg_model = D("Common/Dyc_spxg");
-        
+        $this->shop_model = D("Common/Dyc_shop");
     }
     
     // UI for import excel
     public function default() {
+        $shops=$this->shop_model->select();
+        $this->assign("shops",$shops);
         $this->display();
     }
 
 
     public function ajax_upload(){ 
+        print_r(I('request'));
+        print_r('expression');
         // 根据自己的业务调整上传路径、允许的格式、文件大小
+        /*
         $upload_file=ajax_upload('/Upload/'); 
         $f='.'.trim($upload_file['name']);      
         
@@ -41,31 +48,31 @@ class SpxgController extends AdminbaseController {
 
         $Spxg = M("Dyc_spxg"); // 实例化Spxg对象
         $len=count($cols);
-        
+
         foreach ($data as $k => $v) {
             $map = array();
             for($i=0;$i<$len;$i++){
-                /*$value=$v[$i];
-                if($v[$i] instanceof \PHPExcel_RichText) {
-                    $value=$v[$i]->getPlainText();
-                }*/
                 $map[$cols[$i]] = $v[$i];
             }
             
             $map['数据日期'] = date('Y-m-d');             
-            $map['数据导入日期'] = date('Y-m-d H:i:s');                         
+            $map['数据导入日期'] = date('Y-m-d H:i:s');
+            $map['店铺id'] =I('request.shop');//$shop_id;
+            //$map['数据日期'] =I('request.data_date');
+
             $Spxg->add($map);
-        }
+        }*/
                 
     }
 
     public function webuploader(){
         // 如果是post提交则显示上传的文件 否则显示上传页面
+        /*$shop_id=I('request.shop');
         if(IS_POST){
             p($_POST);die;
         }else{
             $this->display();
-        }
+        }*/
     }
 
 
