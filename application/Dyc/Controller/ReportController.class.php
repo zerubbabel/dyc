@@ -14,26 +14,13 @@ class ReportController extends AdminbaseController {
 
     // 店铺列表
     public function dayly() {
-        echo "day";
-        /*
-        $shop_name = I('request.name');
-        if($shop_name){
-            $where['shop_name'] = array('like',"%$shop_name%");
-        }
-        $count= $this->shop_model->where($where)->count();
-        $page = $this->page($count, 20);
-        $data = $this->shop_model
-            ->where($where)
-            ->order("id DESC")
-            ->limit($page->firstRow, $page->listRows)
-            ->select();
-        $this->assign("shops", $data);
-        $this->display();*/
+        $sql="select 数据日期 as 日期,b.shop_name as 店铺,客单价,下单转化率 from cmf_dyc_spxg a left join cmf_dyc_shop b on a.店铺id=b.id order by 数据日期 asc";
+        $Model = new \Think\Model(); // 实例化一个model对象 没有对应任何数据表
+        $data=$Model->query($sql);
+
+        $this->assign("data",$data);
+        $this->display();
     }
-
- 
-    
-
 
 }
 
