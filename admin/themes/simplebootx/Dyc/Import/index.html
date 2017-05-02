@@ -1,0 +1,42 @@
+<admintpl file="header" />
+</head>
+<body>
+<div class="wrap">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="">数据导入</a></li>
+		
+	</ul>
+	<form class="form-horizontal js-ajax-form" action="{:U('Dyc/Import/upload_post')}" method="post">	
+		<fieldset>
+		    <div class="control-group">
+		    	<label class="control-label" for="input-shop"><span class="form-required">*</span>店铺:</label>    	
+		    	<div class="controls">
+					<select name="shop" id="input-shop">
+						<foreach name="shops" item="vo">			
+							<option value="{$vo.id}">{$vo.shop_name}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input-data_day"><span class="form-required">*</span>日期:</label>		
+				<div class="controls">
+					<input class="js-date" type="text" id="input-data_date" placeholder="" name="data_date" value="" required>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input-file"><span class="form-required">*</span>excel文件:</label>		
+				<div class="controls">
+					<input type="file" id="input-file" placeholder="" name="file" value="" >
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+			</div>
+		</fieldset>    
+	</form>
+</div> 
+<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
+

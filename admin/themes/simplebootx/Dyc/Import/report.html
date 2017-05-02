@@ -1,0 +1,34 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Zhitong/report')}">{:L('PRODUCT_ZHITONG_INDEX')}</a></li>
+			<li><a href="{:U('Zhitong/report2')}">{:L('PRODUCT_ZHITONG_ROLEADD')}</a></li>
+		</ul>
+		<form action="{:U('Rbac/listorders')}" method="post">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="30">ID</th>
+						<th align="left">{:L('PRODUCT_NAME')}</th>
+						<th align="left">{:L('PRODUCT_DESCRIPTION')}</th>
+						<th width="40" align="left">{:L('VISIT_QTY')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="products" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.product_id}</td>
+						<td>{$vo.product_name}</td>
+						<td>{$vo.visit_qty}</td>						
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
