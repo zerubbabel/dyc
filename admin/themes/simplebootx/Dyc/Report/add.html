@@ -1,0 +1,109 @@
+<admintpl file="header"/>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Report/index')}">报表列表</a></li>
+			<li class="active"><a href="{:U('Report/add')}">添加报表</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form" action="{:U('Report/add_post')}" method="post">
+
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">报表名称</label>
+					<div class="controls">
+						<input type="text" name="name" value="" id="rolename"/>
+						<span class="form-required">*</span>
+					</div>
+					
+				</div>
+				<div class="control-group">
+					<label class="control-label">启用</label>
+					<div class="controls">
+						<input value="" type="checkbox" name="status" checked>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="row-fluid">
+				<div class="span6">
+				 	<table class="table table-bordered">
+						<tr>
+							<th><b>数据来源</b></th>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+							    	<label class="control-label" for="input-shop"><span class="form-required">*</span>数据表:</label>    	
+							    	<div class="controls">
+										<select name="table" id="input-table" onchange="javascript:selectTable(this);">
+											<foreach name="tables" item="vo">			
+												<option value="{$vo.id}">{$vo.table_name}</option>
+											</foreach>
+										</select>								
+									</div>
+									<div class="controls">
+										<div id="tbl_cols"></div>	
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<!--
+				<div class="span6">
+					<table class="table table-bordered">
+						<tr>
+							<th><b>报表字段</b></th>
+						</tr>
+						<tr>
+						</tr>
+					</table>
+				</div>
+				-->
+			</div>	
+			
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+			</div>
+		</form>
+
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script> 
+
+$(function(){ 
+	//选择输入数据表
+    /*$('#input-table').change(function(){
+    	var table_id=$(this).children('option:selected').val();
+        if (table_id!=0){
+
+        }        
+    })*/
+
+}) ;
+function selectTable(o){
+
+	var table_id=$(o).val();
+	var url="{:U('Report/get_cols')}";
+	$.get(url,{'table_id':table_id},function(data){
+		
+        var html='<table class="mytable line30"><tr><th>序号</th><th>字段</th><th>选择</th></tr>';
+        $.each(data,function(no,items){
+        	if (typeof(items)=="object"){
+            html+='<tr><td>'+no+'</td><td>'+items.column_name+'</td><td><input class="select" type="checkbox" name="cols[]" value="'+items.column_name+'" onclick="javascript:selectCol(this)"/></td></tr>';
+            }
+        });
+        html+='</table>';
+                
+        $("#tbl_cols").html('').html(html);  
+    }); 
+}
+function selectCol(o){
+
+}
+</script>
+</body>
+</html>

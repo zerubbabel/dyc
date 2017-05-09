@@ -1,0 +1,35 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('report/dayly')}">日分析表</a></li>			
+		</ul>
+        </form>
+
+		<form action="{:U('shop/listorders')}" method="post">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">日期</th>
+						<th align="center">店铺</th>
+						<th align="center">客单价</th>
+						<th align="center">下单转化率</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="data" item="vo">
+					<tr>
+						<td>{$vo.日期}</td>
+						<td>{$vo.店铺}</td>
+						<td>{$vo.客单价}</td>
+						<td>{$vo.下单转化率}</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
