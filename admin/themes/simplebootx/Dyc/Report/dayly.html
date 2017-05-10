@@ -5,16 +5,27 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="{:U('report/dayly')}">日分析表</a></li>			
 		</ul>
-		<!--<form class="well form-search" method="post" action="{:U('report/index')}">
-		
-            店铺名称:
-            <input type="text" name="name" style="width: 100px;" value="{:I('request.name/s','')}" placeholder="请输入店铺名称">
-            
-            <input type="submit" class="btn btn-primary" value="搜索" />
-            <a class="btn btn-danger" href="{:U('Shop/index')}">清空</a>
-            -->
+		<form class="well form-search" method="post" action="{:U('report/index')}">
+		<div class="control-group">
+					
+				<div class="controls">
+				<!--
+					<label class="control-label" for="input-date_1"><span class="form-required">*</span>起始日期:</label>
+					<input class="js-date" type="text" id="input-date_1" placeholder="" name="date_1" value="" required>
+					<label class="control-label" for="input-date_2"><span class="form-required">*</span>结束日期:</label>
+					<input class="js-date" type="text" id="input-date_2" placeholder="" name="date_2" value="" required>-->
+					<label class="control-label" for="input-report"><span class="form-required">*</span>报表:</label>
+					<select name="table" id="input-table" >
+						<foreach name="tables" item="vo">	
+							<option value="{$vo.id}">{$vo.report_name}</option>
+						</foreach>
+					</select>
+					<input type="button" class="btn btn-primary" value="搜索" onclick="javascript:viewReport();"/>            		
+				</div>	
+        </div>    
         </form>
-
+        <div id="report_container"></div>
+        <!--
 		<form action="{:U('shop/listorders')}" method="post">
 			<table class="table table-hover table-bordered">
 				<thead>
@@ -37,7 +48,62 @@
 				</tbody>
 			</table>
 		</form>
+		-->
 	</div>
 	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		function viewReport(){
+			var date1,date2;
+			/*
+			var date1=$('#input-date_1').val();
+			if (!date1){
+				$('#input-date_1').focus();
+				return false;
+			}
+			var date2=$('#input-date_2').val();
+			if (!date2){
+				$('#input-date_2').focus();
+				return false;
+			}*/
+			var table=$('#input-table').val();
+			
+			if(table==="0"){
+				Wind.use('noty', function () {
+					noty({text:"请选择需要查看的报表！",
+	            		type:'error',
+	            		layout:'center'
+	            	});
+				});
+			}	
+			loadReport(date1,date2,parseInt(table));
+			return false;
+		}
+		function loadReport(date1,date2,table_id){
+			var url="{:U('Report/get_report_data')}";
+			var args={'table_id':table_id,'date1':date1,'date2':date2};
+			$.get(url,args,function(data){
+				var hrml='';
+				if (typeof(data[0])=="object"){
+					html='<table class="table table-hover table-bordered"><tr>';
+					for(var key in data[0]){
+						html+='<th>'+key+'</th>';
+					}
+					html+='</tr>';
+				}
+		        
+		        $.each(data,function(no,items){
+		        	if (typeof(items)=="object"){
+		        		html+='<tr>';
+		        		for(var key in items){
+		        			html+='<td>'+items[key]+'</td>';
+		        		}
+		        		html+='</tr>';
+		            }
+		        });
+		        html+='</table>';
+		        $("#report_container").html('').html(html);  
+		    });
+		}
+	</script>
 </body>
 </html>

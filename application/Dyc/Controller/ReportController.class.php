@@ -14,12 +14,18 @@ class ReportController extends AdminbaseController {
 
     // 店铺列表
     public function dayly() {
+        $tables = M("Dyc_report")->select();
+        $defaultRow=array("id" => 0,"report_name" => "请选择报表");
+        array_unshift($tables,$defaultRow);
+        $this->assign("tables", $tables);
+        $this->display();
+        /*
         $sql="select 数据日期 as 日期,b.shop_name as 店铺,客单价,下单转化率 from cmf_dyc_spxg a left join cmf_dyc_shop b on a.店铺id=b.id order by 数据日期 asc";
         $Model = new \Think\Model(); // 实例化一个model对象 没有对应任何数据表
         $data=$Model->query($sql);
 
         $this->assign("data",$data);
-        $this->display();
+        $this->display();*/
     }
 
     public function index(){
@@ -92,6 +98,21 @@ class ReportController extends AdminbaseController {
                 $this->error("删除失败！");
             }   
         }
+    }
+
+    public function get_report_data(){
+        $id=I('get.table_id');
+        /*
+        $date1=I('get.date1');
+        $date2=I('get.date2');*/
+
+        $where=array("id"=>$id);
+        $sql = M("Dyc_report")->where($where)->select()[0]['report_sql'];
+        
+        $Model = new \Think\Model();
+        $datas=$Model->query($sql);
+                        
+        $this->ajaxReturn($datas);
     }
 
 }
