@@ -1,3 +1,10 @@
+--department
+CREATE TABLE `thinkcmf`.`cmf_dyc_departments` ( `id` INT NOT NULL AUTO_INCREMENT , `dep_name` INT NOT NULL COMMENT '部门名称' , `status` BOOLEAN NOT NULL COMMENT '状态' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `cmf_dyc_departments` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '状态';
+ALTER TABLE `cmf_dyc_departments` CHANGE `dep_name` `dep_name` VARCHAR(50) NOT NULL COMMENT '部门名称';
+
+INSERT INTO `cmf_menu` (`id`, `parentid`, `app`, `model`, `action`, `data`, `type`, `status`, `name`, `icon`, `remark`, `listorder`) VALUES (NULL, '190', 'Dyc', 'Department', 'index', '', '1', '1', '部门管理', '', '', '0');
+UPDATE `cmf_menu` SET `model` = 'Setting', `action` = 'department' WHERE `cmf_menu`.`id` = 198;
 --
 -- 表的结构 `cmf_dyc_data_tables`
 -- 自定义报表时根据此表读取数据来源表

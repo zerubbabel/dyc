@@ -1,0 +1,30 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('setting/department')}">部门列表</a></li>
+			<li><a href="{:U('setting/depadd')}">添加部门</a></li>
+			<li class="active"><a>编辑部门</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form" action="{:U('setting/depedit_post')}" method="post">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">部门名称</label>
+					<div class="controls">
+						<input type="text" name="name" value="{$data.dep_name}">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+							
+			</fieldset>
+			<div class="form-actions">
+				<input type="hidden" name="id" value="{$data.id}"/>
+				<button type="submit" class="btn btn-primary  js-ajax-submit">{:L('SAVE')}</button>
+				<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
