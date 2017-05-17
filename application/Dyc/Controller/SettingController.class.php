@@ -31,12 +31,12 @@ class SettingController extends AdminbaseController {
         $this->display();
     }
 
-    // 添加店铺
+    // 添加部门
     public function depadd() {
         $this->display();
     }
     
-    // 添加店铺提交
+    // 添加部门提交
     public function depadd_post() {
     	if (IS_POST) {
             $dep = M("Dyc_departments");
@@ -66,7 +66,7 @@ class SettingController extends AdminbaseController {
         $id = I("get.id",0,'intval');        
         $data = M("Dyc_departments")->where(array("id" => $id))->find();
         if (!$data) {
-        	$this->error("该店铺不存在！");
+        	$this->error("该部门不存在！");
         }
         $this->assign("data", $data);
         $this->display();
