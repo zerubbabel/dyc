@@ -1,3 +1,6 @@
+
+ALTER TABLE `cmf_users` ADD `dep_id` INT NULL COMMENT '部门' AFTER `mobile`;
+
 --department
 CREATE TABLE `thinkcmf`.`cmf_dyc_departments` ( `id` INT NOT NULL AUTO_INCREMENT , `dep_name` INT NOT NULL COMMENT '部门名称' , `status` BOOLEAN NOT NULL COMMENT '状态' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `cmf_dyc_departments` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '状态';

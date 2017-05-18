@@ -30,6 +30,11 @@ class UserController extends AdminbaseController{
 		$count=$this->users_model->where($where)->count();
 		$page = $this->page($count, 20);
         $users = $this->users_model
+        	//2017-5-17 dep
+        	->alias("a")
+        	->join(C('DB_PREFIX').'dyc_departments b on a.dep_id=b.id','left')
+        	->field('a.*,b.dep_name')
+        	//
             ->where($where)
             ->order("create_time DESC")
             ->limit($page->firstRow, $page->listRows)
@@ -48,8 +53,15 @@ class UserController extends AdminbaseController{
 
 	// 管理员添加
 	public function add(){
+
 		$roles=$this->role_model->where(array('status' => 1))->order("id DESC")->select();
 		$this->assign("roles",$roles);
+
+		//2017-5-17 dep
+		$deps=M('Dyc_departments')->select();		
+		$this->assign("deps",$deps);
+		//
+
 		$this->display();
 	}
 
@@ -59,6 +71,7 @@ class UserController extends AdminbaseController{
 			if(!empty($_POST['role_id']) && is_array($_POST['role_id'])){
 				$role_ids=$_POST['role_id'];
 				unset($_POST['role_id']);
+
 				if ($this->users_model->create()!==false) {
 					$result=$this->users_model->add();
 					if ($result!==false) {
@@ -94,6 +107,12 @@ class UserController extends AdminbaseController{
 
 		$user=$this->users_model->where(array("id"=>$id))->find();
 		$this->assign($user);
+		
+		//2017-5-17 dep
+		$deps=M('Dyc_departments')->select();		
+		$this->assign("deps",$deps);
+		//
+
 		$this->display();
 	}
 

@@ -28,6 +28,19 @@
 					</div>
 				</div>
 				<div class="control-group">
+			    	<label class="control-label" for="input-dep"><span class="form-required">*</span>部门:</label>    	
+			    	<div class="controls">
+
+						<select name="dep_id" id="input-dep">
+							<foreach name="deps" item="vo">
+								<php>$dep_checked=$dep_id==$vo['id']?"selected":"";
+								</php>			
+								<option value="{$vo.id}" {$dep_checked}>{$vo.dep_name}</option>
+							</foreach>
+						</select>								
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label">{:L('ROLE')}</label>
 					<div class="controls">
 						<foreach name="roles" item="vo">

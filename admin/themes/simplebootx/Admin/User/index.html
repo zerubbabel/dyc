@@ -19,6 +19,7 @@
 				<tr>
 					<th width="50">ID</th>
 					<th>{:L('USERNAME')}</th>
+					<th>部门</th>
 					<th>{:L('LAST_LOGIN_IP')}</th>
 					<th>{:L('LAST_LOGIN_TIME')}</th>
 					<th>{:L('EMAIL')}</th>
@@ -31,7 +32,9 @@
 				<foreach name="users" item="vo">
 				<tr>
 					<td>{$vo.id}</td>
+
 					<td><if condition="$vo['user_url']"><a href="{$vo.user_url}" target="_blank" title="{$vo.signature}">{$vo.user_login}</a><else />{$vo.user_login}</if></td>
+					<td>{$vo.dep_name}</td>
 					<td>{$vo.last_login_ip}</td>
 					<td>
 						<if condition="$vo['last_login_time'] eq 0">
