@@ -24,7 +24,7 @@
 					<th>{:L('LAST_LOGIN_TIME')}</th>
 					<th>{:L('EMAIL')}</th>
 					<th>{:L('STATUS')}</th>
-					<th width="120">{:L('ACTIONS')}</th>
+					<th width="160">{:L('ACTIONS')}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,7 +46,10 @@
 					<td>{$vo.user_email}</td>
 					<td>{$user_statuses[$vo['user_status']]}</td>
 					<td>
+
 						<if condition="$vo['id'] eq 1 || $vo['id'] eq sp_get_current_admin_id()">
+						<a href='{:U("user/dayly",array("id"=>$vo["id"]))}'>日常工作</a>
+							|
 						<font color="#cccccc">{:L('EDIT')}</font> | <font color="#cccccc">{:L('DELETE')}</font> |
 							<if condition="$vo['user_status'] eq 1">
 								<font color="#cccccc">{:L('BLOCK_USER')}</font>
@@ -54,6 +57,8 @@
 								<font color="#cccccc">{:L('ACTIVATE_USER')}</font>
 							</if>
 						<else />
+							<a href='{:U("user/dayly",array("id"=>$vo["id"]))}'>日常工作</a>
+							|	
 							<a href='{:U("user/edit",array("id"=>$vo["id"]))}'>{:L('EDIT')}</a> |
 							<if condition="$vo['user_status'] eq 1">
 								<a href="{:U('user/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="{:L('BLOCK_USER_CONFIRM_MESSAGE')}">{:L('BLOCK_USER')}</a> | 

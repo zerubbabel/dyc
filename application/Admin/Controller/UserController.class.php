@@ -223,6 +223,19 @@ class UserController extends AdminbaseController{
     	}
     }
 
+    // 员工日常工作
+	public function dayly(){
+
+		$roles=$this->role_model->where(array('status' => 1))->order("id DESC")->select();
+		$this->assign("roles",$roles);
+
+		//2017-5-17 dep
+		$deps=M('Dyc_departments')->select();		
+		$this->assign("deps",$deps);
+		//
+
+		$this->display();
+	}
 
 
 }

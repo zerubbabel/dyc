@@ -1,3 +1,10 @@
+CREATE TABLE `thinkcmf`.`cmf_dyc_work` 
+( `id` INT NOT NULL AUTO_INCREMENT , 
+	`work_name` VARCHAR(50) NOT NULL COMMENT '部门名称', 
+	`status` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '状态',
+	PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+INSERT INTO `cmf_menu` (`id`, `parentid`, `app`, `model`, `action`, `data`, `type`, `status`, `name`, `icon`, `remark`, `listorder`) VALUES (NULL, '190', 'Dyc', 'Setting', 'work', '', '1', '1', '日常工作管理', '', '', '0')
 
 ALTER TABLE `cmf_users` ADD `dep_id` INT NULL COMMENT '部门' AFTER `mobile`;
 

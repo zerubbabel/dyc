@@ -1,0 +1,29 @@
+<admintpl file="header"/>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('setting/work')}">日常工作列表</a></li>
+			<li class="active"><a href="{:U('setting/workadd')}">添加日常工作</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form" action="{:U('setting/workadd_post')}" method="post">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">日常工作名称</label>
+					<div class="controls">
+						<input type="text" name="work_name" value="" id="depname"/>
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				
+				
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="javascript:history.back(-1);">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
