@@ -4,7 +4,8 @@
 部门管理：done
 修改角色管理为岗位管理：done
 用户添加部门：done
-日常工作管理:todo
+日常工作管理:done
+自定义报表修改:todo
 员工日常工作日志：todo
 
 个性化首页，类似OA,todolist 

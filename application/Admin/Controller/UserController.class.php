@@ -225,17 +225,51 @@ class UserController extends AdminbaseController{
 
     // 员工日常工作
 	public function dayly(){
-
-		$roles=$this->role_model->where(array('status' => 1))->order("id DESC")->select();
-		$this->assign("roles",$roles);
-
-		//2017-5-17 dep
-		$deps=M('Dyc_departments')->select();		
-		$this->assign("deps",$deps);
-		//
-
+		$user_id=I('get.id');
+		
+		$work=M('Dyc_work')			
+			->field('work_name,id')
+            ->select();	
+        
+        for($i=0;$i<count($work);$i++){
+        	$result=M('Dyc_user_work')
+        		->where('user_id='.$user_id.' and work_id='.$work[$i]['id'])
+        		->count("user_id");
+        	$work[$i]['checked']=$result>0?"checked":"";
+        	$work[$i]['no']=$i+1;
+        }  
+    	
+    	$user=M('users')
+    		->field('user_login,id')
+    		->where('id='.$user_id)
+    		->select()[0];
+		$this->assign("work",$work);
+		$this->assign("user",$user);
+		
 		$this->display();
 	}
 
+	// 员工日常工作修改提交
+	public function dayly_post(){
+		if (IS_POST) {
+			$user_id=I('post.user_id');
+			$works = I('post.work');
+		
+			
+			if(count($works)>0){
+				$where=array("user_id"=>$user_id);
+				M("Dyc_user_work")->where($where)->delete();
+				foreach ($works as $value) {
+					$data=array('user_id' => $user_id,'work_id'=>$value);
+					
+					$result=M('Dyc_user_work');
+					if ($result->add($data)==false) {	                
+		                $this->error("操作失败！");
+		            }	
+				}
+				$this->success("操作成功",U("user/index"));
+			}		
+		}
+	}
 
 }

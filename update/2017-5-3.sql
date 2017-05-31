@@ -1,3 +1,8 @@
+CREATE TABLE `thinkcmf`.`cmf_dyc_user_work` 
+( 	`user_id` INT NOT NULL , 
+	`work_id` INT NOT NULL , 
+	PRIMARY KEY (`user_id`,`work_id`)) ENGINE = InnoDB;
+
 CREATE TABLE `thinkcmf`.`cmf_dyc_work` 
 ( `id` INT NOT NULL AUTO_INCREMENT , 
 	`work_name` VARCHAR(50) NOT NULL COMMENT '部门名称', 
