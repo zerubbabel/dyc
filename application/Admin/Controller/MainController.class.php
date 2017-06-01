@@ -6,25 +6,16 @@ use Common\Controller\AdminbaseController;
 class MainController extends AdminbaseController {
 	
     public function index(){
-    	
-    	$mysql= M()->query("select VERSION() as version");
-    	$mysql=$mysql[0]['version'];
-    	$mysql=empty($mysql)?L('UNKNOWN'):$mysql;
-    	
-    	//server infomaions
-    	$info = array(
-    			L('OPERATING_SYSTEM') => PHP_OS,
-    			L('OPERATING_ENVIRONMENT') => $_SERVER["SERVER_SOFTWARE"],
-    	        L('PHP_VERSION') => PHP_VERSION,
-    			L('PHP_RUN_MODE') => php_sapi_name(),
-				L('PHP_VERSION') => phpversion(),
-    			L('MYSQL_VERSION') =>$mysql,
-    			L('PROGRAM_VERSION') => THINKCMF_VERSION . "&nbsp;&nbsp;&nbsp; [<a href='http://www.thinkcmf.com' target='_blank'>HERP</a>]",
-    			L('UPLOAD_MAX_FILESIZE') => ini_get('upload_max_filesize'),
-    			L('MAX_EXECUTION_TIME') => ini_get('max_execution_time') . "s",
-    			L('DISK_FREE_SPACE') => round((@disk_free_space(".") / (1024 * 1024)), 2) . 'M',
-    	);
-    	$this->assign('server_info', $info);
+    	$user_id=sp_get_current_admin_id();
+    	$work=M('Dyc_user_work')
+            ->alias('a')
+            ->join('inner join cmf_dyc_work b on a.work_id=b.id')
+            ->field('b.id,b.work_name')
+            ->where('user_id='.$user_id)
+            ->select();
+    	$this->assign('work', $work);
+        $xh=1;
+        $this->assign('xh', $xh);
     	$this->display();
     }
 }

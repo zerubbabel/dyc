@@ -12,31 +12,40 @@ li {
 </head>
 <body>
 	<div class="wrap">
-		<div id="home_toptip"></div>
-		<!--<h4 class="well">{:L('SYSTEM_NOTIFICATIONS')}</h4>
-		<div class="home_info">
-			<ul id="thinkcmf_notices">
-				<li><img src="__TMPL__Public/assets/images/loading.gif"style="vertical-align: middle;" /><span style="display: inline-block; vertical-align: middle;">加载中...</span></li>
-			</ul>
-		</div>-->
-		<h4 class="well">{:L('SYSTEM_INFORMATIONS')}</h4>
-		<div class="home_info">
-			<ul>
-				<volist name="server_info" id="vo">
-					<li><em>{$key}</em> <span>{$vo}</span></li>
-				</volist>
-			</ul>
-		</div>
-		<h4 class="well">{:L('INITIATE_TEAM')}</h4>
-		<div class="home_info" id="home_devteam">
-			<ul>				
-				<li><em>核心开发者</em> <span>hcy</span></li>
-				<li><em>{:L('TEAM_MEMBERS')}</em> <span>hcy</span></li>
-				<li><em>{:L('CONTACT_EMAIL')}</em> <span>playoffs2005@163.com</span></li>
-			</ul>
-		</div>
-		
-		
+		<div class="row-fluid">
+			<div class="span6">
+			 	<table class="table table-bordered">
+					<tr>
+						<th><b>日常工作</b></th>
+					</tr>
+					<tr>
+						<td>
+							<div class="control-group">				   
+								<div class="controls">
+									<div id="tbl_cols">
+									<table class="mytable line30">
+									<tr>
+									<th>序号</th>
+									<th>工作</th>
+									<th>完成情况</th>
+									</tr>
+									
+									<foreach name="work" item="vo">	
+									<tr>
+										<td>{$xh++}</td>	
+										<td>{$vo.work_name}</td>	
+										<td><input class="select" type="checkbox" name="finished[]" value="{$vo.id}" /></td></td>
+									</tr>	
+									</foreach>
+									</table>
+									</div>	
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>			
 	</div>
 	<script src="__PUBLIC__/js/common.js"></script>
 	<php>
